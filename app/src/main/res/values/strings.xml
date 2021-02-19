@@ -3,4 +3,5 @@
     <string name="imageview">imageView</string>
     <string name="floatingactionbutton">floatingactionbutton</string>
     <string name="textview">textView</string>
+    <string name="best_popular_movies">Best popular movies</string>
 </resources>

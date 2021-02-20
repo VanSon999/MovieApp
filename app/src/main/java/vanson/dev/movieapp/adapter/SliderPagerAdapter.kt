@@ -1,5 +1,7 @@
 package vanson.dev.movieapp.adapter
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,10 +9,18 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.slide_item.view.*
 import vanson.dev.movieapp.R
 import vanson.dev.movieapp.models.Slide
+import vanson.dev.movieapp.ui.MoviePlayerActivity
 
-class SliderPagerAdapter(private val mList: List<Slide>) :
+class SliderPagerAdapter(private val mContext: Context, private val mList: List<Slide>) :
     RecyclerView.Adapter<SliderPagerAdapter.ViewHolder>() {
-    class ViewHolder(val view: View): RecyclerView.ViewHolder(view){}
+    inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+        init {
+            itemView.floatingActionButton.setOnClickListener {
+                val intent = Intent(mContext, MoviePlayerActivity::class.java)
+                mContext.startActivity(intent)
+            }
+        }
+    }
 
     override fun getItemCount(): Int = mList.size
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -22,7 +32,7 @@ class SliderPagerAdapter(private val mList: List<Slide>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        with(holder.view){
+        with(holder.itemView){
             slide_image.setImageResource(mList[position].getImage())
             slide_title.text = mList[position].getTitle()
         }

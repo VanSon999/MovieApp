@@ -24,7 +24,7 @@ class HomeActivity : AppCompatActivity(), MovieItemClickListener {
         setContentView(R.layout.activity_home)
         supportActionBar?.hide()
         //prepare a list of slides...
-        val mAdapter = SliderPagerAdapter(DataSource.getListSlide())
+        val mAdapter = SliderPagerAdapter(this, DataSource.getListSlide())
         slide_pager.adapter = mAdapter
 
         TabLayoutMediator(indicator, slide_pager) { tab, _ ->

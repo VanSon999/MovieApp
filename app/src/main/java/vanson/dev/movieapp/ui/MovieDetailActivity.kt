@@ -1,5 +1,6 @@
 package vanson.dev.movieapp.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.animation.AnimationUtils
@@ -32,6 +33,12 @@ class MovieDetailActivity : AppCompatActivity() {
         val castAdapter = CastAdapter(this, DataSource.getCast())
         rv_cast.adapter = castAdapter
         rv_cast.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
+        //Setup FloatingPointButton
+        play_fab.setOnClickListener {
+            val intent = Intent(this, MoviePlayerActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 }

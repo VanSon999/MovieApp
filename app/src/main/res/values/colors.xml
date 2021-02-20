@@ -11,4 +11,5 @@
     <color name="primaryColorDark">#151c25</color>
     <color name="AccentColor">#f1b814</color>
     <color name="text_light_blue">#ADD8E6</color>
+    <color name="text_bg_blue">#1a242f</color>
 </resources>

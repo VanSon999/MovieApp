@@ -1,14 +1,20 @@
 package vanson.dev.movieapp
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_movie.view.*
 
-class MovieAdapter(private val mData: List<Movie>) : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
-    class ViewHolder(val view: View) : RecyclerView.ViewHolder(view){}
+class MovieAdapter(private val mData: List<Movie>, private val listener: MovieItemClickListener) : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
+    inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+        init {
+            this.view.setOnClickListener {
+                listener.onMovieClick(mData[adapterPosition], this.view.item_movie_img)
+            }
+        }
+
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)

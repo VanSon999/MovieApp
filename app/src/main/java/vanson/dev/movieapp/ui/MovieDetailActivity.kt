@@ -1,4 +1,4 @@
-package vanson.dev.movieapp
+package vanson.dev.movieapp.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -6,8 +6,9 @@ import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_movie_detail.*
+import vanson.dev.movieapp.R
+import vanson.dev.movieapp.adapter.CastAdapter
 import vanson.dev.movieapp.utils.DataSource
-import java.util.ArrayList
 
 class MovieDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

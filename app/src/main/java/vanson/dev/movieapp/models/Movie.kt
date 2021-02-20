@@ -1,4 +1,4 @@
-package vanson.dev.movieapp
+package vanson.dev.movieapp.models
 
 class Movie(
     title: String,

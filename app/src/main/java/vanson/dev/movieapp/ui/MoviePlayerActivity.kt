@@ -1,19 +1,16 @@
-package vanson.dev.movieapp
+package vanson.dev.movieapp.ui
 
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Window
-import android.view.WindowInsets
 import android.view.WindowManager
-import com.google.android.exoplayer2.ExoPlayerFactory
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.SimpleExoPlayer
-import com.google.android.exoplayer2.source.ExtractorMediaSource
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.util.Util
 import kotlinx.android.synthetic.main.activity_movie_player.*
+import vanson.dev.movieapp.R
 
 @Suppress("DEPRECATION")
 class MoviePlayerActivity : AppCompatActivity() {

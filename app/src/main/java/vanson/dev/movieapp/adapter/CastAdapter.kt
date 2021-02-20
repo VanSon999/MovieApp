@@ -1,4 +1,4 @@
-package vanson.dev.movieapp
+package vanson.dev.movieapp.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_cast.view.*
+import vanson.dev.movieapp.models.Cast
+import vanson.dev.movieapp.R
 
 class CastAdapter(private val mContext: Context, private val mData: List<Cast>) : RecyclerView.Adapter<CastAdapter.ViewHolder>() {
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {}

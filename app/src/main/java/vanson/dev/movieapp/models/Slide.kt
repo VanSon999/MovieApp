@@ -1,4 +1,4 @@
-package vanson.dev.movieapp
+package vanson.dev.movieapp.models
 
 class Slide(private var Image: Int, private var Title: String) {
     fun getImage(): Int{

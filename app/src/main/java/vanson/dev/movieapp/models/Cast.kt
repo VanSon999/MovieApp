@@ -1,4 +1,4 @@
-package vanson.dev.movieapp
+package vanson.dev.movieapp.models
 
 class Cast(private var name: String, private var imgLink: Int) {
 

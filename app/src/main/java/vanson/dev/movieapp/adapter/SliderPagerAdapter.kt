@@ -1,10 +1,12 @@
-package vanson.dev.movieapp
+package vanson.dev.movieapp.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.slide_item.view.*
+import vanson.dev.movieapp.R
+import vanson.dev.movieapp.models.Slide
 
 class SliderPagerAdapter(private val mList: List<Slide>) :
     RecyclerView.Adapter<SliderPagerAdapter.ViewHolder>() {

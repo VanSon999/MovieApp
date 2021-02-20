@@ -1,10 +1,13 @@
-package vanson.dev.movieapp
+package vanson.dev.movieapp.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_movie.view.*
+import vanson.dev.movieapp.utils.MovieItemClickListener
+import vanson.dev.movieapp.R
+import vanson.dev.movieapp.models.Movie
 
 class MovieAdapter(private val mData: List<Movie>, private val listener: MovieItemClickListener) : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
     inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {

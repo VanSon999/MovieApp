@@ -9,47 +9,40 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_home.*
+import vanson.dev.movieapp.utils.DataSource
 import java.sql.Time
 import java.util.*
 import kotlin.collections.ArrayList
 
 class HomeActivity : AppCompatActivity(), MovieItemClickListener{
-    private lateinit var stSlides: ArrayList<Slide>
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         supportActionBar?.hide()
         //prepare a list of slides...
-        stSlides = ArrayList()
-        stSlides.add(Slide(R.drawable.slide2, "Wolverine 2013\nMore text here..."))
-        stSlides.add(Slide(R.drawable.slide1, "Captain American: Winter Solider\nMore text here..."))
-        stSlides.add(Slide(R.drawable.slide2, "Wolverine 2013\nMore text here..."))
-        stSlides.add(Slide(R.drawable.slide1, "Captain American: Winter Solider\nMore text here..."))
-        val mAdapter = SliderPagerAdapter(stSlides)
+        val mAdapter = SliderPagerAdapter(DataSource.getListSlide())
         slide_pager.adapter = mAdapter
 
-        TabLayoutMediator(indicator, slide_pager) {tab, position ->
+        TabLayoutMediator(indicator, slide_pager) { tab, _ ->
             tab.select()
         }.attach()
 
         //setup timer
         val timer = Timer()
-        timer.scheduleAtFixedRate(SliderTimer(this, stSlides),4000, 6000)
+        timer.scheduleAtFixedRate(SliderTimer(this, DataSource.getListSlide()),4000, 6000)
 
         //Recycler View and data
-        val stMovies = ArrayList<Movie>()
-        stMovies.add(Movie(title = "Captain American: Civil War", thumbnail = R.drawable.movie_1, coverPhoto = R.drawable.cover_1))
-        stMovies.add(Movie(title = "Spiderman", thumbnail = R.drawable.movie_2, coverPhoto = R.drawable.cover_2))
-        stMovies.add(Movie(title = "Infinity War", thumbnail = R.drawable.movie_3, coverPhoto = R.drawable.cover_3))
-        stMovies.add(Movie(title = "End Game", thumbnail = R.drawable.movie_4, coverPhoto = R.drawable.cover_4))
-
-        val movieAdapter = MovieAdapter(stMovies, this)
+        val movieAdapter = MovieAdapter(DataSource.getPopularMovie(), this)
         rv_movies.adapter = movieAdapter
         rv_movies.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
+        //Week movies
+        val weekAdapter = MovieAdapter(DataSource.getWeek(), this)
+        rv_movies_week.adapter = weekAdapter
+        rv_movies_week.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
     }
 
-    class SliderTimer(val activity: Activity, val slides: List<Slide>) : TimerTask(){
+    class SliderTimer(private val activity: Activity, private val slides: List<Slide>) : TimerTask(){
         override fun run() {
             activity.runOnUiThread{
                 if(activity.slide_pager.currentItem < slides.lastIndex){

@@ -6,6 +6,7 @@ import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_movie_detail.*
+import vanson.dev.movieapp.utils.DataSource
 import java.util.ArrayList
 
 class MovieDetailActivity : AppCompatActivity() {
@@ -26,13 +27,8 @@ class MovieDetailActivity : AppCompatActivity() {
         play_fab.animation = AnimationUtils.loadAnimation(this, R.anim.scale_animation)
 
         //Setup Cast
-        val mData = ArrayList<Cast>()
-        mData.add(Cast("CHRIS EVANS", R.drawable.actor_1))
-        mData.add(Cast("ROBERT DOWNEY JR.", R.drawable.actor_2))
-        mData.add(Cast("SCARLETT JOHANSSON", R.drawable.actor_3))
-        mData.add(Cast("STAN LEE", R.drawable.actor_4))
 
-        val castAdapter = CastAdapter(this, mData)
+        val castAdapter = CastAdapter(this, DataSource.getCast())
         rv_cast.adapter = castAdapter
         rv_cast.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 

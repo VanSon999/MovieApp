@@ -7,4 +7,8 @@
     <string name="simple_desciption">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Bibendum at varius vel pharetra vel turpis nunc eget. Etiam sit amet nisl purus in mollis. Massa id neque aliquam vestibulum morbi. Tristique magna sit amet purus gravida quis blandit turpis cursus. Dolor sit amet consectetur adipiscing elit duis tristique sollicitudin. Mauris rhoncus aenean vel elit scelerisque mauris. Vitae proin sagittis nisl rhoncus mattis rhoncus urna neque. Netus et malesuada fames ac turpis egestas. Semper feugiat nibh sed pulvinar proin gravida hendrerit. Tristique nulla aliquet enim tortor at auctor. Volutpat diam ut venenatis tellus in metus vulputate.</string>
     <string name="cast">Cast</string>
     <string name="popular_this_week">Popular This Week</string>
+    <string name="connection_problem">Connection Problem!</string>
+    <string name="rating">Rating :</string>
+    <string name="_8_10">8/10</string>
+    <string name="release_date">Release date:</string>
 </resources>

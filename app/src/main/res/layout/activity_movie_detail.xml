@@ -103,13 +103,15 @@
                 android:text="@string/rating"
                 android:textColor="@color/white"
                 android:textStyle="bold"/>
+
             <TextView
+                android:id="@+id/rating_movie"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
-                android:textColor="@color/white"
-                android:text="@string/_8_10"/>
+                android:text="@string/_8_10"
+                android:textColor="@color/white" />
         </LinearLayout>
 
         <LinearLayout
@@ -126,13 +128,15 @@
                 android:text="@string/release_date"
                 android:textColor="@color/white"
                 android:textStyle="bold"/>
+
             <TextView
+                android:id="@+id/release_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
-                android:textColor="@color/white"
-                android:text="2016"/>
+                android:text="2016"
+                android:textColor="@color/white" />
         </LinearLayout>
         <TextView
             android:id="@+id/text_view_1"

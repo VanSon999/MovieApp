@@ -4,6 +4,8 @@ package vanson.dev.movieapp.data.vo
 import com.google.gson.annotations.SerializedName
 
 data class MovieDetails(
+    @SerializedName("backdrop_path")
+    val backdropPath: String,
     @SerializedName("budget")
     val budget: Int,
     @SerializedName("id")
@@ -29,5 +31,5 @@ data class MovieDetails(
     @SerializedName("video")
     val video: Boolean,
     @SerializedName("vote_average")
-    val rating: Double
+    val voteAverage: Double
 )

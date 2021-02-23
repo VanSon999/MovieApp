@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
@@ -20,7 +21,7 @@ import vanson.dev.movieapp.data.api.POSTER_BASE_URL
 import vanson.dev.movieapp.data.api.TheMovieDBClient
 import vanson.dev.movieapp.data.api.TheMovieDBInterface
 import vanson.dev.movieapp.data.repository.NetworkState
-import vanson.dev.movieapp.data.vo.MovieDetails
+import vanson.dev.movieapp.data.vo.MovieDetais
 import vanson.dev.movieapp.utils.DataSource
 
 class MovieDetailActivity : AppCompatActivity() {
@@ -28,6 +29,7 @@ class MovieDetailActivity : AppCompatActivity() {
     private lateinit var movieRepository: MovieDetailsRepository
     private lateinit var mCastAdapter: CastAdapter
 
+    @SuppressLint("ShowToast")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
@@ -45,7 +47,9 @@ class MovieDetailActivity : AppCompatActivity() {
 
         mViewModel.networkState.observe(this, Observer {
             progress_bar.visibility = if(it == NetworkState.LOADING) View.VISIBLE else View.GONE
-            txt_error.visibility = if(it == NetworkState.ERROR) View.VISIBLE else View.GONE
+            if(it == NetworkState.ERROR){
+                Toast.makeText(this, it.msg, Toast.LENGTH_LONG).show()
+            }
         })
 
 
@@ -67,7 +71,7 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun bindUi(info: MovieDetails) {
+    private fun bindUi(info: MovieDetais) {
         supportActionBar?.title = info.title
         detail_movie_title.text = info.title
         Glide.with(this).load(POSTER_BASE_URL + info.posterPath).placeholder(R.drawable.sunset).into(detail_movie_img)

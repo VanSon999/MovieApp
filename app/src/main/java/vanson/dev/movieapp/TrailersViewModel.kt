@@ -1,4 +1,25 @@
 package vanson.dev.movieapp
 
-class TrailersViewModel {
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import vanson.dev.movieapp.data.api.TheMovieDBClient
+import vanson.dev.movieapp.data.models.trailers.TrailersMovie
+import vanson.dev.movieapp.data.repository.NetworkState
+
+class TrailersViewModel(private val trailersMovieRepository: TrailersMovieRepository, movieId: Int) : ViewModel() {
+    private val compositeDisposable = CompositeDisposable()
+
+    val trailersMovie: LiveData<TrailersMovie> by lazy {
+        trailersMovieRepository.fetchTrailersMovie(compositeDisposable, movieId)
+    }
+
+    val networkState: LiveData<NetworkState> by lazy {
+        trailersMovieRepository.getTrailersMovieNetworkState()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        compositeDisposable.dispose()
+    }
 }

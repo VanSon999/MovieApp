@@ -40,5 +40,7 @@ class MoviePlayerActivity : AppCompatActivity() {
 
     companion object{
         const val VIDEO_TEST_URL = "http://clips.vorwaerts-gmbh.de/VfE_html5.mp4"
+        const val URL_YOUTUBE = "https://www.youtube.com/watch?v="
+        const val URL_VIMEO = "https://vimeo.com/"
     }
 }

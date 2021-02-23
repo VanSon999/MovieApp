@@ -5,11 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_cast.view.*
 import vanson.dev.movieapp.R
 import vanson.dev.movieapp.data.api.POSTER_BASE_URL
-import vanson.dev.movieapp.data.vo.Cast
+import vanson.dev.movieapp.data.models.movie_details.Cast
 import vanson.dev.movieapp.utils.DiffCallBack
 import vanson.dev.movieapp.utils.loadPhotoImage
 

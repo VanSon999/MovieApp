@@ -1,4 +1,4 @@
-package vanson.dev.movieapp.data.vo
+package vanson.dev.movieapp.data.models.movie_details
 
 
 import android.annotation.SuppressLint

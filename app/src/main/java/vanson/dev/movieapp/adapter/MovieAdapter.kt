@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.item_movie.view.*
 import vanson.dev.movieapp.utils.MovieItemClickListener
 import vanson.dev.movieapp.R
 import vanson.dev.movieapp.data.api.POSTER_BASE_URL
-import vanson.dev.movieapp.data.vo.Movie
+import vanson.dev.movieapp.data.models.movie_details.Movie
 import vanson.dev.movieapp.utils.DiffCallBack
 import vanson.dev.movieapp.utils.loadPosterImage
 

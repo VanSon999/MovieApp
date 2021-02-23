@@ -5,7 +5,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import vanson.dev.movieapp.data.api.TheMovieDBInterface
 import vanson.dev.movieapp.data.repository.MovieDetailsNetworkDataSource
 import vanson.dev.movieapp.data.repository.NetworkState
-import vanson.dev.movieapp.data.vo.MovieDetails
+import vanson.dev.movieapp.data.models.movie_details.MovieDetails
 
 class MovieDetailsRepository(private val apiService: TheMovieDBInterface) {
     lateinit var movieDetailsNetworkDataSource: MovieDetailsNetworkDataSource

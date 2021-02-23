@@ -1,18 +1,14 @@
 package vanson.dev.movieapp.ui
 
 import android.app.Activity
-import android.app.ActivityOptions
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_home.*
 import vanson.dev.movieapp.*
-import vanson.dev.movieapp.adapter.MovieAdapter
 import vanson.dev.movieapp.adapter.SliderPagerAdapter
-import vanson.dev.movieapp.data.vo.Movie
+import vanson.dev.movieapp.data.models.movie_details.Movie
 import vanson.dev.movieapp.models.Slide
 import vanson.dev.movieapp.utils.DataSource
 import vanson.dev.movieapp.utils.MovieItemClickListener

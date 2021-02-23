@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
@@ -24,8 +23,8 @@ import vanson.dev.movieapp.data.api.POSTER_BASE_URL
 import vanson.dev.movieapp.data.api.TheMovieDBClient
 import vanson.dev.movieapp.data.api.TheMovieDBInterface
 import vanson.dev.movieapp.data.repository.NetworkState
-import vanson.dev.movieapp.data.vo.Movie
-import vanson.dev.movieapp.data.vo.MovieDetails
+import vanson.dev.movieapp.data.models.movie_details.Movie
+import vanson.dev.movieapp.data.models.movie_details.MovieDetails
 import vanson.dev.movieapp.utils.MovieItemClickListener
 import vanson.dev.movieapp.utils.loadBackImage
 import vanson.dev.movieapp.utils.loadPosterImage
@@ -44,7 +43,6 @@ class MovieDetailActivity : AppCompatActivity(), MovieItemClickListener {
 
         //Init request client and parameter
         val movieId = intent.getIntExtra("id_movie",271110)
-        Log.d("movieId", "onCreate: movieId")
         val apiService: TheMovieDBInterface = TheMovieDBClient.getClient()
         movieRepository = MovieDetailsRepository(apiService)
         mViewModel = createViewModelFactory(movieId)
@@ -70,6 +68,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieItemClickListener {
         //Setup FloatingPointButton
         play_fab.setOnClickListener {
             val intent = Intent(this, MoviePlayerActivity::class.java)
+            intent.putExtra("id_movie", movieId)
             startActivity(intent)
         }
     }

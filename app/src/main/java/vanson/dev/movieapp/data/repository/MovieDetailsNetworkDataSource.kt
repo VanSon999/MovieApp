@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import vanson.dev.movieapp.data.api.TheMovieDBInterface
-import vanson.dev.movieapp.data.vo.MovieDetais
+import vanson.dev.movieapp.data.vo.MovieDetails
 
 
 class MovieDetailsNetworkDataSource(
@@ -17,8 +17,8 @@ class MovieDetailsNetworkDataSource(
     val networkState: LiveData<NetworkState>
         get() = _networkState
 
-    private val _downloadMovieDetailsResponse = MutableLiveData<MovieDetais>()
-    val downloadMovieDetailsResponse: LiveData<MovieDetais>
+    private val _downloadMovieDetailsResponse = MutableLiveData<MovieDetails>()
+    val downloadMovieDetailsResponse: LiveData<MovieDetails>
         get() = _downloadMovieDetailsResponse
 
     fun fetchMovieDetails(movieId: Int) {

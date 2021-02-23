@@ -13,7 +13,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:src="@drawable/actor_1"/>
+        tools:src="@drawable/default_avatar"/>
 
     <TextView
         android:id="@+id/name_cast"

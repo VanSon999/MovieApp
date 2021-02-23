@@ -21,8 +21,7 @@ import vanson.dev.movieapp.data.api.POSTER_BASE_URL
 import vanson.dev.movieapp.data.api.TheMovieDBClient
 import vanson.dev.movieapp.data.api.TheMovieDBInterface
 import vanson.dev.movieapp.data.repository.NetworkState
-import vanson.dev.movieapp.data.vo.MovieDetais
-import vanson.dev.movieapp.utils.DataSource
+import vanson.dev.movieapp.data.vo.MovieDetails
 
 class MovieDetailActivity : AppCompatActivity() {
     private lateinit var mViewModel: MovieViewModel
@@ -57,7 +56,7 @@ class MovieDetailActivity : AppCompatActivity() {
         mCastAdapter = CastAdapter()
         rv_cast.adapter = mCastAdapter
         rv_cast.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        mCastAdapter.updateCast(DataSource.getCast()) //Need fix
+//        mCastAdapter.updateCast(DataSource.getCast()) //Need fix
 
         //setup Animation
         detail_movie_cover.animation = AnimationUtils.loadAnimation(this, R.anim.scale_animation)
@@ -71,7 +70,7 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun bindUi(info: MovieDetais) {
+    private fun bindUi(info: MovieDetails) {
         supportActionBar?.title = info.title
         detail_movie_title.text = info.title
         Glide.with(this).load(POSTER_BASE_URL + info.posterPath).placeholder(R.drawable.sunset).into(detail_movie_img)
@@ -79,6 +78,7 @@ class MovieDetailActivity : AppCompatActivity() {
         detail_movie_desc.text = info.overview
         rating_movie.text = info.voteAverage.toString() + "/10"
         release_date.text = info.getReleaseDate()
+        mCastAdapter.updateCast(info.casts.cast)
     }
 
     private fun createViewModelFactory(movieId: Int): MovieViewModel{

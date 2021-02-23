@@ -5,12 +5,12 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import vanson.dev.movieapp.data.api.TheMovieDBInterface
 import vanson.dev.movieapp.data.repository.MovieDetailsNetworkDataSource
 import vanson.dev.movieapp.data.repository.NetworkState
-import vanson.dev.movieapp.data.vo.MovieDetais
+import vanson.dev.movieapp.data.vo.MovieDetails
 
 class MovieDetailsRepository(private val apiService: TheMovieDBInterface) {
     lateinit var movieDetailsNetworkDataSource: MovieDetailsNetworkDataSource
 
-    fun fetchSingleMovieDetails(compositeDisposable: CompositeDisposable, movieId: Int): LiveData<MovieDetais>{
+    fun fetchSingleMovieDetails(compositeDisposable: CompositeDisposable, movieId: Int): LiveData<MovieDetails>{
         movieDetailsNetworkDataSource = MovieDetailsNetworkDataSource(apiService, compositeDisposable)
         movieDetailsNetworkDataSource.fetchMovieDetails(movieId)
 

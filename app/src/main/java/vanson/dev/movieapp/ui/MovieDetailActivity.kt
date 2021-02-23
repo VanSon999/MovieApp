@@ -33,7 +33,7 @@ class MovieDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_movie_detail)
 
         //Init request client and parameter
-        val movieId = 299534
+        val movieId = 271110
         val apiService: TheMovieDBInterface = TheMovieDBClient.getClient()
         movieRepository = MovieDetailsRepository(apiService)
         mViewModel = createViewModelFactory(movieId)
@@ -73,8 +73,8 @@ class MovieDetailActivity : AppCompatActivity() {
         Glide.with(this).load(POSTER_BASE_URL + info.posterPath).placeholder(R.drawable.sunset).into(detail_movie_img)
         Glide.with(this).load(POSTER_BASE_URL + info.backdropPath).placeholder(R.drawable.sunset).into(detail_movie_cover)
         detail_movie_desc.text = info.overview
-        rating_movie.text = info.voteAverage.toString() + "/10."
-        release_date.text = info.releaseDate
+        rating_movie.text = info.voteAverage.toString() + "/10"
+        release_date.text = info.getReleaseDate()
     }
 
     private fun createViewModelFactory(movieId: Int): MovieViewModel{

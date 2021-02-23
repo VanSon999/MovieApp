@@ -1,7 +1,10 @@
 package vanson.dev.movieapp.data.vo
 
 
+import android.annotation.SuppressLint
 import com.google.gson.annotations.SerializedName
+import java.text.SimpleDateFormat
+import java.time.LocalDate
 
 data class MovieDetails(
     @SerializedName("backdrop_path")
@@ -18,4 +21,11 @@ data class MovieDetails(
     val title: String,
     @SerializedName("vote_average")
     val voteAverage: Double
-)
+){
+    @SuppressLint("SimpleDateFormat")
+    @JvmName("releaseDate")
+    fun getReleaseDate(): String{
+        val date = SimpleDateFormat("yyyy-MM-dd").parse(this.releaseDate)
+        return SimpleDateFormat("dd/MM/yyyy").format(date)
+    }
+}

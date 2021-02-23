@@ -8,8 +8,6 @@ import java.text.SimpleDateFormat
 data class MovieDetails(
     @SerializedName("backdrop_path")
     val backdropPath: String,
-    @SerializedName("budget")
-    val budget: Int,
     @SerializedName("casts")
     val casts: Casts,
     @SerializedName("id")

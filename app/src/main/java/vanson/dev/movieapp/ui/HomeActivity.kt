@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.activity_home.*
 import vanson.dev.movieapp.*
 import vanson.dev.movieapp.adapter.MovieAdapter
 import vanson.dev.movieapp.adapter.SliderPagerAdapter
-import vanson.dev.movieapp.models.Movie
+import vanson.dev.movieapp.data.vo.Movie
 import vanson.dev.movieapp.models.Slide
 import vanson.dev.movieapp.utils.DataSource
 import vanson.dev.movieapp.utils.MovieItemClickListener
@@ -36,14 +36,14 @@ class HomeActivity : AppCompatActivity(), MovieItemClickListener {
         timer.scheduleAtFixedRate(SliderTimer(this, DataSource.getListSlide()),4000, 6000)
 
         //Recycler View and data
-        val movieAdapter = MovieAdapter(DataSource.getPopularMovie(), this)
-        rv_movies.adapter = movieAdapter
-        rv_movies.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-
-        //Week movies
-        val weekAdapter = MovieAdapter(DataSource.getWeek(), this)
-        rv_movies_week.adapter = weekAdapter
-        rv_movies_week.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+//        val movieAdapter = MovieAdapter(DataSource.getPopularMovie(), this)
+//        rv_movies.adapter = movieAdapter
+//        rv_movies.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+//
+//        //Week movies
+//        val weekAdapter = MovieAdapter(DataSource.getWeek(), this)
+//        rv_movies_week.adapter = weekAdapter
+//        rv_movies_week.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
     }
 
     class SliderTimer(private val activity: Activity, private val slides: List<Slide>) : TimerTask(){
@@ -59,13 +59,13 @@ class HomeActivity : AppCompatActivity(), MovieItemClickListener {
     }
 
     override fun onMovieClick(movie: Movie, movieImage: ImageView) {
-        //send movie info to detail activity and create transition animation between them
-        val intent = Intent(this, MovieDetailActivity::class.java)
-        intent.putExtra("title", movie.getTitle())
-        intent.putExtra("imgURL", movie.getThumbnail())
-        intent.putExtra("imgCover", movie.getCoverPhoto())
-        //create simple animation
-        val options = ActivityOptions.makeSceneTransitionAnimation(this, movieImage, "sharedName")
-        startActivity(intent, options.toBundle())
+//        //send movie info to detail activity and create transition animation between them
+//        val intent = Intent(this, MovieDetailActivity::class.java)
+//        intent.putExtra("title", movie.getTitle())
+//        intent.putExtra("imgURL", movie.getThumbnail())
+//        intent.putExtra("imgCover", movie.getCoverPhoto())
+//        //create simple animation
+//        val options = ActivityOptions.makeSceneTransitionAnimation(this, movieImage, "sharedName")
+//        startActivity(intent, options.toBundle())
     }
 }

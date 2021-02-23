@@ -17,3 +17,15 @@ fun ImageView.loadPhotoImage(url: String) = ifNotDestroyed {
         R.drawable.default_avatar
     ).into(this)
 }
+
+fun ImageView.loadPosterImage(url: String) = ifNotDestroyed {
+    Glide.with(this).load(url).placeholder(
+        R.drawable.no_image
+    ).into(this)
+}
+
+fun ImageView.loadBackImage(url: String) = ifNotDestroyed {
+    Glide.with(this).load(url).placeholder(
+        R.drawable.sunset
+    ).into(this)
+}

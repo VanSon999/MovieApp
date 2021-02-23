@@ -3,7 +3,7 @@ package vanson.dev.movieapp.data.vo
 
 import com.google.gson.annotations.SerializedName
 
-data class Result(
+data class Movie(
     @SerializedName("id")
     val id: Int,
     @SerializedName("poster_path")

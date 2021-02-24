@@ -9,6 +9,8 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import at.huber.youtubeExtractor.VideoMeta
 import at.huber.youtubeExtractor.YouTubeExtractor
 import at.huber.youtubeExtractor.YtFile
@@ -46,7 +48,7 @@ class MoviePlayerActivity : AppCompatActivity() {
 //        val movieId = 43904
         val apiService: TheMovieDBInterface = TheMovieDBClient.getClient()
         mTrailersReponsitory = TrailersMovieRepository(apiService)
-        mTrailersViewModel = TrailersViewModel(mTrailersReponsitory, movieId)
+        mTrailersViewModel = createViewModelFactory(movieId)
 
         mTrailersViewModel.trailersMovie.observe(this, Observer {
             if (it.trailers.isNotEmpty()) {
@@ -67,6 +69,14 @@ class MoviePlayerActivity : AppCompatActivity() {
                 if (it == NetworkState.LOADING) View.VISIBLE else View.GONE
         })
     }
+
+    private fun createViewModelFactory(movieId: Int) =
+        ViewModelProvider(this, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                @Suppress("UNCHECKED_CAST")
+                return TrailersViewModel(mTrailersReponsitory, movieId) as T
+            }
+        })[TrailersViewModel::class.java]
 
     private fun extractTrailerFromVimeo(first: Trailer) {
         VimeoExtractor.getInstance().fetchVideoWithURL(

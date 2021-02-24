@@ -95,8 +95,6 @@ class MovieDetailActivity : AppCompatActivity(), MovieItemClickListener {
     private fun bindUi(info: MovieDetails) {
         supportActionBar?.title = info.title
         detail_movie_title.text = info.title
-//        Glide.with(this).load(POSTER_BASE_URL + info.posterPath).placeholder(R.drawable.no_image).into(detail_movie_img)
-//        Glide.with(this).load(POSTER_BASE_URL + info.backdropPath).placeholder(R.drawable.sunset).into(detail_movie_cover)
         detail_movie_img.loadPosterImage(POSTER_BASE_URL + info.posterPath)
         detail_movie_cover.loadBackImage(POSTER_BASE_URL + info.backdropPath)
         detail_movie_desc.text = info.overview
@@ -122,4 +120,6 @@ class MovieDetailActivity : AppCompatActivity(), MovieItemClickListener {
         val options = ActivityOptions.makeSceneTransitionAnimation(this, movieImage, "sharedName")
         startActivity(intent, options.toBundle())
     }
+
+    override fun onPlayClick(movie: Movie) {}
 }

@@ -43,6 +43,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieItemClickListener {
 
         //Init request client and parameter
         val movieId = intent.getIntExtra("id_movie",271110)
+//        val movieId = 43904
         val apiService: TheMovieDBInterface = TheMovieDBClient.getClient()
         movieRepository = MovieDetailsRepository(apiService)
         mViewModel = createViewModelFactory(movieId)

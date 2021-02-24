@@ -65,4 +65,8 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
     //Exoplayer
     implementation 'com.google.android.exoplayer:exoplayer:2.13.1'
+    //Extract Youtube
+    implementation 'com.github.HaarigerHarald:android-youtubeExtractor:v2.1.0'
+    //Extract Vimeo
+    implementation 'com.github.ed-george:AndroidVimeoExtractor:1.2.1'
 }

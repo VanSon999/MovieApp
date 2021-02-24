@@ -1,4 +1,4 @@
-package vanson.dev.movieapp.ui
+package vanson.dev.movieapp.view_model.player
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -18,8 +18,6 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.util.Util
 import kotlinx.android.synthetic.main.activity_movie_player.*
 import vanson.dev.movieapp.R
-import vanson.dev.movieapp.TrailersMovieRepository
-import vanson.dev.movieapp.TrailersViewModel
 import vanson.dev.movieapp.data.api.TheMovieDBClient
 import vanson.dev.movieapp.data.api.TheMovieDBInterface
 import vanson.dev.movieapp.data.models.trailers.Trailer

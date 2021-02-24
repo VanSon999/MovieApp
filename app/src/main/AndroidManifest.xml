@@ -12,10 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MovieApp">
         <activity
-            android:name=".ui.MoviePlayerActivity"
+            android:name=".view_model.player.MoviePlayerActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".ui.MovieDetailActivity" />
-        <activity android:name=".ui.HomeActivity">
+        <activity android:name=".view_model.detail.MovieDetailActivity" />
+        <activity android:name=".view_model.home.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

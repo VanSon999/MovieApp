@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.slide_item.view.*
 import vanson.dev.movieapp.R
 import vanson.dev.movieapp.models.Slide
-import vanson.dev.movieapp.ui.MoviePlayerActivity
+import vanson.dev.movieapp.view_model.player.MoviePlayerActivity
 
 class SliderPagerAdapter(private val mContext: Context, private val mList: List<Slide>) :
     RecyclerView.Adapter<SliderPagerAdapter.ViewHolder>() {

@@ -1,4 +1,4 @@
-package vanson.dev.movieapp.ui
+package vanson.dev.movieapp.view_model.detail
 
 import android.annotation.SuppressLint
 import android.app.ActivityOptions
@@ -14,8 +14,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_movie_detail.*
-import vanson.dev.movieapp.MovieDetailsRepository
-import vanson.dev.movieapp.MovieViewModel
 import vanson.dev.movieapp.R
 import vanson.dev.movieapp.adapter.CastAdapter
 import vanson.dev.movieapp.adapter.MovieAdapter
@@ -28,6 +26,7 @@ import vanson.dev.movieapp.data.models.movie_details.MovieDetails
 import vanson.dev.movieapp.utils.MovieItemClickListener
 import vanson.dev.movieapp.utils.loadBackImage
 import vanson.dev.movieapp.utils.loadPosterImage
+import vanson.dev.movieapp.view_model.player.MoviePlayerActivity
 
 class MovieDetailActivity : AppCompatActivity(), MovieItemClickListener {
     private lateinit var mViewModel: MovieViewModel
@@ -108,7 +107,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieItemClickListener {
         mSimilarAdapter.updateMovie(info.similar.movies)
     }
 
-    private fun createViewModelFactory(movieId: Int): MovieViewModel{
+    private fun createViewModelFactory(movieId: Int): MovieViewModel {
         return ViewModelProvider(this, object : ViewModelProvider.Factory{
             @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {

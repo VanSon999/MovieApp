@@ -1,4 +1,4 @@
-package vanson.dev.movieapp
+package vanson.dev.movieapp.view_model.home
 
 import androidx.lifecycle.LiveData
 import io.reactivex.rxjava3.disposables.CompositeDisposable

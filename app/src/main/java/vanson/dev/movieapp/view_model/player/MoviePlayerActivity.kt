@@ -8,6 +8,7 @@ import android.view.Window
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.util.keyIterator
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -100,7 +101,7 @@ class MoviePlayerActivity : AppCompatActivity() {
                     sparseArray: SparseArray<YtFile>,
                     videoMeta: VideoMeta
                 ) {
-                    settingVideoExoplayer(sparseArray[sparseArray.keyAt(0)].url)
+                    settingVideoExoplayer(sparseArray.getBestResolutionTrailers())
                 }
             }
         mExtractor.extract(URL_YOUTUBE + first.key, true, true)
@@ -144,5 +145,13 @@ class MoviePlayerActivity : AppCompatActivity() {
 //        const val VIDEO_TEST_URL = "http://clips.vorwaerts-gmbh.de/VfE_html5.mp4"
         const val URL_YOUTUBE = "https://www.youtube.com/watch?v="
         const val URL_VIMEO = "https://vimeo.com/"
+    }
+
+    fun SparseArray<YtFile>.getBestResolutionTrailers(): String{
+        var best_resolution = this.keyAt(0)
+        for(x in this.keyIterator()){
+            if(this[best_resolution].format.height < this[x].format.height) best_resolution = x
+        }
+        return this[best_resolution].url
     }
 }

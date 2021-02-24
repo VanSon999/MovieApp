@@ -20,4 +20,29 @@
 
     </com.google.android.exoplayer2.ui.PlayerView>
 
+    <TextView
+        android:id="@+id/error_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/lightgrey"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:text="@string/no_trailers_for_this_movies"
+        android:textAllCaps="true"
+        android:visibility="gone"/>
+
+    <ProgressBar
+        android:id="@+id/progress_load_trailer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

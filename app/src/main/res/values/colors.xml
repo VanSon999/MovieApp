@@ -13,4 +13,5 @@
     <color name="text_light_blue">#ADD8E6</color>
     <color name="text_bg_blue">#1a242f</color>
     <color name="player_bg">#000000</color>
+    <color name="lightgrey">#D3D3D3</color>
 </resources>

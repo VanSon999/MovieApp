@@ -1,8 +1,10 @@
 package vanson.dev.movieapp.ui
 
 import android.app.Activity
+import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Display
 import android.widget.ImageView
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_home.*

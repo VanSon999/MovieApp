@@ -4,7 +4,7 @@ package vanson.dev.movieapp.data.models.new_popular_top
 import com.google.gson.annotations.SerializedName
 import vanson.dev.movieapp.data.models.movie_details.Movie
 
-data class PopularMovies(
+data class Movies(
     @SerializedName("page")
     val page: Int = 0,
     @SerializedName("results")

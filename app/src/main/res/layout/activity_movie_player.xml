@@ -16,8 +16,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:shutter_background_color="#000000">
+        app:shutter_background_color="#000000"
+        app:player_layout_id="@layout/exo_player_view">
 
+        <TextView
+            android:id="@+id/title_trailers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Hello World"
+            android:textSize="24sp"
+            android:textColor="@color/white"
+            android:background="@drawable/bg_title_video"
+            android:gravity="top"/>
     </com.google.android.exoplayer2.ui.PlayerView>
 
     <TextView

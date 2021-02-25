@@ -15,8 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import at.huber.youtubeExtractor.VideoMeta
 import at.huber.youtubeExtractor.YouTubeExtractor
 import at.huber.youtubeExtractor.YtFile
-import com.google.android.exoplayer2.MediaItem
-import com.google.android.exoplayer2.SimpleExoPlayer
+import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.util.Util
 import kotlinx.android.synthetic.main.activity_movie_player.*
@@ -43,10 +42,9 @@ class MoviePlayerActivity : AppCompatActivity() {
         settingScreen()
         //Setting ex_player
         settingExoplayer()
-
+        R.layout.exo_player_view
         //setting view_model
         val movieId = intent.getIntExtra("id_movie", 271110)
-//        val movieId = 43904
         val apiService: TheMovieDBInterface = TheMovieDBClient.getClient()
         mTrailersReponsitory = TrailersMovieRepository(apiService)
         mTrailersViewModel = createViewModelFactory(movieId)
@@ -85,7 +83,7 @@ class MoviePlayerActivity : AppCompatActivity() {
             null,
             object : OnVimeoExtractionListener {
                 override fun onSuccess(video: VimeoVideo) {
-                    settingVideoExoplayer(video.streams["${first.size}p"] ?: "")
+                    settingVideoExoplayer(video.streams["${first.size}p"] ?: "", first.name)
                 }
 
                 override fun onFailure(throwable: Throwable) {
@@ -101,18 +99,19 @@ class MoviePlayerActivity : AppCompatActivity() {
                     sparseArray: SparseArray<YtFile>,
                     videoMeta: VideoMeta
                 ) {
-                    settingVideoExoplayer(sparseArray.getBestResolutionTrailers())
+                    settingVideoExoplayer(sparseArray.getBestResolutionTrailers(), first.name)
                 }
             }
         mExtractor.extract(URL_YOUTUBE + first.key, true, true)
     }
 
-    private fun settingVideoExoplayer(url: String) {
+    private fun settingVideoExoplayer(url: String, name: String) {
         val mediaItem = MediaItem.fromUri(url)
         runOnUiThread {
             mSimpleExoPlayer.setMediaItem(mediaItem)
             mSimpleExoPlayer.prepare()
             mSimpleExoPlayer.playWhenReady = true
+            title_trailers.text = "  $name"
         }
     }
 
@@ -120,6 +119,24 @@ class MoviePlayerActivity : AppCompatActivity() {
         mSimpleExoPlayer = SimpleExoPlayer.Builder(this).build()
         movie_exo_player.player = mSimpleExoPlayer
         mDataSourceFactory = DefaultDataSourceFactory(this, Util.getUserAgent(this, "appname"))
+        mSimpleExoPlayer.addListener(object : Player.EventListener{
+            override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
+                when(playbackState){
+                    Player.STATE_BUFFERING -> Toast.makeText(this@MoviePlayerActivity, "Loading",Toast.LENGTH_SHORT).show()
+                    Player.STATE_READY -> Toast.makeText(this@MoviePlayerActivity, "Playing",Toast.LENGTH_SHORT).show()
+                    Player.STATE_ENDED -> Toast.makeText(this@MoviePlayerActivity, "Play complete",Toast.LENGTH_SHORT).show()
+                    Player.STATE_IDLE -> {}
+                }
+            }
+
+            override fun onPlayerError(error: ExoPlaybackException) {
+                super.onPlayerError(error)
+                Toast.makeText(this@MoviePlayerActivity, "Error, check and try again!", Toast.LENGTH_SHORT).show()
+            }
+        })
+        movie_exo_player.setControllerVisibilityListener {
+            title_trailers.visibility = it
+        }
     }
 
     private fun settingScreen() {
@@ -148,10 +165,10 @@ class MoviePlayerActivity : AppCompatActivity() {
     }
 
     fun SparseArray<YtFile>.getBestResolutionTrailers(): String{
-        var best_resolution = this.keyAt(0)
+        var bestResolution = this.keyAt(0)
         for(x in this.keyIterator()){
-            if(this[best_resolution].format.height < this[x].format.height) best_resolution = x
+            if(this[bestResolution].format.height < this[x].format.height) bestResolution = x
         }
-        return this[best_resolution].url
+        return this[bestResolution].url
     }
 }

@@ -25,7 +25,7 @@ class SliderPagerAdapter(private val listener: MovieItemClickListener) :
     inner class ViewHolder(val view: View): RecyclerView.ViewHolder(view){
         init {
             this.view.slide_image.setOnClickListener {
-                listener.onMovieClick(mData[adapterPosition], this.view.slide_image)
+                listener.onMovieClickBackPost(mData[adapterPosition], this.view.slide_image)
             }
             this.view.floatingActionButton.setOnClickListener {
                 listener.onPlayClick(mData[adapterPosition])

@@ -122,4 +122,5 @@ class MovieDetailActivity : AppCompatActivity(), MovieItemClickListener {
     }
 
     override fun onPlayClick(movie: Movie) {}
+    override fun onMovieClickBackPost(movie: Movie, movieImage: ImageView) {}
 }

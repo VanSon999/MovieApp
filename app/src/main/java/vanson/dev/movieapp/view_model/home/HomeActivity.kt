@@ -115,11 +115,18 @@ class HomeActivity : AppCompatActivity(), MovieItemClickListener {
     override fun onMovieClick(movie: Movie, movieImage: ImageView) {
         val intent = Intent(this, MovieDetailActivity::class.java)
         intent.putExtra("id_movie", movie.id)
-        startActivity(intent)
+        val options = ActivityOptions.makeSceneTransitionAnimation(this, movieImage, "sharedName")
+        startActivity(intent, options.toBundle())
     }
 
     override fun onPlayClick(movie: Movie) {
         val intent = Intent(this, MoviePlayerActivity::class.java)
+        intent.putExtra("id_movie", movie.id)
+        startActivity(intent)
+    }
+
+    override fun onMovieClickBackPost(movie: Movie, movieImage: ImageView) {
+        val intent = Intent(this, MovieDetailActivity::class.java)
         intent.putExtra("id_movie", movie.id)
         startActivity(intent)
     }

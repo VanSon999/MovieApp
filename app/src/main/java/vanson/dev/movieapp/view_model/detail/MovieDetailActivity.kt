@@ -27,6 +27,7 @@ import vanson.dev.movieapp.data.models.movie_details.MovieDetails
 import vanson.dev.movieapp.utils.MovieItemClickListener
 import vanson.dev.movieapp.utils.loadBackImage
 import vanson.dev.movieapp.utils.loadPosterImage
+import vanson.dev.movieapp.view_model.home.HomeActivity
 import vanson.dev.movieapp.view_model.player.MoviePlayerActivity
 
 class MovieDetailActivity : AppCompatActivity(), MovieItemClickListener {
@@ -70,6 +71,11 @@ class MovieDetailActivity : AppCompatActivity(), MovieItemClickListener {
         play_fab.setOnClickListener {
             val intent = Intent(this, MoviePlayerActivity::class.java)
             intent.putExtra("id_movie", movieId)
+            startActivity(intent)
+        }
+
+        back_to_home.setOnClickListener {
+            val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
         }
     }

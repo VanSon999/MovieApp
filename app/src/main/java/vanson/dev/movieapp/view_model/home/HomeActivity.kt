@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_home.*
 import vanson.dev.movieapp.*
@@ -69,7 +70,7 @@ class HomeActivity : AppCompatActivity(), MovieItemClickListener {
 
     private fun setupAdapter() {
         //Newest movie
-        slide_pager.layoutParams.height = (resources.displayMetrics.widthPixels * 0.75).toInt()
+        slide_pager.layoutParams.height = (resources.displayMetrics.widthPixels * 0.7).toInt()
         mAdapter = SliderPagerAdapter(this)
         slide_pager.adapter = mAdapter
 
@@ -84,12 +85,27 @@ class HomeActivity : AppCompatActivity(), MovieItemClickListener {
         //Popular movie
         mPopularAdapter = MovieAdapter(this)
         rv_movies.adapter = mPopularAdapter
-        rv_movies.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        val layoutManagerPopular = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        layoutManagerPopular.isMeasurementCacheEnabled = false
+        rv_movies.layoutManager = layoutManagerPopular
+        rv_movies.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                layoutManagerPopular.requestLayout()
+            }
+        })
         //Top Rated movie
         mTopAdapter = MovieAdapter(this)
         rv_movies_week.adapter = mTopAdapter
-        rv_movies_week.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        val layoutManagerRated = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        layoutManagerRated.isMeasurementCacheEnabled = false
+        rv_movies_week.layoutManager = layoutManagerRated
+        rv_movies_week.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                layoutManagerRated.requestLayout()
+            }
+        })
     }
 
     private fun createViewModelFactory() =

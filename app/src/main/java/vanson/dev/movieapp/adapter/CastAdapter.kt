@@ -1,5 +1,6 @@
 package vanson.dev.movieapp.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,11 +22,13 @@ class CastAdapter() : RecyclerView.Adapter<CastAdapter.ViewHolder>() {
         return ViewHolder(view)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(holder.itemView){
             img_cast.loadPhotoImage(POSTER_BASE_URL + (mData[position].profilePath ?: ""))
 //            Glide.with(this.img_cast).load(mData[position].imgLink).into(this.img_cast)
             name_cast.text = mData[position].originalName
+            name_character.text =  mData[position].character
         }
     }
     override fun getItemCount() = mData.size

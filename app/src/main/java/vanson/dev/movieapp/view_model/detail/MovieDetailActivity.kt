@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_movie_detail.*
 import vanson.dev.movieapp.R
 import vanson.dev.movieapp.adapter.CastAdapter
@@ -77,18 +78,39 @@ class MovieDetailActivity : AppCompatActivity(), MovieItemClickListener {
         //Setup Cast Adapter
         mCastAdapter = CastAdapter()
         rv_cast.adapter = mCastAdapter
-        rv_cast.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-
+        val layoutManagerCast = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        layoutManagerCast.isMeasurementCacheEnabled = false
+        rv_cast.layoutManager = layoutManagerCast
+        rv_cast.addOnScrollListener(object : RecyclerView.OnScrollListener(){ //fix problem when item have different height
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                layoutManagerCast.requestLayout()
+            }
+        })
         //Setup Recommend Adapter
         mRecommendAdapter = MovieAdapter(this)
         rv_recommend.adapter = mRecommendAdapter
-        rv_recommend.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-
+        val layoutManagerRecommend = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        layoutManagerRecommend.isMeasurementCacheEnabled = false
+        rv_recommend.layoutManager = layoutManagerRecommend
+        rv_recommend.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                layoutManagerRecommend.requestLayout()
+            }
+        })
         //Setup Similar Adapter
         mSimilarAdapter = MovieAdapter(this)
         rv_similar.adapter = mSimilarAdapter
-        rv_similar.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        val layoutManagerSimilar = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        layoutManagerSimilar.isMeasurementCacheEnabled = false
+        rv_similar.layoutManager = layoutManagerSimilar
+        rv_similar.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                layoutManagerSimilar.requestLayout()
+            }
+        })
     }
 
     @SuppressLint("SetTextI18n")

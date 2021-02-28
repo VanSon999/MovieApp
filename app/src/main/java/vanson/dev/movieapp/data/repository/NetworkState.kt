@@ -12,3 +12,9 @@ class NetworkState(val status: Status, val msg: String) {
         val ENDOFLIST: NetworkState = NetworkState(Status.FAILED, "You have reached the end")
     }
 }
+
+enum class TypeMovie{
+    POPULAR,
+    TOP_RATED,
+    NOW_PLAYING
+}

@@ -14,7 +14,7 @@ class TrailersMovieRepository(private val apiService: TheMovieDBInterface) {
     fun fetchTrailersMovie(compositeDisposable: CompositeDisposable, movieId: Int): LiveData<TrailersMovie>{
         trailersMovieNetworkDataSource = TrailerMovieNetworkDataSource(apiService, compositeDisposable)
         trailersMovieNetworkDataSource.fetchTrailersMovie(movieId)
-        return trailersMovieNetworkDataSource.trailerMovieRespose
+        return trailersMovieNetworkDataSource.trailerMovieResponse
     }
 
     fun getTrailersMovieNetworkState(): LiveData<NetworkState>{

@@ -18,7 +18,7 @@ class TrailerMovieNetworkDataSource(
         get() = _networkState
 
     private val _trailersMovieResponse = MutableLiveData<TrailersMovie>()
-    val trailerMovieRespose: LiveData<TrailersMovie>
+    val trailerMovieResponse: LiveData<TrailersMovie>
         get() = _trailersMovieResponse
 
     fun fetchTrailersMovie(movieId: Int){

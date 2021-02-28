@@ -2,13 +2,14 @@ package vanson.dev.movieapp.data.repository
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
+import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import vanson.dev.movieapp.data.api.FIRST_PAGE
-import vanson.dev.movieapp.data.api.TheMovieDBInterface
 import vanson.dev.movieapp.data.models.movie_details.Movie
+import vanson.dev.movieapp.data.models.new_popular_top.Movies
 
-class PopularMovieDataSource(private val apiService: TheMovieDBInterface, private val compositeDisposable: CompositeDisposable) : PageKeyedDataSource<Int, Movie>() {
+class MovieDataSourcePaging(private val funApiService: (Int) -> Single<Movies>, private val compositeDisposable: CompositeDisposable) : PageKeyedDataSource<Int, Movie>() {
 
     private var page = FIRST_PAGE
     val networkState: MutableLiveData<NetworkState> = MutableLiveData()
@@ -18,7 +19,7 @@ class PopularMovieDataSource(private val apiService: TheMovieDBInterface, privat
         callback: LoadInitialCallback<Int, Movie>
     ) {
         networkState.postValue(NetworkState.LOADING)
-        apiService.getPopularMovie(page)
+        funApiService(page) //popular, top_rated, now_playing
             .subscribeOn(Schedulers.io())
             .subscribe({
                 callback.onResult(it.results, null, page + 1)
@@ -34,7 +35,7 @@ class PopularMovieDataSource(private val apiService: TheMovieDBInterface, privat
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Movie>) {
         networkState.postValue(NetworkState.LOADING)
-        apiService.getPopularMovie(params.key)
+        funApiService(params.key)
             .subscribeOn(Schedulers.io())
             .subscribe({
                 if(it.totalPages >= params.key){

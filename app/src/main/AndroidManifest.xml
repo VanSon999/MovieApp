@@ -14,18 +14,17 @@
         android:theme="@style/Theme.MovieApp"
         android:usesCleartextTraffic="true">
         <activity android:name=".view_model.popular_top_playing.MoviesActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".view_model.player.MoviePlayerActivity"
             android:screenOrientation="landscape" />
         <activity android:name=".view_model.detail.MovieDetailActivity" />
         <activity android:name=".view_model.home.HomeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

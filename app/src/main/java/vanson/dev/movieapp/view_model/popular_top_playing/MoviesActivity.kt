@@ -21,10 +21,10 @@ class MoviesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movies)
 
-//        val typeMovie: TypeMovie = intent.getSerializableExtra("type_list") as TypeMovie
+        val typeMovie: TypeMovie = intent.getSerializableExtra("type_list") as TypeMovie
         val apiService = TheMovieDBClient.getClient()
 
-        mRepository = MoviePagedListRepository(apiService, TypeMovie.POPULAR)
+        mRepository = MoviePagedListRepository(apiService, typeMovie)
         mViewModel = getViewModel()
 
         val movieAdapter = MoviePagedListAdapter(this)

@@ -23,11 +23,13 @@ import vanson.dev.movieapp.data.api.TheMovieDBClient
 import vanson.dev.movieapp.data.api.TheMovieDBInterface
 import vanson.dev.movieapp.data.models.movie_details.Movie
 import vanson.dev.movieapp.data.repository.NetworkState
+import vanson.dev.movieapp.data.repository.TypeMovie
 import vanson.dev.movieapp.models.Slide
 import vanson.dev.movieapp.utils.DataSource
 import vanson.dev.movieapp.utils.MovieItemClickListener
 import vanson.dev.movieapp.view_model.detail.MovieDetailActivity
 import vanson.dev.movieapp.view_model.player.MoviePlayerActivity
+import vanson.dev.movieapp.view_model.popular_top_playing.MoviesActivity
 import java.util.*
 
 class HomeActivity : AppCompatActivity(), MovieItemClickListener {
@@ -66,6 +68,18 @@ class HomeActivity : AppCompatActivity(), MovieItemClickListener {
             progress_bar.visibility = if(it == NetworkState.LOADING) View.VISIBLE else View.GONE
             if(it == NetworkState.ERROR) Toast.makeText(this, it.msg, Toast.LENGTH_LONG).show()
         })
+
+        see_more_1.setOnClickListener {
+            val intent = Intent(this, MoviesActivity::class.java)
+            intent.putExtra("type_list", TypeMovie.POPULAR)
+            startActivity(intent)
+        }
+
+        see_more_2.setOnClickListener {
+            val intent = Intent(this, MoviesActivity::class.java)
+            intent.putExtra("type_list", TypeMovie.TOP_RATED)
+            startActivity(intent)
+        }
     }
 
     private fun setupAdapter() {

@@ -1,5 +1,6 @@
 package vanson.dev.movieapp.data.repository.movie_data_paging
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
 import io.reactivex.rxjava3.core.Single
@@ -14,7 +15,7 @@ class MovieDataSourcePaging(private val funApiService: (Int) -> Single<Movies>, 
 
     private var page = FIRST_PAGE
     val networkState: MutableLiveData<NetworkState> = MutableLiveData()
-
+    var last_page = 0
     override fun loadInitial(
         params: LoadInitialParams<Int>,
         callback: LoadInitialCallback<Int, Movie>
@@ -25,6 +26,7 @@ class MovieDataSourcePaging(private val funApiService: (Int) -> Single<Movies>, 
             .subscribe({
                 callback.onResult(it.results, null, page + 1)
                 networkState.postValue(NetworkState.LOADED)
+                last_page = it.totalPages
             },{
                 networkState.postValue(NetworkState.ERROR)
             })
@@ -46,7 +48,11 @@ class MovieDataSourcePaging(private val funApiService: (Int) -> Single<Movies>, 
                     networkState.postValue(NetworkState.ENDOFLIST)
                 }
             },{
-                networkState.postValue(NetworkState.ERROR)
+                if(params.key > last_page){
+                    networkState.postValue(NetworkState.ENDOFLIST)
+                }else{
+                    networkState.postValue(NetworkState.ERROR)
+                }
             })
     }
 }

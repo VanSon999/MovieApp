@@ -13,7 +13,7 @@ import vanson.dev.movieapp.data.repository.movie_data_paging.MovieDataSourcePagi
 import vanson.dev.movieapp.data.repository.NetworkState
 import vanson.dev.movieapp.data.repository.TypeMovie
 
-class MoviePagedListRepository(private val apiService: TheMovieDBInterface, val type_: TypeMovie) {
+class MoviePagedListRepository(private val apiService: TheMovieDBInterface, private val type_: TypeMovie) {
     lateinit var moviePagedList: LiveData<PagedList<Movie>>
     lateinit var moviesDataSourcePagingFactory: MovieDataSourcePagingFactory
 

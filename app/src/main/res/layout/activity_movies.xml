@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view_model.list_movie.MoviesActivity">
+    tools:context=".view_model.popular_top_playing.MoviesActivity"
+    android:background="@color/primaryColor">
 
     <LinearLayout
         android:layout_width="match_parent"

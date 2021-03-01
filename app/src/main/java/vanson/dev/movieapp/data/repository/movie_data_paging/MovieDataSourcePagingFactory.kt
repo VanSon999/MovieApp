@@ -1,4 +1,4 @@
-package vanson.dev.movieapp.data.repository
+package vanson.dev.movieapp.data.repository.moviedatapaging
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource

@@ -1,4 +1,4 @@
-package vanson.dev.movieapp.data.repository
+package vanson.dev.movieapp.data.repository.moviedatapaging
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
@@ -8,6 +8,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import vanson.dev.movieapp.data.api.FIRST_PAGE
 import vanson.dev.movieapp.data.models.movie_details.Movie
 import vanson.dev.movieapp.data.models.new_popular_top.Movies
+import vanson.dev.movieapp.data.repository.NetworkState
 
 class MovieDataSourcePaging(private val funApiService: (Int) -> Single<Movies>, private val compositeDisposable: CompositeDisposable) : PageKeyedDataSource<Int, Movie>() {
 

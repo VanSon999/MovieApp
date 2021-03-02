@@ -6,12 +6,4 @@
     android:layout_height="match_parent"
     tools:context=".HomeActivity"
     android:background="@color/primaryColor">
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/slide_pager"
-        android:layout_width="match_parent"
-        android:layout_height="275dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

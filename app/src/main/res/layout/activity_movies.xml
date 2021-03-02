@@ -24,6 +24,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="@string/connection_problem"
+            android:textColor="@color/text_light_blue"
             android:visibility="gone"/>
 
         <androidx.recyclerview.widget.RecyclerView

@@ -9,36 +9,24 @@ import androidx.recyclerview.widget.RecyclerView
 import com.flaviofaria.kenburnsview.RandomTransitionGenerator
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.search_item.view.*
+import vanson.dev.movieapp.Adapters.commons.SearchViewHolder
 import vanson.dev.movieapp.BuildConfig.BASE_URL_IMAGE
 import vanson.dev.movieapp.Models.Movie
 import vanson.dev.movieapp.R
 
-class MovieSearchAdapter: RecyclerView.Adapter<MovieSearchAdapter.ViewHolder>() {
+class MovieSearchAdapter(data: List<Movie>): RecyclerView.Adapter<SearchViewHolder>() {
 
-    private var results = listOf<Movie>()
-    class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
-        init {
-            val generator = RandomTransitionGenerator(1000, DecelerateInterpolator())
-            itemView.diagonal_image.setTransitionGenerator(generator)
-        }
-    }
+    private val results = data
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.search_item, parent, false)
-        return ViewHolder(view)
+        return SearchViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        with(holder.itemView){
-            diagonal_image.loadPoster(results[position].posterPath.toString())
-            poster_title.text = results[position].title
-        }
+    override fun onBindViewHolder(holder: SearchViewHolder, position: Int) {
+        holder.loadPoster(results[position].posterPath)
+        holder.itemView.poster_title.text = results[position].title
     }
 
     override fun getItemCount(): Int = results.size
-
-}
-
-fun ImageView.loadPoster(uri: String?){
-    Picasso.get().load(BASE_URL_IMAGE + uri).into(this)
 }

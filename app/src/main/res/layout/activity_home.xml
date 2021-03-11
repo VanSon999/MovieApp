@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/toolbar_shadow"
         android:background="@drawable/spinner_border"
-        app:textTint="@color/white"
+        app:textTint="@color/black"
         android:padding="20dp"/>
 
     <androidx.appcompat.widget.LinearLayoutCompat

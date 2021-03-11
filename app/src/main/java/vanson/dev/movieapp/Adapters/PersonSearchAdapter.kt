@@ -34,7 +34,7 @@ class PersonSearchAdapter(val activity: Activity, data: List<Person>): RecyclerV
                 activity.startActivity(intent)
 
                 //change animation when cover to new activity
-//                activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             }
         }
     }

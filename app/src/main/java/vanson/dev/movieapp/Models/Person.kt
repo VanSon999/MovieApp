@@ -3,7 +3,7 @@ package vanson.dev.movieapp.Models
 
 import com.google.gson.annotations.SerializedName
 
-data class Result(
+data class Person(
     @SerializedName("adult")
     val adult: Boolean = false,
     @SerializedName("gender")

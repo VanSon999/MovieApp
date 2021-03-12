@@ -105,7 +105,14 @@ class HomeActivity : AppCompatActivity(), MovieItemClickListener {
         rv_movies.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                layoutManagerPopular.requestLayout()
+                layoutManagerPopular.requestLayout() //fix size of each movies item
+                val currentItem = layoutManagerPopular.findLastVisibleItemPosition()
+                val size = layoutManagerPopular.itemCount
+                if(currentItem == size - 1){ //last item
+                    see_more_1.visibility = View.VISIBLE
+                }else{
+                    see_more_1.visibility = View.GONE
+                }
             }
         })
         //Top Rated movie
@@ -118,6 +125,13 @@ class HomeActivity : AppCompatActivity(), MovieItemClickListener {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 layoutManagerRated.requestLayout()
+                val currentItem = layoutManagerRated.findLastVisibleItemPosition()
+                val size = layoutManagerRated.itemCount
+                if(currentItem == size - 1){ //last item
+                    see_more_1.visibility = View.VISIBLE
+                }else{
+                    see_more_1.visibility = View.GONE
+                }
             }
         })
     }

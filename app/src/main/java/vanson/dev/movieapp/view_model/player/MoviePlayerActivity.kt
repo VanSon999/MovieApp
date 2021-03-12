@@ -1,6 +1,7 @@
 package vanson.dev.movieapp.view_model.player
 
 import android.annotation.SuppressLint
+import android.net.Uri
 import android.os.Bundle
 import android.util.SparseArray
 import android.view.View
@@ -16,6 +17,10 @@ import at.huber.youtubeExtractor.VideoMeta
 import at.huber.youtubeExtractor.YouTubeExtractor
 import at.huber.youtubeExtractor.YtFile
 import com.google.android.exoplayer2.*
+import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory
+import com.google.android.exoplayer2.source.ExtractorMediaSource
+import com.google.android.exoplayer2.source.MediaSource
+import com.google.android.exoplayer2.source.hls.HlsMediaSource
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.util.Util
 import kotlinx.android.synthetic.main.activity_movie_player.*
@@ -27,6 +32,7 @@ import vanson.dev.movieapp.data.repository.NetworkState
 import vimeoextractor.OnVimeoExtractionListener
 import vimeoextractor.VimeoExtractor
 import vimeoextractor.VimeoVideo
+import java.util.*
 
 
 @Suppress("DEPRECATION")
@@ -42,7 +48,6 @@ class MoviePlayerActivity : AppCompatActivity() {
         settingScreen()
         //Setting ex_player
         settingExoplayer()
-        R.layout.exo_player_view
         //setting view_model
         val movieId = intent.getIntExtra("id_movie", 271110)
         val apiService: TheMovieDBInterface = TheMovieDBClient.getClient()
@@ -106,10 +111,23 @@ class MoviePlayerActivity : AppCompatActivity() {
     }
 
     private fun settingVideoExoplayer(url: String, name: String) {
-        val mediaItem = MediaItem.fromUri(url)
+//        val mediaItem = MediaItem.Builder().setUri(url).setMimeType(MimeTypes.APPLICATION_MPD).build()
+//        val mediaItem = MediaItem.fromUri(url)
+//        val dataSourceFactory = DefaultHttpDataSourceFactory()
+//        val mediaItem = ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(
+//            MediaItem.fromUri(url))
+//        val uri = Uri.parse(url)
+//        lateinit var mediaSource: MediaSource
+//        if (url.toUpperCase(Locale.getDefault()).contains("M3U8")){
+//            mediaSource = HlsMediaSource.Factory(mDataSourceFactory).createMediaSource(uri)
+//        }else{
+//            mediaSource = ExtractorMediaSource(uri, mDataSourceFactory, DefaultExtractorsFactory(), null, null)
+//        }
+//        val mediaItem = MediaItem.fromUri(url)
+        val videoSource = ExtractorMediaSource.Factory(mDataSourceFactory).createMediaSource(Uri.parse(url))
         runOnUiThread {
-            mSimpleExoPlayer.setMediaItem(mediaItem)
-            mSimpleExoPlayer.prepare()
+//            mSimpleExoPlayer.setMediaItem(videoSource)
+            mSimpleExoPlayer.prepare(videoSource)
             mSimpleExoPlayer.playWhenReady = true
             title_trailers.text = "  $name"
         }
@@ -167,7 +185,7 @@ class MoviePlayerActivity : AppCompatActivity() {
     fun SparseArray<YtFile>.getBestResolutionTrailers(): String{
         var bestResolution = this.keyAt(0)
         for(x in this.keyIterator()){
-            if(this[bestResolution].format.height < this[x].format.height) bestResolution = x
+            if(this[bestResolution].format.height < this[x].format.height && this[x].format.audioBitrate > -1) bestResolution = x
         }
         return this[bestResolution].url
     }

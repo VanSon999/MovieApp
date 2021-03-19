@@ -6,15 +6,15 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import vanson.dev.movieapp.data.models.movie_details.PersonDetails
 import vanson.dev.movieapp.data.repository.NetworkState
 
-class PersonViewModel(private val movieRepository: PersonRepository, personId: Int): ViewModel() {
+class PersonViewModel(private val personRepository: PersonRepository, personId: Int): ViewModel() {
     private val compositeDisposable = CompositeDisposable()
 
     val personDetail: LiveData<PersonDetails> by lazy {
-        movieRepository.fetchSinglePersonDetail(compositeDisposable, personId)
+        personRepository.fetchSinglePersonDetail(compositeDisposable, personId)
     }
 
     val networkState: LiveData<NetworkState> by lazy {
-        movieRepository.getMovieDetailNetworkState()
+        personRepository.getMovieDetailNetworkState()
     }
 
     override fun onCleared() { //will be call when activity or fragment destroy

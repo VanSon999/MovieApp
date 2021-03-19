@@ -21,6 +21,7 @@ import vanson.dev.movieapp.adapter.MovieAdapter
 import vanson.dev.movieapp.data.api.POSTER_BASE_URL
 import vanson.dev.movieapp.data.api.TheMovieDBClient
 import vanson.dev.movieapp.data.api.TheMovieDBInterface
+import vanson.dev.movieapp.data.models.movie_details.Cast
 import vanson.dev.movieapp.data.repository.NetworkState
 import vanson.dev.movieapp.data.models.movie_details.Movie
 import vanson.dev.movieapp.data.models.movie_details.MovieDetails
@@ -28,6 +29,7 @@ import vanson.dev.movieapp.utils.MovieItemClickListener
 import vanson.dev.movieapp.utils.loadBackImage
 import vanson.dev.movieapp.utils.loadPosterImage
 import vanson.dev.movieapp.view_model.home.HomeActivity
+import vanson.dev.movieapp.view_model.person.PersonDetailActivity
 import vanson.dev.movieapp.view_model.player.MoviePlayerActivity
 
 class MovieDetailActivity : AppCompatActivity(), MovieItemClickListener {
@@ -82,7 +84,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieItemClickListener {
 
     private fun setupAdapter() {
         //Setup Cast Adapter
-        mCastAdapter = CastAdapter()
+        mCastAdapter = CastAdapter(this)
         rv_cast.adapter = mCastAdapter
         val layoutManagerCast = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         layoutManagerCast.isMeasurementCacheEnabled = false
@@ -151,6 +153,13 @@ class MovieDetailActivity : AppCompatActivity(), MovieItemClickListener {
 
     override fun onPlayClick(movie: Movie) {}
     override fun onMovieClickBackPost(movie: Movie, movieImage: ImageView) {}
+    override fun onCastClick(cast: Cast, castImage: ImageView) {
+        val intent = Intent(this, PersonDetailActivity::class.java)
+        intent.putExtra("id_person", cast.id)
+//        val options = ActivityOptions.makeSceneTransitionAnimation(this, castImage, "sharedName_2")
+//        startActivity(intent, options.toBundle())
+        startActivity(intent)
+    }
 
     override fun finish() {
         super.finish()

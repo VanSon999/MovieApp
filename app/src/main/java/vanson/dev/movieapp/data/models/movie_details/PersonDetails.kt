@@ -13,11 +13,11 @@ data class PersonDetails(
     @SerializedName("birthday")
     val birthday: String = "",
     @SerializedName("deathday")
-    val deathday: Any? = null,
+    val deathday: String? = null,
     @SerializedName("gender")
     val gender: Int = 0,
     @SerializedName("homepage")
-    val homepage: Any? = null,
+    val homepage: String? = null,
     @SerializedName("id")
     val id: Int = 0,
     @SerializedName("imdb_id")

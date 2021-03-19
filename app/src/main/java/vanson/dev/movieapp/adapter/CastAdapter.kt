@@ -11,11 +11,18 @@ import vanson.dev.movieapp.R
 import vanson.dev.movieapp.data.api.POSTER_BASE_URL
 import vanson.dev.movieapp.data.models.movie_details.Cast
 import vanson.dev.movieapp.utils.DiffCallBack
+import vanson.dev.movieapp.utils.MovieItemClickListener
 import vanson.dev.movieapp.utils.loadPhotoImage
 
-class CastAdapter() : RecyclerView.Adapter<CastAdapter.ViewHolder>() {
+class CastAdapter(private val listener: MovieItemClickListener) : RecyclerView.Adapter<CastAdapter.ViewHolder>() {
     private var mData: List<Cast> = listOf()
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {}
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        init {
+            itemView.setOnClickListener {
+                listener.onCastClick(mData[adapterPosition], it.img_cast)
+            }
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_cast, parent, false)

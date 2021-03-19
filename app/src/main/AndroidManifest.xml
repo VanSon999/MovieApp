@@ -13,8 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MovieApp"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view_model.popular_top_playing.MoviesActivity">
-        </activity>
+        <activity android:name=".view_model.person.PersonDetailActivity"></activity>
+        <activity android:name=".view_model.popular_top_playing.MoviesActivity"></activity>
         <activity
             android:name=".view_model.player.MoviePlayerActivity"
             android:screenOrientation="landscape" />

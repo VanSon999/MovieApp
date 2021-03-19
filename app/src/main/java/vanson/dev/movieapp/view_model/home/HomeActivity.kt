@@ -173,5 +173,6 @@ class HomeActivity : AppCompatActivity(), MovieItemClickListener {
         val intent = Intent(this, MovieDetailActivity::class.java)
         intent.putExtra("id_movie", movie.id)
         startActivity(intent)
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
 }

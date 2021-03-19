@@ -151,4 +151,9 @@ class MovieDetailActivity : AppCompatActivity(), MovieItemClickListener {
 
     override fun onPlayClick(movie: Movie) {}
     override fun onMovieClickBackPost(movie: Movie, movieImage: ImageView) {}
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+    }
 }

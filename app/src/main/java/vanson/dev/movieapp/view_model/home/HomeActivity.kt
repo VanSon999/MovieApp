@@ -128,9 +128,9 @@ class HomeActivity : AppCompatActivity(), MovieItemClickListener {
                 val currentItem = layoutManagerRated.findLastVisibleItemPosition()
                 val size = layoutManagerRated.itemCount
                 if(currentItem == size - 1){ //last item
-                    see_more_1.visibility = View.VISIBLE
+                    see_more_2.visibility = View.VISIBLE
                 }else{
-                    see_more_1.visibility = View.GONE
+                    see_more_2.visibility = View.GONE
                 }
             }
         })

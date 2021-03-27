@@ -67,14 +67,14 @@ class PersonDetailActivity : AppCompatActivity() {
             person_detail_also_known_as_layout.visibility = View.GONE
         }
 
-        if(birthDay.isNotEmpty()){
+        if(birthDay!= null && birthDay.isNotEmpty()){
             person_detail_birthday.text = birthDay
             person_detail_birthday_layout.visibility = View.VISIBLE
         }else{
             person_detail_birthday_layout.visibility = View.GONE
         }
 
-        if(placeOfBirthDay.isNotEmpty()){
+        if(placeOfBirthDay!= null && placeOfBirthDay.isNotEmpty()){
             person_detail_place_of_birth.text = placeOfBirthDay
             person_detail_place_of_birth_layout.visibility = View.VISIBLE
         }else{
@@ -117,4 +117,9 @@ class PersonDetailActivity : AppCompatActivity() {
                 return PersonViewModel(personRepository, personId) as T
             }
         })[PersonViewModel::class.java]
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(R.anim.slide_up, R.anim.slide_down)
+    }
 }

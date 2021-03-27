@@ -159,6 +159,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieItemClickListener {
 //        val options = ActivityOptions.makeSceneTransitionAnimation(this, castImage, "sharedName_2")
 //        startActivity(intent, options.toBundle())
         startActivity(intent)
+        overridePendingTransition(R.anim.slide_up, R.anim.no_change)
     }
 
     override fun finish() {

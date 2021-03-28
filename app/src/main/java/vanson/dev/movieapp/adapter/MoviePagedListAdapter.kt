@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.movie_list_item.view.*
 import kotlinx.android.synthetic.main.network_state_item.view.*
 import vanson.dev.movieapp.R
 import vanson.dev.movieapp.data.api.POSTER_BASE_URL
-import vanson.dev.movieapp.data.models.movie_details.Movie
+import vanson.dev.movieapp.data.models.movie.Movie
 import vanson.dev.movieapp.data.repository.NetworkState
 import vanson.dev.movieapp.utils.loadPosterImage
 import vanson.dev.movieapp.view_model.detail.MovieDetailActivity

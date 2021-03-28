@@ -4,8 +4,8 @@ import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
-import vanson.dev.movieapp.data.models.movie_details.MovieDetails
-import vanson.dev.movieapp.data.models.movie_details.PersonDetails
+import vanson.dev.movieapp.data.models.movie.MovieDetails
+import vanson.dev.movieapp.data.models.person.PersonDetails
 import vanson.dev.movieapp.data.models.new_popular_top.Movies
 import vanson.dev.movieapp.data.models.trailers.TrailersMovie
 

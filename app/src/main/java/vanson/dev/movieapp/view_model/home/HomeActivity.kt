@@ -5,7 +5,6 @@ import android.app.ActivityOptions
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
@@ -21,7 +20,7 @@ import vanson.dev.movieapp.adapter.MovieAdapter
 import vanson.dev.movieapp.adapter.SliderPagerAdapter
 import vanson.dev.movieapp.data.api.TheMovieDBClient
 import vanson.dev.movieapp.data.api.TheMovieDBInterface
-import vanson.dev.movieapp.data.models.movie_details.Movie
+import vanson.dev.movieapp.data.models.movie.Movie
 import vanson.dev.movieapp.data.repository.NetworkState
 import vanson.dev.movieapp.data.repository.TypeMovie
 import vanson.dev.movieapp.models.Slide

@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_cast.view.*
 import vanson.dev.movieapp.R
 import vanson.dev.movieapp.data.api.POSTER_BASE_URL
-import vanson.dev.movieapp.data.models.movie_details.Cast
+import vanson.dev.movieapp.data.models.movie.Cast
 import vanson.dev.movieapp.utils.DiffCallBack
 import vanson.dev.movieapp.utils.MovieItemClickListener
 import vanson.dev.movieapp.utils.loadPhotoImage

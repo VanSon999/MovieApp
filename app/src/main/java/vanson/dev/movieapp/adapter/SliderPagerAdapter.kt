@@ -1,23 +1,18 @@
 package vanson.dev.movieapp.adapter
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.slide_item.view.*
 import vanson.dev.movieapp.R
 import vanson.dev.movieapp.data.api.POSTER_BASE_URL
-import vanson.dev.movieapp.data.models.movie_details.Movie
-import vanson.dev.movieapp.models.Slide
+import vanson.dev.movieapp.data.models.movie.Movie
 import vanson.dev.movieapp.utils.DiffCallBack
 import vanson.dev.movieapp.utils.MovieItemClickListener
 import vanson.dev.movieapp.utils.loadBackImage
-import vanson.dev.movieapp.view_model.player.MoviePlayerActivity
 
 class SliderPagerAdapter(private val listener: MovieItemClickListener) :
     RecyclerView.Adapter<SliderPagerAdapter.ViewHolder>() {

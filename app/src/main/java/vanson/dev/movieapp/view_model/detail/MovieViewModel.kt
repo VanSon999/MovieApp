@@ -4,8 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import vanson.dev.movieapp.data.repository.NetworkState
-import vanson.dev.movieapp.data.models.movie_details.MovieDetails
-import vanson.dev.movieapp.view_model.detail.MovieDetailsRepository
+import vanson.dev.movieapp.data.models.movie.MovieDetails
 
 class MovieViewModel(private val movieRepository: MovieDetailsRepository, movieId: Int): ViewModel() {
     private val compositeDisposable = CompositeDisposable()

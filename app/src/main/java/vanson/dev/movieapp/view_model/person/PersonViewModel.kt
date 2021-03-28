@@ -3,7 +3,7 @@ package vanson.dev.movieapp.view_model.person
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import vanson.dev.movieapp.data.models.movie_details.PersonDetails
+import vanson.dev.movieapp.data.models.person.PersonDetails
 import vanson.dev.movieapp.data.repository.NetworkState
 
 class PersonViewModel(private val personRepository: PersonRepository, personId: Int): ViewModel() {

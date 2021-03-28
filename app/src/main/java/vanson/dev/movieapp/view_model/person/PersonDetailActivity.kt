@@ -10,10 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.activity_person_detail.*
 import vanson.dev.movieapp.R
 import vanson.dev.movieapp.data.api.TheMovieDBClient
-import vanson.dev.movieapp.data.models.movie_details.PersonDetails
+import vanson.dev.movieapp.data.models.person.PersonDetails
 import vanson.dev.movieapp.data.repository.NetworkState
 import vanson.dev.movieapp.utils.loadPersonImage
-import vanson.dev.movieapp.view_model.home.HomeViewModel
 
 class PersonDetailActivity : AppCompatActivity() {
     private lateinit var personRepository: PersonRepository

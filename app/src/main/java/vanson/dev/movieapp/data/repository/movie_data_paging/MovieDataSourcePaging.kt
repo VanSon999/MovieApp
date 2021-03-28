@@ -1,13 +1,12 @@
 package vanson.dev.movieapp.data.repository.movie_data_paging
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import vanson.dev.movieapp.data.api.FIRST_PAGE
-import vanson.dev.movieapp.data.models.movie_details.Movie
+import vanson.dev.movieapp.data.models.movie.Movie
 import vanson.dev.movieapp.data.models.new_popular_top.Movies
 import vanson.dev.movieapp.data.repository.NetworkState
 

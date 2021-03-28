@@ -1,4 +1,4 @@
-package vanson.dev.movieapp.data.models.movie_details
+package vanson.dev.movieapp.data.models.movie
 
 
 import com.google.gson.annotations.SerializedName

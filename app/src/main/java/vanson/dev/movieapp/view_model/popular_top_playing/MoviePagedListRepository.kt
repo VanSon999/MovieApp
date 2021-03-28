@@ -7,7 +7,7 @@ import androidx.paging.PagedList
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import vanson.dev.movieapp.data.api.POST_PER_PAGE
 import vanson.dev.movieapp.data.api.TheMovieDBInterface
-import vanson.dev.movieapp.data.models.movie_details.Movie
+import vanson.dev.movieapp.data.models.movie.Movie
 import vanson.dev.movieapp.data.repository.movie_data_paging.MovieDataSourcePaging
 import vanson.dev.movieapp.data.repository.movie_data_paging.MovieDataSourcePagingFactory
 import vanson.dev.movieapp.data.repository.NetworkState

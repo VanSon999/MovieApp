@@ -2,7 +2,7 @@ package vanson.dev.movieapp.data.models.new_popular_top
 
 
 import com.google.gson.annotations.SerializedName
-import vanson.dev.movieapp.data.models.movie_details.Movie
+import vanson.dev.movieapp.data.models.movie.Movie
 
 data class Movies(
     @SerializedName("page")

@@ -21,10 +21,10 @@ import vanson.dev.movieapp.adapter.MovieAdapter
 import vanson.dev.movieapp.data.api.POSTER_BASE_URL
 import vanson.dev.movieapp.data.api.TheMovieDBClient
 import vanson.dev.movieapp.data.api.TheMovieDBInterface
-import vanson.dev.movieapp.data.models.movie_details.Cast
+import vanson.dev.movieapp.data.models.movie.Cast
 import vanson.dev.movieapp.data.repository.NetworkState
-import vanson.dev.movieapp.data.models.movie_details.Movie
-import vanson.dev.movieapp.data.models.movie_details.MovieDetails
+import vanson.dev.movieapp.data.models.movie.Movie
+import vanson.dev.movieapp.data.models.movie.MovieDetails
 import vanson.dev.movieapp.utils.MovieItemClickListener
 import vanson.dev.movieapp.utils.loadBackImage
 import vanson.dev.movieapp.utils.loadPosterImage

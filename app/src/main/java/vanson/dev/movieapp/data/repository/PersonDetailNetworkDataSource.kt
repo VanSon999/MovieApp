@@ -6,8 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import vanson.dev.movieapp.data.api.TheMovieDBInterface
-import vanson.dev.movieapp.data.models.movie_details.MovieDetails
-import vanson.dev.movieapp.data.models.movie_details.PersonDetails
+import vanson.dev.movieapp.data.models.person.PersonDetails
 
 class PersonDetailNetworkDataSource (
     private val apiService: TheMovieDBInterface,

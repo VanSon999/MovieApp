@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import vanson.dev.movieapp.data.models.movie_details.Movie
+import vanson.dev.movieapp.data.models.movie.Movie
 import vanson.dev.movieapp.data.repository.NetworkState
 
 class MoviePageViewModel(private val movieRepository: MoviePagedListRepository): ViewModel() {

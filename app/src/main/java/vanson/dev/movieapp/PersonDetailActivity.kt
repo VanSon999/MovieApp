@@ -2,19 +2,26 @@ package vanson.dev.movieapp
 
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_person_detail.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import vanson.dev.movieapp.Adapters.ProfileImageAdapter
 import vanson.dev.movieapp.Client.RetrofitClient
 import vanson.dev.movieapp.Interfaces.RetrofitService
 import vanson.dev.movieapp.Models.PersonDetails
+import vanson.dev.movieapp.Models.PersonImages
+import vanson.dev.movieapp.Models.ProfileImage
 import vanson.dev.movieapp.Utils.loadPersonImage
 
 class PersonDetailActivity : AppCompatActivity() {
     private lateinit var mRetrofitService: RetrofitService
+    private lateinit var mAdapter: ProfileImageAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +32,7 @@ class PersonDetailActivity : AppCompatActivity() {
             Toast.makeText(this, "Please select person you want to see!", Toast.LENGTH_SHORT).show()
             finish()
         }
-
+        // get data---------------------------------------------------------------------
         mRetrofitService = RetrofitClient.getClient().create(RetrofitService::class.java)
         val personDetailsCall = mRetrofitService.getPersonDetailsById(idPerson, BuildConfig.API_KEY)
         personDetailsCall.enqueue(object : Callback<PersonDetails>{
@@ -40,6 +47,34 @@ class PersonDetailActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<PersonDetails>, t: Throwable) {
                 Toast.makeText(this@PersonDetailActivity, "Any details not found", Toast.LENGTH_SHORT).show()
+            }
+
+        })
+
+        //init adapter ------------------------------------------------------------------
+//        mAdapter = ProfileImageAdapter(this, listOf())
+//        recycler_person_profile_images.adapter = mAdapter
+        recycler_person_profile_images.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
+        val profileImagesCall = mRetrofitService.getProfileImagesPerson(idPerson, BuildConfig.API_KEY)
+        profileImagesCall.enqueue(object : Callback<PersonImages>{
+            override fun onResponse(call: Call<PersonImages>, response: Response<PersonImages>) {
+                val data = response.body()
+                if(data != null && data.profileImages.isNotEmpty()){
+                    person_detail_images_layout.visibility = View.VISIBLE
+                    mAdapter = ProfileImageAdapter(this@PersonDetailActivity, data.profileImages)
+                    recycler_person_profile_images.adapter = mAdapter
+
+                    //create animation for recycler view
+                    recycler_person_profile_images.layoutAnimation = AnimationUtils.loadLayoutAnimation(this@PersonDetailActivity, R.anim.layout_slide_right)
+                    recycler_person_profile_images.scheduleLayoutAnimation()
+                }else{
+                    person_detail_images_layout.visibility = View.GONE
+                }
+            }
+
+            override fun onFailure(call: Call<PersonImages>, t: Throwable) {
+                TODO("Not yet implemented")
             }
 
         })
@@ -103,7 +138,7 @@ class PersonDetailActivity : AppCompatActivity() {
         }
 
         if(biography.isNotEmpty()){
-            person_detail_biography.text = department
+            person_detail_biography.text = biography
             person_detail_biography_layout.visibility = View.VISIBLE
         }else{
             person_detail_biography_layout.visibility = View.GONE

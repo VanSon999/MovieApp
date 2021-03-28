@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="vanson.dev.movieapp" >
+    package="vanson.dev.movieapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -12,16 +12,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MovieApp"
-        android:usesCleartextTraffic="true" >
-        <activity android:name=".view_model.image_profile_viewer.ImageViewerActivity" >
-        </activity>
+        android:usesCleartextTraffic="true">
+        <activity android:name=".view_model.person.ImageViewerActivity"></activity>
+        <activity android:name=".view_model.common.ImageViewerActivity"></activity>
         <activity android:name=".view_model.person.PersonDetailActivity" />
         <activity android:name=".view_model.popular_top_playing.MoviesActivity" />
         <activity
             android:name=".view_model.player.MoviePlayerActivity"
             android:screenOrientation="landscape" />
         <activity android:name=".view_model.detail.MovieDetailActivity" />
-        <activity android:name=".view_model.home.HomeActivity" >
+        <activity android:name=".view_model.home.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

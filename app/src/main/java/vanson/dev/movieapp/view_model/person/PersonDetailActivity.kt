@@ -1,22 +1,31 @@
 package vanson.dev.movieapp.view_model.person
 
+import android.app.ActivityOptions
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.Toast
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_person_detail.*
 import vanson.dev.movieapp.R
+import vanson.dev.movieapp.adapter.ProfileImageAdapter
 import vanson.dev.movieapp.data.api.TheMovieDBClient
 import vanson.dev.movieapp.data.models.person.PersonDetails
+import vanson.dev.movieapp.data.models.person.ProfileImage
 import vanson.dev.movieapp.data.repository.NetworkState
+import vanson.dev.movieapp.utils.ImageProfileClickListener
 import vanson.dev.movieapp.utils.loadPersonImage
 
-class PersonDetailActivity : AppCompatActivity() {
+class PersonDetailActivity : AppCompatActivity(), ImageProfileClickListener {
     private lateinit var personRepository: PersonRepository
     private lateinit var mViewModel: PersonViewModel
+    private lateinit var mAdapter: ProfileImageAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,12 +37,28 @@ class PersonDetailActivity : AppCompatActivity() {
             Toast.makeText(this, "Please select person you want to see!", Toast.LENGTH_SHORT).show()
             finish()
         }
+
+        //prepare adapter
+        mAdapter = ProfileImageAdapter(this)
+        recycler_person_profile_images.adapter = mAdapter
+        recycler_person_profile_images.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
+        //get data and bind ui
         val apiService = TheMovieDBClient.getClient()
         personRepository = PersonRepository(apiService)
         mViewModel = createViewModelFactory(personId)
 
-        mViewModel.personDetail.observe(this, Observer {
+        mViewModel.personDetail.first.observe(this, Observer {
             bindUI(it)
+        })
+
+        mViewModel.personDetail.second.observe(this, Observer {
+            if(it != null){
+                person_detail_images_layout.visibility = View.VISIBLE
+                mAdapter.updateProfileImages(it.profileImages)
+            }else{
+                person_detail_images_layout.visibility = View.GONE
+            }
         })
 
         mViewModel.networkState.observe(this, Observer {
@@ -102,7 +127,7 @@ class PersonDetailActivity : AppCompatActivity() {
         }
 
         if(biography.isNotEmpty()){
-            person_detail_biography.text = department
+            person_detail_biography.text = biography
             person_detail_biography_layout.visibility = View.VISIBLE
         }else{
             person_detail_biography_layout.visibility = View.GONE
@@ -120,5 +145,12 @@ class PersonDetailActivity : AppCompatActivity() {
     override fun finish() {
         super.finish()
         overridePendingTransition(R.anim.slide_up, R.anim.slide_down)
+    }
+
+    override fun onImageProfileClick(imageProfile: ProfileImage, imageView: AppCompatImageView) {
+        val intent = Intent(this, ImageViewerActivity::class.java)
+        intent.putExtra("url_image", imageProfile.filePath)
+        val options = ActivityOptions.makeSceneTransitionAnimation(this, imageView, "image_transition")
+        startActivity(intent, options.toBundle())
     }
 }

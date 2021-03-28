@@ -3,8 +3,11 @@ package vanson.dev.movieapp.utils
 import android.app.Activity
 import android.view.View
 import android.widget.ImageView
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.core.widget.ImageViewCompat
 import com.bumptech.glide.Glide
 import com.flaviofaria.kenburnsview.KenBurnsView
+import com.jsibbold.zoomage.ZoomageView
 import vanson.dev.movieapp.R
 
 private fun View.ifNotDestroyed(block: () -> Unit) {
@@ -32,6 +35,18 @@ fun ImageView.loadBackImage(url: String) = ifNotDestroyed {
 }
 
 fun KenBurnsView.loadPersonImage(url: String?) = ifNotDestroyed {
+    Glide.with(this).load("https://image.tmdb.org/t/p/w500$url").placeholder(
+        R.drawable.default_avatar
+    ).into(this)
+}
+
+fun ZoomageView.loadImage(url: String?) = ifNotDestroyed {
+    Glide.with(this).load("https://image.tmdb.org/t/p/w500$url").placeholder(
+        R.drawable.default_avatar
+    ).into(this)
+}
+
+fun AppCompatImageView.loadProfileImage(url: String?) = ifNotDestroyed{
     Glide.with(this).load("https://image.tmdb.org/t/p/w500$url").placeholder(
         R.drawable.default_avatar
     ).into(this)

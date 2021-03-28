@@ -24,5 +24,5 @@ interface TheMovieDBInterface {
     @GET("person/{person_id}")
     fun getDetailPerson(@Path("person_id") id: Int): Single<PersonDetails>
     @GET("person/{person_id}/images")
-    fun getProfileImagesPerson(@Path("person_id") person_id: Int, @Query("api_key") api_key: String):Single<PersonImages>
+    fun getProfileImagesPerson(@Path("person_id") person_id: Int):Single<PersonImages>
 }

@@ -10,9 +10,9 @@
     <com.github.florent37.diagonallayout.DiagonalLayout
         android:id="@+id/person_detail_diagonal_view"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="250dp"
         android:background="#ffffff"
-        app:diagonal_angle="6"
+        app:diagonal_angle="8"
         app:diagonal_direction="right"
         app:diagonal_position="bottom">
 
@@ -53,7 +53,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/drop_shadow_2"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="5dp">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"

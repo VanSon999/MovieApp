@@ -4,12 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import vanson.dev.movieapp.data.models.person.PersonDetails
+import vanson.dev.movieapp.data.models.person.PersonImages
 import vanson.dev.movieapp.data.repository.NetworkState
 
 class PersonViewModel(private val personRepository: PersonRepository, personId: Int): ViewModel() {
     private val compositeDisposable = CompositeDisposable()
 
-    val personDetail: LiveData<PersonDetails> by lazy {
+    val personDetail: Pair<LiveData<PersonDetails>, LiveData<PersonImages>> by lazy {
         personRepository.fetchSinglePersonDetail(compositeDisposable, personId)
     }
 

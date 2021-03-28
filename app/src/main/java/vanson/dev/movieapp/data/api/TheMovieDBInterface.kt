@@ -7,6 +7,7 @@ import retrofit2.http.Query
 import vanson.dev.movieapp.data.models.movie.MovieDetails
 import vanson.dev.movieapp.data.models.person.PersonDetails
 import vanson.dev.movieapp.data.models.new_popular_top.Movies
+import vanson.dev.movieapp.data.models.person.PersonImages
 import vanson.dev.movieapp.data.models.trailers.TrailersMovie
 
 interface TheMovieDBInterface {
@@ -22,4 +23,6 @@ interface TheMovieDBInterface {
     fun getNewMovie(@Query("page") page: Int = 1): Single<Movies>
     @GET("person/{person_id}")
     fun getDetailPerson(@Path("person_id") id: Int): Single<PersonDetails>
+    @GET("person/{person_id}/images")
+    fun getProfileImagesPerson(@Path("person_id") person_id: Int, @Query("api_key") api_key: String):Single<PersonImages>
 }

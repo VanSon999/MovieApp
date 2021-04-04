@@ -75,7 +75,7 @@ class HomeActivity : AppCompatActivity() {
                 if(source == "movie"){
                     val moviesResponse = Gson().fromJson(results, MoviesResponse::class.java)
                     if(moviesResponse != null){
-                        movieSearchAdapter = MovieSearchAdapter(moviesResponse.movies)
+                        movieSearchAdapter = MovieSearchAdapter(this, moviesResponse.movies)
                         results_recycler_view.adapter = movieSearchAdapter
                         //save results to paper database to access offline
                         Paper.book().write("cache", Gson().toJson(moviesResponse))
@@ -112,7 +112,7 @@ class HomeActivity : AppCompatActivity() {
                                 ) {
                                     val movieResponse = response.body()
                                     if(movieResponse != null){
-                                        movieSearchAdapter = MovieSearchAdapter(movieResponse.movies)
+                                        movieSearchAdapter = MovieSearchAdapter(this@HomeActivity, movieResponse.movies)
                                         results_recycler_view.adapter = movieSearchAdapter
                                         //save results to paper database to access offline
                                         Paper.book().write("cache", Gson().toJson(movieResponse))

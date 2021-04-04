@@ -16,7 +16,6 @@ import vanson.dev.movieapp.Client.RetrofitClient
 import vanson.dev.movieapp.Interfaces.RetrofitService
 import vanson.dev.movieapp.Models.PersonDetails
 import vanson.dev.movieapp.Models.PersonImages
-import vanson.dev.movieapp.Models.ProfileImage
 import vanson.dev.movieapp.Utils.loadPersonImage
 
 class PersonDetailActivity : AppCompatActivity() {
@@ -96,7 +95,7 @@ class PersonDetailActivity : AppCompatActivity() {
         }
 
         if(alsoKnownAs.isNotEmpty()){
-            person_detail_also_known_as.text = alsoKnownAs.joinToString(",")
+            person_detail_also_known_as.text = alsoKnownAs.joinToString(", ")
             person_detail_also_known_as_layout.visibility = View.VISIBLE
         }else{
             person_detail_also_known_as_layout.visibility = View.GONE

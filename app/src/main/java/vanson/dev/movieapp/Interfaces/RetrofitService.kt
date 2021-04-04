@@ -19,4 +19,7 @@ interface RetrofitService {
 
     @GET("person/{person_id}/images")
     fun getProfileImagesPerson(@Path("person_id") person_id: Int, @Query("api_key") api_key: String):Call<PersonImages>
+
+    @GET("movie/{movie_id}")
+    fun getMovieDetailById(@Path("movie_id") movie_id: Int, @Query("api_key") api_key: String):Call<MovieDetail>
 }

@@ -120,7 +120,7 @@ class PersonDetailActivity : AppCompatActivity(), ImageProfileClickListener {
         }
 
         if(homePage != null && homePage.isNotEmpty()){
-            person_detail_homepage.text = department
+            person_detail_homepage.text = homePage
             person_detail_homepage_layout.visibility = View.VISIBLE
         }else{
             person_detail_homepage_layout.visibility = View.GONE

@@ -1,15 +1,20 @@
 package vanson.dev.movieapp
 
+import android.app.ActivityOptions
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_movie_detail.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import vanson.dev.movieapp.Adapters.MovieCreditCrewAdapter
 import vanson.dev.movieapp.Client.RetrofitClient
 import vanson.dev.movieapp.Interfaces.RetrofitService
+import vanson.dev.movieapp.Models.CreditMovie
 import vanson.dev.movieapp.Models.MovieDetail
 import vanson.dev.movieapp.Utils.loadPersonImage
 import vanson.dev.movieapp.Utils.loadProfileImage
@@ -26,6 +31,9 @@ class MovieDetailActivity : AppCompatActivity() {
             Toast.makeText(this, "Please select movie you want to see!", Toast.LENGTH_SHORT).show()
             finish()
         }
+
+        recycler_movie_casts.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        recycler_movie_crews.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
         mRetrofitService = RetrofitClient.getClient().create(RetrofitService::class.java)
         val movieDetailCall = mRetrofitService.getMovieDetailById(idMovie, BuildConfig.API_KEY)
@@ -50,8 +58,50 @@ class MovieDetailActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
-
         })
+
+        val movieCreditCall = mRetrofitService.getMovieCreditsById(idMovie, BuildConfig.API_KEY)
+        movieCreditCall.enqueue(object : Callback<CreditMovie> {
+            override fun onResponse(call: Call<CreditMovie>, response: Response<CreditMovie>) {
+                val creditsMovie = response.body()
+                if (creditsMovie != null) {
+                    prepareCredits(creditsMovie)
+                } else {
+                    Toast.makeText(
+                        this@MovieDetailActivity,
+                        "Any details not found",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
+            override fun onFailure(call: Call<CreditMovie>, t: Throwable) {
+                Toast.makeText(
+                    this@MovieDetailActivity,
+                    "Any details not found",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
+    }
+
+    private fun prepareCredits(creditsMovie: CreditMovie) {
+        val casts = creditsMovie.cast
+        val crews = creditsMovie.crew
+
+//        if(casts.isNullOrEmpty()){
+//            movie_detail_casts_layout.visibility = View.GONE
+//        }else{
+//            movie_detail_casts_layout.visibility = View.VISIBLE
+//
+//        }
+
+        if(crews.isNullOrEmpty()){
+            movie_detail_crews_layout.visibility = View.GONE
+        }else{
+            movie_detail_crews_layout.visibility = View.VISIBLE
+            recycler_movie_crews.adapter = MovieCreditCrewAdapter(this, crews)
+        }
     }
 
     private fun prepareMovieDetail(movieDetail: MovieDetail) {
@@ -157,6 +207,19 @@ class MovieDetailActivity : AppCompatActivity() {
         }else{
             overview_layout.visibility = View.VISIBLE
             overview.text = overview_
+        }
+
+        movie_detail_profile_image_view.setOnClickListener {
+            val intent = Intent(this, ImageViewerActivity::class.java)
+            intent.putExtra("url_image", movieDetail.backdropPath)
+            startActivity(intent)
+        }
+
+        movie_detail_poster_circle_image.setOnClickListener {
+            val intent = Intent(this, ImageViewerActivity::class.java)
+            intent.putExtra("url_image", movieDetail.posterPath)
+            val options = ActivityOptions.makeSceneTransitionAnimation(this, it, "image_transition")
+            startActivity(intent, options.toBundle())
         }
     }
 

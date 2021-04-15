@@ -101,18 +101,18 @@ class PersonDetailActivity : AppCompatActivity() {
             person_detail_also_known_as_layout.visibility = View.GONE
         }
 
-        if(birthDay.isNotEmpty()){
+        if(birthDay.isNullOrEmpty()){
+            person_detail_birthday_layout.visibility = View.GONE
+        }else{
             person_detail_birthday.text = birthDay
             person_detail_birthday_layout.visibility = View.VISIBLE
-        }else{
-            person_detail_birthday_layout.visibility = View.GONE
         }
 
-        if(placeOfBirthDay.isNotEmpty()){
+        if(placeOfBirthDay.isNullOrEmpty()){
+            person_detail_place_of_birth_layout.visibility = View.GONE
+        }else{
             person_detail_place_of_birth.text = placeOfBirthDay
             person_detail_place_of_birth_layout.visibility = View.VISIBLE
-        }else{
-            person_detail_place_of_birth_layout.visibility = View.GONE
         }
 
         if(deathDay != null && deathDay.isNotEmpty()){

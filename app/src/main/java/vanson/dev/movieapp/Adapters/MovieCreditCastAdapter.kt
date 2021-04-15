@@ -2,17 +2,22 @@ package vanson.dev.movieapp.Adapters
 
 import android.app.Activity
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.credit_movie_layout.view.*
+import vanson.dev.movieapp.Models.Cast
 import vanson.dev.movieapp.Models.Crew
 import vanson.dev.movieapp.PersonDetailActivity
 import vanson.dev.movieapp.R
 import vanson.dev.movieapp.Utils.loadPersonImage
 
-class MovieCreditCrewAdapter(val activity: Activity, val data: List<Crew>) : RecyclerView.Adapter<MovieCreditCrewAdapter.ViewHolder>() {
+class MovieCreditCastAdapter(val activity: Activity, val data: List<Cast>) : RecyclerView.Adapter<MovieCreditCastAdapter.ViewHolder>() {
+//    private var maxHeightOn = 0;
+//    private var maxHeightBelow = 0;
+
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -24,7 +29,7 @@ class MovieCreditCrewAdapter(val activity: Activity, val data: List<Crew>) : Rec
         with(holder.itemView){
             credit_movie_image.loadPersonImage(data[position].profilePath)
             credit_name.text = data[position].originalName
-            credit_character.text = "Department: ${data[position].department}"
+            credit_character.text = "Character: ${data[position].character}"
             credit_layout.setOnClickListener {
                 val intent = Intent(context, PersonDetailActivity::class.java)
                 intent.putExtra("id_person", data[position].id)

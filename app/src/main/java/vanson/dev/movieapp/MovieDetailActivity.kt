@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.activity_movie_detail.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import vanson.dev.movieapp.Adapters.MovieCreditCastAdapter
 import vanson.dev.movieapp.Adapters.MovieCreditCrewAdapter
 import vanson.dev.movieapp.Client.RetrofitClient
 import vanson.dev.movieapp.Interfaces.RetrofitService
@@ -32,6 +33,7 @@ class MovieDetailActivity : AppCompatActivity() {
             finish()
         }
 
+//        recycler_movie_casts.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         recycler_movie_casts.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         recycler_movie_crews.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
@@ -89,12 +91,12 @@ class MovieDetailActivity : AppCompatActivity() {
         val casts = creditsMovie.cast
         val crews = creditsMovie.crew
 
-//        if(casts.isNullOrEmpty()){
-//            movie_detail_casts_layout.visibility = View.GONE
-//        }else{
-//            movie_detail_casts_layout.visibility = View.VISIBLE
-//
-//        }
+        if(casts.isNullOrEmpty()){
+            movie_detail_casts_layout.visibility = View.GONE
+        }else{
+            movie_detail_casts_layout.visibility = View.VISIBLE
+            recycler_movie_casts.adapter = MovieCreditCastAdapter(this, casts)
+        }
 
         if(crews.isNullOrEmpty()){
             movie_detail_crews_layout.visibility = View.GONE

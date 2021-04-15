@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_movie_detail.*
@@ -13,6 +14,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import vanson.dev.movieapp.Adapters.MovieCreditCastAdapter
 import vanson.dev.movieapp.Adapters.MovieCreditCrewAdapter
+import vanson.dev.movieapp.Adapters.MovieProductionsAdapter
 import vanson.dev.movieapp.Client.RetrofitClient
 import vanson.dev.movieapp.Interfaces.RetrofitService
 import vanson.dev.movieapp.Models.CreditMovie
@@ -34,8 +36,12 @@ class MovieDetailActivity : AppCompatActivity() {
         }
 
 //        recycler_movie_casts.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        recycler_movie_casts.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        recycler_movie_crews.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        recycler_movie_casts.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        recycler_movie_crews.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        recycler_movie_production.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
         mRetrofitService = RetrofitClient.getClient().create(RetrofitService::class.java)
         val movieDetailCall = mRetrofitService.getMovieDetailById(idMovie, BuildConfig.API_KEY)
@@ -91,18 +97,24 @@ class MovieDetailActivity : AppCompatActivity() {
         val casts = creditsMovie.cast
         val crews = creditsMovie.crew
 
-        if(casts.isNullOrEmpty()){
+        if (casts.isNullOrEmpty()) {
             movie_detail_casts_layout.visibility = View.GONE
-        }else{
+        } else {
             movie_detail_casts_layout.visibility = View.VISIBLE
             recycler_movie_casts.adapter = MovieCreditCastAdapter(this, casts)
+            recycler_movie_casts.layoutAnimation =
+                AnimationUtils.loadLayoutAnimation(this, R.anim.layout_slide_right)
+            recycler_movie_casts.scheduleLayoutAnimation()
         }
 
-        if(crews.isNullOrEmpty()){
+        if (crews.isNullOrEmpty()) {
             movie_detail_crews_layout.visibility = View.GONE
-        }else{
+        } else {
             movie_detail_crews_layout.visibility = View.VISIBLE
             recycler_movie_crews.adapter = MovieCreditCrewAdapter(this, crews)
+            recycler_movie_crews.layoutAnimation =
+                AnimationUtils.loadLayoutAnimation(this, R.anim.layout_slide_right)
+            recycler_movie_crews.scheduleLayoutAnimation()
         }
     }
 
@@ -122,93 +134,103 @@ class MovieDetailActivity : AppCompatActivity() {
         val releaseDate_ = movieDetail.releaseDate
         val overview_ = movieDetail.overview
         val homepage_ = movieDetail.homepage
-        val rating = (movieDetail.voteAverage*10).toInt()
-
+        val rating = (movieDetail.voteAverage * 10).toInt()
+        val productionCompany = movieDetail.productionCompanies
         movie_detail_title.text = title
         movie_detail_rating_bar.progress = rating
 
-        if(origin_title.isNullOrEmpty()){
+        if (origin_title.isNullOrEmpty()) {
             original_title_layout.visibility = View.GONE
-        }else{
+        } else {
             original_title_layout.visibility = View.VISIBLE
             original_title.text = origin_title
         }
 
-        if(origin_language.isNullOrEmpty()){
+        if (origin_language.isNullOrEmpty()) {
             original_language_layout.visibility = View.GONE
-        }else{
+        } else {
             original_language_layout.visibility = View.VISIBLE
             original_language.text = origin_language
         }
 
-        if(adult_ == null){
+        if (adult_ == null) {
             adult_layout.visibility = View.GONE
-        }else{
+        } else {
             adult_layout.visibility = View.VISIBLE
             adult.text = adult_.toString()
         }
 
-        if(status_.isNullOrEmpty()){
+        if (status_.isNullOrEmpty()) {
             status_layout.visibility = View.GONE
-        }else{
+        } else {
             status_layout.visibility = View.VISIBLE
             status.text = status_
         }
 
-        if(runtime_ == null){
+        if (runtime_ == null) {
             runtime_layout.visibility = View.GONE
-        }else{
+        } else {
             runtime_layout.visibility = View.VISIBLE
             runtime.text = runtime_.toString()
         }
 
-        if(budget_ == null){
+        if (budget_ == null) {
             budget_layout.visibility = View.GONE
-        }else{
+        } else {
             budget_layout.visibility = View.VISIBLE
             budget.text = "$$budget_"
         }
 
-        if(revenue_ == null){
+        if (revenue_ == null) {
             revenue_layout.visibility = View.GONE
-        }else{
+        } else {
             revenue_layout.visibility = View.VISIBLE
             revenue.text = "$$revenue_"
         }
 
-        if(genres_.isEmpty()){
+        if (genres_.isEmpty()) {
             genres_layout.visibility = View.GONE
-        }else{
+        } else {
             genres_layout.visibility = View.VISIBLE
-            genres.text = genres_.joinToString(", "){it.name}
+            genres.text = genres_.joinToString(", ") { it.name }
         }
 
-        if(productionCountries_.isEmpty()){
+        if (productionCountries_.isEmpty()) {
             production_country_layout.visibility = View.GONE
-        }else{
+        } else {
             production_country_layout.visibility = View.VISIBLE
-            production_country.text = productionCountries_.joinToString(", "){it.name}
+            production_country.text = productionCountries_.joinToString(", ") { it.name }
         }
 
-        if(releaseDate_.isNullOrEmpty()){
+        if (releaseDate_.isNullOrEmpty()) {
             release_date_layout.visibility = View.GONE
-        }else{
+        } else {
             release_date_layout.visibility = View.VISIBLE
             release_date.text = releaseDate_
         }
 
-        if(homepage_.isNullOrEmpty()){
+        if (homepage_.isNullOrEmpty()) {
             homepage_layout.visibility = View.GONE
-        }else{
+        } else {
             homepage_layout.visibility = View.VISIBLE
             homepage.text = homepage_
         }
 
-        if(overview_.isNullOrEmpty()){
+        if (overview_.isNullOrEmpty()) {
             overview_layout.visibility = View.GONE
-        }else{
+        } else {
             overview_layout.visibility = View.VISIBLE
             overview.text = overview_
+        }
+
+        if (productionCompany.isNullOrEmpty()) {
+            movie_detail_production_layout.visibility = View.GONE
+        } else {
+            movie_detail_production_layout.visibility = View.VISIBLE
+            recycler_movie_production.adapter = MovieProductionsAdapter(this, productionCompany)
+            recycler_movie_production.layoutAnimation =
+                AnimationUtils.loadLayoutAnimation(this, R.anim.layout_slide_right)
+            recycler_movie_production.scheduleLayoutAnimation()
         }
 
         movie_detail_profile_image_view.setOnClickListener {

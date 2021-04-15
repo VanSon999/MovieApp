@@ -7,14 +7,18 @@ import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.search_item.view.*
 import vanson.dev.movieapp.BuildConfig
 
-fun KenBurnsView.loadPersonImage(uri: String?){
+fun KenBurnsView.loadPersonImage(uri: String?) {
     Picasso.get().load(BuildConfig.BASE_URL_SEARCH + uri).into(this)
 }
 
-fun AppCompatImageView.loadProfileImage(uri: String?){
+fun KenBurnsView.loadBackGroundImage(uri: String?) {
     Picasso.get().load(BuildConfig.BASE_URL_SEARCH + uri).into(this)
 }
 
-fun CircleImageView.loadProfileImage(uri: String?){
+fun AppCompatImageView.loadProfileImage(uri: String?) {
+    Picasso.get().load(BuildConfig.BASE_URL_SEARCH + uri).into(this)
+}
+
+fun CircleImageView.loadProfileImage(uri: String?) {
     Picasso.get().load(BuildConfig.BASE_URL_SEARCH + uri).into(this)
 }

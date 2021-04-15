@@ -35,12 +35,13 @@ class MovieDetailActivity : AppCompatActivity() {
             finish()
         }
 
-//        recycler_movie_casts.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         recycler_movie_casts.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         recycler_movie_crews.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         recycler_movie_production.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        recycler_movie_images.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
         mRetrofitService = RetrofitClient.getClient().create(RetrofitService::class.java)

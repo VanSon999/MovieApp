@@ -1,11 +1,14 @@
 package vanson.dev.movieapp.Adapters
 
 import android.app.Activity
+import android.app.ActivityOptions
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.production_movie_layout.view.*
+import vanson.dev.movieapp.ImageViewerActivity
 import vanson.dev.movieapp.Models.ProductionCompany
 import vanson.dev.movieapp.R
 import vanson.dev.movieapp.Utils.loadBackGroundImage
@@ -23,6 +26,12 @@ class MovieProductionsAdapter(val activity: Activity, val data: List<ProductionC
         with(holder.itemView){
             production_company_movie_image.loadBackGroundImage(data[position].logoPath)
             production_company_name.text = data[position].name
+            setOnClickListener {
+                val intent = Intent(activity, ImageViewerActivity::class.java)
+                intent.putExtra("url_image", data[position].logoPath)
+                val options = ActivityOptions.makeSceneTransitionAnimation(activity, it, "image_transition")
+                activity.startActivity(intent, options.toBundle())
+            }
         }
     }
 

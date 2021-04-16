@@ -12,12 +12,15 @@ import kotlinx.android.synthetic.main.activity_movie_detail.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import vanson.dev.movieapp.Adapters.BackdropPosterMovieAdapter
 import vanson.dev.movieapp.Adapters.MovieCreditCastAdapter
 import vanson.dev.movieapp.Adapters.MovieCreditCrewAdapter
 import vanson.dev.movieapp.Adapters.MovieProductionsAdapter
 import vanson.dev.movieapp.Client.RetrofitClient
 import vanson.dev.movieapp.Interfaces.RetrofitService
+import vanson.dev.movieapp.Models.BackdropAndPoster
 import vanson.dev.movieapp.Models.CreditMovie
+import vanson.dev.movieapp.Models.ImagesMovie
 import vanson.dev.movieapp.Models.MovieDetail
 import vanson.dev.movieapp.Utils.loadPersonImage
 import vanson.dev.movieapp.Utils.loadProfileImage
@@ -92,6 +95,48 @@ class MovieDetailActivity : AppCompatActivity() {
                 ).show()
             }
         })
+
+        val movieImagesCall = mRetrofitService.getMovieImagesById(idMovie, BuildConfig.API_KEY)
+        movieImagesCall.enqueue(object : Callback<ImagesMovie> {
+            override fun onResponse(call: Call<ImagesMovie>, response: Response<ImagesMovie>) {
+                val imagesMovie = response.body()
+                if (imagesMovie != null) {
+                    prepareImages(imagesMovie)
+                } else {
+                    Toast.makeText(
+                        this@MovieDetailActivity,
+                        "Any details not found",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ImagesMovie>, t: Throwable) {
+                Toast.makeText(
+                    this@MovieDetailActivity,
+                    "Any details not found",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
+    }
+
+    private fun prepareImages(imagesMovie: ImagesMovie) {
+        val backdrops = imagesMovie.backdrops
+        val posters = imagesMovie.posters
+        val temp = arrayListOf<BackdropAndPoster>()
+        if (backdrops.isNotEmpty()) temp.addAll(backdrops)
+        if (posters.isNotEmpty()) temp.addAll(posters)
+
+        if (temp.isNotEmpty()) {
+            movie_detail_images_layout.visibility = View.VISIBLE
+            recycler_movie_images.adapter = BackdropPosterMovieAdapter(this, temp)
+            recycler_movie_images.layoutAnimation =
+                AnimationUtils.loadLayoutAnimation(this, R.anim.layout_slide_right)
+            recycler_movie_images.scheduleLayoutAnimation()
+        } else {
+            movie_detail_images_layout.visibility = View.GONE
+        }
     }
 
     private fun prepareCredits(creditsMovie: CreditMovie) {

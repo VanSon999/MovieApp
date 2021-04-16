@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="10dp"
+    app:cardCornerRadius="15dp"
+    app:cardElevation="10dp">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:orientation="horizontal">
+        <com.codewaves.youtubethumbnailview.ThumbnailView
+            android:id="@+id/video_image_view"
+            android:layout_width="140dp"
+            android:layout_height="match_parent"
+            app:youtube_timeVisible="true"
+            app:youtube_titleVisible="false"
+            app:youtube_timeColor="#fff"
+            app:youtube_timeBackgroundColor="#88000000"
+            app:youtube_timePaddingBottom="0dp"
+            app:youtube_timePaddingTop="0dp"
+            app:youtube_timePaddingLeft="5dp"
+            app:youtube_timePaddingRight="5dp"
+            app:youtube_timeMarginBottom="10dp"
+            app:youtube_timeMarginRight="10dp"
+            android:transitionName="video_transition"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="start"
+            android:layout_gravity="top"
+            android:fontFamily="@font/almendra_sc"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#000"
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.cardview.widget.CardView>

@@ -17,6 +17,7 @@ android {
         buildConfigField "String", "API_KEY", "\"${TheMovieDBAPIKEY}\""
         buildConfigField "String", "BASE_URL_IMAGE", "\"https://image.tmdb.org/t/p/original\""
         buildConfigField "String", "BASE_URL_SEARCH", "\"https://image.tmdb.org/t/p/w500\""
+        buildConfigField "String", "YOUTUBE_KEY",  "\"${GoogleCloudApiKey}\""
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -66,4 +67,7 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
     implementation group: 'com.github.lzyzsd.circleprogress', name: 'library', version: '1.2.0'
+
+    //youtube thumbnail
+    implementation 'com.codewaves.youtubethumbnailview:library:0.9.2'
 }

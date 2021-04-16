@@ -36,7 +36,7 @@
             android:fontFamily="@font/almendra_sc"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:textColor="#000"
+            android:textColor="#000"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.cardview.widget.CardView>

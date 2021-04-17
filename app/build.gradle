@@ -70,4 +70,7 @@ dependencies {
 
     //youtube thumbnail
     implementation 'com.codewaves.youtubethumbnailview:library:0.9.2'
+
+    //youtube player
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
 }

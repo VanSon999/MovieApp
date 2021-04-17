@@ -12,16 +12,10 @@ import kotlinx.android.synthetic.main.activity_movie_detail.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import vanson.dev.movieapp.Adapters.BackdropPosterMovieAdapter
-import vanson.dev.movieapp.Adapters.MovieCreditCastAdapter
-import vanson.dev.movieapp.Adapters.MovieCreditCrewAdapter
-import vanson.dev.movieapp.Adapters.MovieProductionsAdapter
+import vanson.dev.movieapp.Adapters.*
 import vanson.dev.movieapp.Client.RetrofitClient
 import vanson.dev.movieapp.Interfaces.RetrofitService
-import vanson.dev.movieapp.Models.BackdropAndPoster
-import vanson.dev.movieapp.Models.CreditMovie
-import vanson.dev.movieapp.Models.ImagesMovie
-import vanson.dev.movieapp.Models.MovieDetail
+import vanson.dev.movieapp.Models.*
 import vanson.dev.movieapp.Utils.loadPersonImage
 import vanson.dev.movieapp.Utils.loadProfileImage
 
@@ -46,6 +40,8 @@ class MovieDetailActivity : AppCompatActivity() {
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         recycler_movie_images.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        recycler_movie_videos.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         mRetrofitService = RetrofitClient.getClient().create(RetrofitService::class.java)
         val movieDetailCall = mRetrofitService.getMovieDetailById(idMovie, BuildConfig.API_KEY)
@@ -119,6 +115,44 @@ class MovieDetailActivity : AppCompatActivity() {
                 ).show()
             }
         })
+
+        val movieVideoCall = mRetrofitService.getMovieVideosById(idMovie, BuildConfig.API_KEY)
+        movieVideoCall.enqueue(object : Callback<MovieVideos> {
+            override fun onResponse(call: Call<MovieVideos>, response: Response<MovieVideos>) {
+                val movies = response.body()
+                if (movies != null) {
+                    prepareMovie(movies.videos)
+                } else {
+                    Toast.makeText(
+                        this@MovieDetailActivity,
+                        "Any details not found",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
+            override fun onFailure(call: Call<MovieVideos>, t: Throwable) {
+                Toast.makeText(
+                    this@MovieDetailActivity,
+                    "Any details not found",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
+
+    }
+
+    private fun prepareMovie(videos: List<Video>) {
+        val youtube = videos.filter { it.site == "YouTube" }
+        if (youtube.isNullOrEmpty()) {
+            movie_detail_videos_layout.visibility = View.GONE
+        } else {
+            movie_detail_videos_layout.visibility = View.VISIBLE
+            recycler_movie_videos.adapter = MovieVideoAdapter(this, youtube)
+            recycler_movie_videos.layoutAnimation =
+                AnimationUtils.loadLayoutAnimation(this, R.anim.layout_slide_right)
+            recycler_movie_videos.scheduleLayoutAnimation()
+        }
     }
 
     private fun prepareImages(imagesMovie: ImagesMovie) {

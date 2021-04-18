@@ -3,6 +3,7 @@ package vanson.dev.movieapp
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
@@ -12,7 +13,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerFullScreenListener
 import kotlinx.android.synthetic.main.activity_video_play.*
-import kotlinx.android.synthetic.main.video_item_layout.*
+import vanson.dev.movieapp.Adapters.MovieVideoAdapter
 import vanson.dev.movieapp.Models.Video
 import vanson.dev.movieapp.Utils.FullScreenHelper
 
@@ -34,9 +35,9 @@ class VideoPlayActivity : AppCompatActivity() {
             Toast.makeText(this, "No videos for this movie!", Toast.LENGTH_SHORT).show()
             finish()
         }else{
+            play_video_title.text = video.name
             video_thumbnailview.loadThumbnail("https://www.youtube.com/watch?v=" + video.key)
             video_player_view.enableAutomaticInitialization = false
-            if(isFullScreen) video_player_view.enterFullScreen()
             video_player_view.initialize(object : AbstractYouTubePlayerListener() {
                 override fun onReady(youTubePlayer: YouTubePlayer) {
                     super.onReady(youTubePlayer)
@@ -64,10 +65,14 @@ class VideoPlayActivity : AppCompatActivity() {
                     isFullScreen = false
                 }
             })
+            if(isFullScreen) video_player_view.enterFullScreen()
         }
-//        if(!others.isNullOrEmpty()){
-//            other_videos_recycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-//        }
+        if(!others.isNullOrEmpty()){
+            other_videos_recycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+            other_videos_recycler.adapter = MovieVideoAdapter(this, others)
+            other_videos_recycler.layoutAnimation = AnimationUtils.loadLayoutAnimation(this, R.anim.layout_slide_right)
+            other_videos_recycler.scheduleLayoutAnimation()
+        }
     }
 
     override fun onBackPressed() {

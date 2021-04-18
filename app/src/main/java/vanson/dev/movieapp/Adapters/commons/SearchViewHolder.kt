@@ -1,16 +1,13 @@
 package vanson.dev.movieapp.Adapters.commons
 
-import android.content.Context
-import android.content.Intent
 import android.view.View
 import android.view.animation.DecelerateInterpolator
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.flaviofaria.kenburnsview.RandomTransitionGenerator
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.search_item.view.*
 import vanson.dev.movieapp.BuildConfig
-import vanson.dev.movieapp.PersonDetailActivity
+import vanson.dev.movieapp.R
 
 class SearchViewHolder(view: View) :RecyclerView.ViewHolder(view) {
     init {
@@ -19,6 +16,7 @@ class SearchViewHolder(view: View) :RecyclerView.ViewHolder(view) {
     }
 
     fun loadPoster(uri: String?){
-        Picasso.get().load(BuildConfig.BASE_URL_SEARCH + uri).into(itemView.diagonal_image)
+        Picasso.get().load(BuildConfig.BASE_URL_SEARCH + uri).placeholder(R.drawable.no_image)
+            .into(itemView.diagonal_image)
     }
 }

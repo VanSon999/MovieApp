@@ -1,22 +1,18 @@
 package vanson.dev.movieapp
 
 import android.content.pm.ActivityInfo
-import android.graphics.ColorFilter
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.codewaves.youtubethumbnailview.ThumbnailLoader
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerFullScreenListener
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.loadOrCueVideo
 import kotlinx.android.synthetic.main.activity_video_play.*
+import kotlinx.android.synthetic.main.video_item_layout.*
 import vanson.dev.movieapp.Models.Video
 import vanson.dev.movieapp.Utils.FullScreenHelper
 
@@ -40,6 +36,7 @@ class VideoPlayActivity : AppCompatActivity() {
         }else{
             video_thumbnailview.loadThumbnail("https://www.youtube.com/watch?v=" + video.key)
             video_player_view.enableAutomaticInitialization = false
+            if(isFullScreen) video_player_view.enterFullScreen()
             video_player_view.initialize(object : AbstractYouTubePlayerListener() {
                 override fun onReady(youTubePlayer: YouTubePlayer) {
                     super.onReady(youTubePlayer)
@@ -58,17 +55,30 @@ class VideoPlayActivity : AppCompatActivity() {
                 override fun onYouTubePlayerEnterFullScreen() {
                     requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
                     fullScreenHelper.enterFullScreen()
+                    isFullScreen = true
                 }
 
                 override fun onYouTubePlayerExitFullScreen() {
                     requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
                     fullScreenHelper.exitFullScreen()
+                    isFullScreen = false
                 }
             })
         }
-        if(!others.isNullOrEmpty()){
-            other_videos_recycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-            Log.d("TAG", "onCreate: others : ${others.joinToString(",") { it.key }}")
+//        if(!others.isNullOrEmpty()){
+//            other_videos_recycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+//        }
+    }
+
+    override fun onBackPressed() {
+        if(isFullScreen){
+            video_player_view.exitFullScreen()
+        }else{
+            super.onBackPressed()
         }
+    }
+
+    companion object{
+        private var isFullScreen = false
     }
 }

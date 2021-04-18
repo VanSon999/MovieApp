@@ -23,6 +23,7 @@ class VideoPlayActivity : AppCompatActivity(), ExtraMovieVideoAdapter.Listener {
     private lateinit var mYoutubePlayer: YouTubePlayer
     private lateinit var mAdapter: ExtraMovieVideoAdapter
     private var mVideos: ArrayList<Video>? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_video_play)
@@ -34,15 +35,15 @@ class VideoPlayActivity : AppCompatActivity(), ExtraMovieVideoAdapter.Listener {
             0xFFFFFFFF.toInt(),
             android.graphics.PorterDuff.Mode.MULTIPLY
         )
-        val current = intent.getIntExtra("current_video", -1)
+        if(mCurrent == null) mCurrent = intent.getParcelableExtra<Video>("current_video")
         mVideos = intent.getParcelableArrayListExtra<Video>("videos")
 
-        if (current == -1 || mVideos.isNullOrEmpty()) {
+        if (mCurrent == null || mVideos.isNullOrEmpty()) {
             Toast.makeText(this, "No videos for this movie!", Toast.LENGTH_SHORT).show()
             finish()
         } else {
-            play_video_title.text = mVideos!![current].name
-            video_thumbnailview.loadThumbnail("https://www.youtube.com/watch?v=" + mVideos!![current].key)
+            play_video_title.text = mCurrent!!.name
+            video_thumbnailview.loadThumbnail("https://www.youtube.com/watch?v=" + mCurrent!!.key)
             video_player_view.enableAutomaticInitialization = false
             video_player_view.initialize(object : AbstractYouTubePlayerListener() {
                 override fun onReady(youTubePlayer: YouTubePlayer) {
@@ -53,9 +54,9 @@ class VideoPlayActivity : AppCompatActivity(), ExtraMovieVideoAdapter.Listener {
                     progress_bar.visibility = View.GONE
                     video_player_view.visibility = View.VISIBLE
                     if (lifecycle.currentState == Lifecycle.State.RESUMED) {
-                        youTubePlayer.loadVideo(mVideos!![current].key, 0F)
+                        youTubePlayer.loadVideo(mCurrent!!.key, 0F)
                     } else {
-                        youTubePlayer.cueVideo(mVideos!![current].key, 0F)
+                        youTubePlayer.cueVideo(mCurrent!!.key, 0F)
                     }
                 }
             }, true)
@@ -85,7 +86,7 @@ class VideoPlayActivity : AppCompatActivity(), ExtraMovieVideoAdapter.Listener {
                     LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
                 mAdapter = ExtraMovieVideoAdapter(this, this)
                 other_videos_recycler.adapter = mAdapter
-                mAdapter.updateData(mVideos!!.filter { it.id != mVideos!![current].id })
+                mAdapter.updateData(mVideos!!.filter { it.id != mCurrent!!.id })
                 other_videos_recycler.layoutAnimation =
                     AnimationUtils.loadLayoutAnimation(this, R.anim.layout_slide_bottom)
                 other_videos_recycler.scheduleLayoutAnimation()
@@ -97,16 +98,20 @@ class VideoPlayActivity : AppCompatActivity(), ExtraMovieVideoAdapter.Listener {
         if (isFullScreen) {
             video_player_view.exitFullScreen()
         } else {
+            mCurrent = null
             super.onBackPressed()
         }
     }
 
     companion object {
         private var isFullScreen = false
+        private var mCurrent: Video? = null
     }
 
     override fun changeVideoPlay(video: Video) {
+        mCurrent = video
         video_thumbnailview.loadThumbnail("https://www.youtube.com/watch?v=" + video.key)
+        play_video_title.text = video.name
         if (lifecycle.currentState == Lifecycle.State.RESUMED) {
             mYoutubePlayer.loadVideo(video.key, 0F)
         } else {

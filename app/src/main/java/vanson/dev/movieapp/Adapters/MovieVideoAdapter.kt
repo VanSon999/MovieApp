@@ -32,7 +32,7 @@ class MovieVideoAdapter(val activity: Activity, val data: List<Video>) :
             video_title.text = data[position].name
             setOnClickListener { view ->
                 val intent = Intent(activity, VideoPlayActivity::class.java)
-                intent.putExtra("current_video", position)
+                intent.putExtra("current_video", data[position])
                 intent.putParcelableArrayListExtra(
                     "videos",
                     ArrayList(data)

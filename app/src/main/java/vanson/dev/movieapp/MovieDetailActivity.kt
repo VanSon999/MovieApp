@@ -2,11 +2,11 @@ package vanson.dev.movieapp
 
 import android.app.ActivityOptions
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_movie_detail.*
 import retrofit2.Call
@@ -168,6 +168,7 @@ class MovieDetailActivity : AppCompatActivity() {
             recycler_movie_images.layoutAnimation =
                 AnimationUtils.loadLayoutAnimation(this, R.anim.layout_slide_right)
             recycler_movie_images.scheduleLayoutAnimation()
+
         } else {
             movie_detail_images_layout.visibility = View.GONE
         }

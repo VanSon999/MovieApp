@@ -2,6 +2,7 @@ package vanson.dev.movieapp.Utils
 
 import androidx.appcompat.widget.AppCompatImageView
 import com.flaviofaria.kenburnsview.KenBurnsView
+import com.jsibbold.zoomage.ZoomageView
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 import vanson.dev.movieapp.BuildConfig
@@ -24,5 +25,10 @@ fun AppCompatImageView.loadProfileImage(uri: String?) {
 
 fun CircleImageView.loadProfileImage(uri: String?) {
     Picasso.get().load(BuildConfig.BASE_URL_SEARCH + uri).placeholder(R.drawable.no_image)
+        .into(this)
+}
+
+fun ZoomageView.loadImage(uri: String?) {
+    Picasso.get().load(BuildConfig.BASE_URL_IMAGE + uri).placeholder(R.drawable.no_image)
         .into(this)
 }

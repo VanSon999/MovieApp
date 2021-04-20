@@ -11,6 +11,7 @@ import vanson.dev.movieapp.Adapters.commons.ImagesViewHolder
 import vanson.dev.movieapp.ImageViewerActivity
 import vanson.dev.movieapp.Models.ProfileImage
 import vanson.dev.movieapp.R
+import vanson.dev.movieapp.ScreenSlidePagerImageActivity
 import vanson.dev.movieapp.Utils.loadProfileImage
 
 class ProfileImageAdapter(val activity: Activity, data: List<ProfileImage>) : RecyclerView.Adapter<ImagesViewHolder>() {
@@ -25,8 +26,10 @@ class ProfileImageAdapter(val activity: Activity, data: List<ProfileImage>) : Re
         with(holder.itemView){
             image_profile.loadProfileImage(mData[position].filePath)
             image_profile.setOnClickListener {
-                val intent = Intent(activity, ImageViewerActivity::class.java)
-                intent.putExtra("url_image", mData[position].filePath)
+                val images = mData.map { it.filePath }
+                val intent = Intent(activity, ScreenSlidePagerImageActivity::class.java)
+                intent.putExtra("current_position", position)
+                intent.putExtra("images", images.toTypedArray())
                 val options = ActivityOptions.makeSceneTransitionAnimation(activity, it, "image_transition")
                 activity.startActivity(intent, options.toBundle())
             }

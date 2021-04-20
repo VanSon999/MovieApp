@@ -1,4 +1,4 @@
-package vanson.dev.movieapp
+ package vanson.dev.movieapp
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.codewaves.youtubethumbnailview.ThumbnailLoader
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerFullScreenListener
@@ -103,6 +104,10 @@ class VideoPlayActivity : AppCompatActivity(), ExtraMovieVideoAdapter.Listener {
         }
     }
 
+    override fun onPause() {
+        mYoutubePlayer.pause()
+        super.onPause()
+    }
     companion object {
         private var isFullScreen = false
         private var mCurrent: Video? = null

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="spinnerItems">
+        <item>By Movie</item>
+        <item>By Person</item>
+    </string-array>
+</resources>

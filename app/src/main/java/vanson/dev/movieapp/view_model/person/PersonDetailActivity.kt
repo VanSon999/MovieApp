@@ -2,13 +2,11 @@ package vanson.dev.movieapp.view_model.person
 
 import android.app.ActivityOptions
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.view.animation.AnimationUtils
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -48,22 +46,22 @@ class PersonDetailActivity : AppCompatActivity(), ImageProfileClickListener {
         personRepository = PersonRepository(apiService)
         mViewModel = createViewModelFactory(personId)
 
-        mViewModel.personDetail.first.observe(this, Observer {
+        mViewModel.personDetail.first.observe(this, {
             bindUI(it)
         })
 
-        mViewModel.personDetail.second.observe(this, Observer {
-            if(it != null){
+        mViewModel.personDetail.second.observe(this, {
+            if (it != null) {
                 person_detail_images_layout.visibility = View.VISIBLE
                 mAdapter.updateProfileImages(it.profileImages)
-            }else{
+            } else {
                 person_detail_images_layout.visibility = View.GONE
             }
         })
 
-        mViewModel.networkState.observe(this, Observer {
-            progress_bar.visibility = if(it == NetworkState.LOADING) View.VISIBLE else View.GONE
-            if(it == NetworkState.ERROR){
+        mViewModel.networkState.observe(this, {
+            progress_bar.visibility = if (it == NetworkState.LOADING) View.VISIBLE else View.GONE
+            if (it == NetworkState.ERROR) {
                 Toast.makeText(this, it.msg, Toast.LENGTH_LONG).show()
             }
         })
@@ -85,7 +83,7 @@ class PersonDetailActivity : AppCompatActivity(), ImageProfileClickListener {
         }
 
         if(alsoKnownAs.isNotEmpty()){
-            person_detail_also_known_as.text = alsoKnownAs.joinToString(",")
+            person_detail_also_known_as.text = alsoKnownAs.joinToString(", ")
             person_detail_also_known_as_layout.visibility = View.VISIBLE
         }else{
             person_detail_also_known_as_layout.visibility = View.GONE

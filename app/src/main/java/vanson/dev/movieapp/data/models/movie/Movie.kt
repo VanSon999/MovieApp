@@ -4,14 +4,14 @@ package vanson.dev.movieapp.data.models.movie
 import com.google.gson.annotations.SerializedName
 
 data class Movie(
-    @SerializedName("id")
-    val id: Int,
-    @SerializedName("poster_path")
-    val posterPath: String,
     @SerializedName("backdrop_path")
-    val backdropPath: String,
-    @SerializedName("title")
-    val title: String,
+    val backdropPath: String? = null,
+    @SerializedName("id")
+    val id: Int = 0,
+    @SerializedName("poster_path")
+    val posterPath: String? = null,
     @SerializedName("release_date")
-    val releaseDate: String = ""
+    val releaseDate: String = "",
+    @SerializedName("title")
+    val title: String = ""
 )

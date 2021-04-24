@@ -1,9 +1,8 @@
 package vanson.dev.movieapp.view_model.popular_top_playing
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -13,27 +12,39 @@ import vanson.dev.movieapp.adapter.MoviePagedListAdapter
 import vanson.dev.movieapp.data.api.TheMovieDBClient
 import vanson.dev.movieapp.data.repository.NetworkState
 import vanson.dev.movieapp.data.repository.TypeMovie
+import vanson.dev.movieapp.view_model.common.BaseActivity
 
-class MoviesActivity : AppCompatActivity() {
+class MoviesActivity : BaseActivity() {
     private lateinit var mViewModel: MoviePageViewModel
     private lateinit var mRepository: MoviePagedListRepository
+
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movies)
+        super.init(R.id.fragment_container_movies, movies_ui)
 
         val typeMovie: TypeMovie = intent.getSerializableExtra("type_list") as TypeMovie
         val apiService = TheMovieDBClient.getClient()
 
+        //set title for activity
+        when (typeMovie) {
+            TypeMovie.NOW_PLAYING -> titleActivity.text = "Now playing movies"
+            TypeMovie.POPULAR -> titleActivity.text = "Best popular movies"
+            TypeMovie.TOP_RATED -> titleActivity.text = "Top Rated"
+        }
+
+        //----------------------
         mRepository = MoviePagedListRepository(apiService, typeMovie)
         mViewModel = getViewModel()
 
         val movieAdapter = MoviePagedListAdapter(this)
         val gridLayoutManager = GridLayoutManager(this, 3)
 
-        gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup(){
+        gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 val viewType = movieAdapter.getItemViewType(position)
-                if(viewType == movieAdapter.MOVIE_VIEW_TYPE) return 1
+                if (viewType == movieAdapter.MOVIE_VIEW_TYPE) return 1
                 return 3
             }
         }
@@ -42,15 +53,17 @@ class MoviesActivity : AppCompatActivity() {
         rv_movies.setHasFixedSize(true)
         rv_movies.layoutManager = gridLayoutManager
 
-        mViewModel.moviePagedList.observe(this, Observer {
+        mViewModel.moviePagedList.observe(this, {
             movieAdapter.submitList(it)
         })
 
-        mViewModel.networkState.observe(this, Observer {
-            progress_bar_movies.visibility = if(mViewModel.listIsEmpty() && it == NetworkState.LOADING) View.VISIBLE else View.GONE
-            txt_error_popular.visibility = if(mViewModel.listIsEmpty() && it == NetworkState.ERROR) View.VISIBLE else View.GONE
+        mViewModel.networkState.observe(this, {
+            progress_bar_movies.visibility =
+                if (mViewModel.listIsEmpty() && it == NetworkState.LOADING) View.VISIBLE else View.GONE
+            txt_error_popular.visibility =
+                if (mViewModel.listIsEmpty() && it == NetworkState.ERROR) View.VISIBLE else View.GONE
 
-            if(!mViewModel.listIsEmpty()){
+            if (!mViewModel.listIsEmpty()) {
                 movieAdapter.setNetworkState(it)
             }
         })

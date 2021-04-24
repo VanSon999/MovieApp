@@ -4,6 +4,9 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/29ba4ae417ce5aacc9d4aec5aa9473bc/jetified-search-dialog-1.2.4/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/29ba4ae417ce5aacc9d4aec5aa9473bc/jetified-search-dialog-1.2.4/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/29ba4ae417ce5aacc9d4aec5aa9473bc/jetified-search-dialog-1.2.4/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c68d0eda4126ea1a7b46cb386503f9ae/jetified-search-dialog-1.2.4/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c68d0eda4126ea1a7b46cb386503f9ae/jetified-search-dialog-1.2.4/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c68d0eda4126ea1a7b46cb386503f9ae/jetified-search-dialog-1.2.4/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

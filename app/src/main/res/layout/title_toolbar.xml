@@ -1,0 +1,52 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/viewContactsToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/bottom_border_title_search">
+
+        <Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/back_to_home"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/ic_baseline_home_24"
+                    android:contentDescription="@string/imageview"/>
+
+                <TextView
+                    android:id="@+id/title_activity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10"
+                    tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sagittis aliquam malesuada bibendum arcu vitae. Porta non pulvinar neque laoreet suspendisse interdum consectetur libero id. At urna condimentum mattis pellentesque id nibh. Nisl nisi scelerisque eu ultrices vitae auctor eu augue ut. Lectus urna duis convallis convallis tellus id interdum velit. Cursus metus aliquam eleifend mi in. Venenatis a condimentum vitae sapien pellentesque habitant morbi. Est ultricies integer quis auctor elit sed. Orci sagittis eu volutpat odio facilisis mauris sit. Euismod elementum nisi quis eleifend quam adipiscing vitae proin. Non sodales neque sodales ut etiam. At ultrices mi tempus imperdiet nulla malesuada pellentesque. Nisi scelerisque eu ultrices vitae auctor eu. Odio aenean sed adipiscing diam donec adipiscing. Sed felis eget velit aliquet sagittis id consectetur purus ut. Imperdiet dui accumsan sit amet."
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp"
+                    android:ellipsize="end"
+                    android:maxLines="1"/>
+
+                <ImageView
+                    android:id="@+id/ivSearchIcon"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/imageview"
+                    android:src="@drawable/ic_baseline_search_24" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+</merge>

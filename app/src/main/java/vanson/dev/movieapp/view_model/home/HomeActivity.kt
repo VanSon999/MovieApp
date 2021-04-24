@@ -26,12 +26,13 @@ import vanson.dev.movieapp.data.repository.TypeMovie
 import vanson.dev.movieapp.models.Slide
 import vanson.dev.movieapp.utils.DataSource
 import vanson.dev.movieapp.utils.MovieItemClickListener
+import vanson.dev.movieapp.view_model.common.BaseActivity
 import vanson.dev.movieapp.view_model.detail.MovieDetailActivity
 import vanson.dev.movieapp.view_model.player.MoviePlayerActivity
 import vanson.dev.movieapp.view_model.popular_top_playing.MoviesActivity
 import java.util.*
 
-class HomeActivity : AppCompatActivity(), MovieItemClickListener {
+class HomeActivity : BaseActivity(), MovieItemClickListener {
     private lateinit var mViewModel: HomeViewModel
     private lateinit var mPopularAdapter: MovieAdapter
     private lateinit var mTopAdapter: MovieAdapter
@@ -41,8 +42,9 @@ class HomeActivity : AppCompatActivity(), MovieItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        supportActionBar?.hide()
 
+        super.init(R.id.fragment_container_home, home_ui)
+        backToHome.visibility = View.GONE
         //init repository
         val apiService: TheMovieDBInterface = TheMovieDBClient.getClient()
         homeRepository = HomeRepository(apiService)

@@ -30,6 +30,7 @@ data class MovieDetails(
     @SuppressLint("SimpleDateFormat")
     @JvmName("releaseDate")
     fun getReleaseDate(): String{
+        if(releaseDate.isEmpty()) return "updating..."
         val date = SimpleDateFormat("yyyy-MM-dd").parse(this.releaseDate)
         return SimpleDateFormat("dd/MM/yyyy").format(date)
     }

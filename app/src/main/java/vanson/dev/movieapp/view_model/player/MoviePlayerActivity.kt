@@ -164,7 +164,6 @@ class MoviePlayerActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
         setContentView(R.layout.activity_movie_player)
-        supportActionBar?.hide()
     }
 
     private fun showToast(msg: String) {

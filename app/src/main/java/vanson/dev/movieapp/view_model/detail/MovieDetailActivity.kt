@@ -8,7 +8,6 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -22,17 +21,17 @@ import vanson.dev.movieapp.data.api.POSTER_BASE_URL
 import vanson.dev.movieapp.data.api.TheMovieDBClient
 import vanson.dev.movieapp.data.api.TheMovieDBInterface
 import vanson.dev.movieapp.data.models.movie.Cast
-import vanson.dev.movieapp.data.repository.NetworkState
 import vanson.dev.movieapp.data.models.movie.Movie
 import vanson.dev.movieapp.data.models.movie.MovieDetails
+import vanson.dev.movieapp.data.repository.NetworkState
 import vanson.dev.movieapp.utils.MovieItemClickListener
 import vanson.dev.movieapp.utils.loadBackImage
 import vanson.dev.movieapp.utils.loadPosterImage
-import vanson.dev.movieapp.view_model.home.HomeActivity
+import vanson.dev.movieapp.view_model.common.BaseActivity
 import vanson.dev.movieapp.view_model.person.PersonDetailActivity
 import vanson.dev.movieapp.view_model.player.MoviePlayerActivity
 
-class MovieDetailActivity : AppCompatActivity(), MovieItemClickListener {
+class MovieDetailActivity : BaseActivity(), MovieItemClickListener {
     private lateinit var mViewModel: MovieViewModel
     private lateinit var movieRepository: MovieDetailsRepository
     private lateinit var mCastAdapter: CastAdapter
@@ -43,6 +42,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
+        super.init(R.id.fragment_container_movie_detail, detail_movie_ui)
 
         //Init request client and parameter
         val movieId = intent.getIntExtra("id_movie",271110)
@@ -73,11 +73,6 @@ class MovieDetailActivity : AppCompatActivity(), MovieItemClickListener {
         play_fab.setOnClickListener {
             val intent = Intent(this, MoviePlayerActivity::class.java)
             intent.putExtra("id_movie", movieId)
-            startActivity(intent)
-        }
-
-        back_to_home.setOnClickListener {
-            val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
         }
     }
@@ -123,7 +118,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieItemClickListener {
 
     @SuppressLint("SetTextI18n")
     private fun bindUi(info: MovieDetails) {
-        supportActionBar?.title = info.title
+        titleActivity.text = info.title
         detail_movie_title.text = info.title
         detail_movie_img.loadPosterImage(POSTER_BASE_URL + info.posterPath)
         detail_movie_cover.loadBackImage(POSTER_BASE_URL + info.backdropPath)

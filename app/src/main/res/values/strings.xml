@@ -22,4 +22,6 @@
     <string name="movieapp">MovieApp</string>
     <string name="search_movies">Search Movies</string>
     <string name="not_found">Not found!</string>
+    <string name="overview">Overview</string>
+    <string name="images_and_posters">Images and Posters</string>
 </resources>

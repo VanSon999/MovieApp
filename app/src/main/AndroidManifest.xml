@@ -13,6 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MovieApp"
         android:usesCleartextTraffic="true">
+        <activity android:name=".view_model.common.ScreenSlidePagerImageActivity" />
         <activity android:name=".view_model.common.ImageViewerActivity" />
         <activity android:name=".view_model.person.PersonDetailActivity" />
         <activity android:name=".view_model.popular_top_playing.MoviesActivity" />

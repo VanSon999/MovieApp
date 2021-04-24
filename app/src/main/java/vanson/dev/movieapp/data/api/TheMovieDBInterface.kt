@@ -14,7 +14,11 @@ import vanson.dev.movieapp.data.models.trailers.TrailersMovie
 
 interface TheMovieDBInterface {
     @GET("movie/{movie_id}?")
-    fun getMovieDetails(@Path("movie_id") id: Int, @Query("append_to_response") moreInfo: String = "casts,similar,recommendations"): Single<MovieDetails>
+    fun getMovieDetails(
+        @Path("movie_id") id: Int,
+        @Query("append_to_response") moreInfo: String = "casts,images,similar,recommendations"
+    ): Single<MovieDetails>
+
     @GET("movie/{movie_id}/videos")
     fun getTrailerMovie(@Path("movie_id") id: Int): Single<TrailersMovie>
 

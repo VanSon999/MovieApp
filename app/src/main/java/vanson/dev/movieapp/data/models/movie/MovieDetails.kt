@@ -24,6 +24,8 @@ data class MovieDetails(
     val similar: Similar,
     @SerializedName("title")
     val title: String,
+    @SerializedName("images")
+    val images: MovieImages = MovieImages(),
     @SerializedName("vote_average")
     val voteAverage: Double
 ){

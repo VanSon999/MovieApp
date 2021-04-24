@@ -39,6 +39,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    android:contentDescription="@string/imageview"
                     tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
                 <ImageView
@@ -48,6 +49,7 @@
                     app:layout_constraintBottom_toBottomOf="@id/detail_movie_cover"
                     app:layout_constraintEnd_toEndOf="@id/detail_movie_cover"
                     app:layout_constraintStart_toStartOf="@id/detail_movie_cover"
+                    android:contentDescription="@string/imageview"
                     app:layout_constraintTop_toTopOf="@id/detail_movie_cover" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -60,6 +62,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/detail_movie_cover"
                     app:layout_constraintTop_toTopOf="@+id/detail_movie_cover"
+                    android:contentDescription="@string/imageview"
+                    android:focusable="true"
                     app:srcCompat="@drawable/ic_baseline_play_arrow_24" />
 
                 <ImageView
@@ -72,6 +76,7 @@
                     app:layout_constraintBottom_toBottomOf="@+id/detail_movie_cover"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/detail_movie_cover"
+                    android:contentDescription="@string/imageview"
                     app:srcCompat="@drawable/movie_1" />
 
                 <TextView
@@ -149,7 +154,7 @@
                     android:layout_marginBottom="8dp"
                     android:background="@color/text_bg_blue"
                     android:padding="16dp"
-                    android:text="Overview"
+                    android:text="@string/overview"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -198,6 +203,33 @@
                     app:layout_constraintTop_toBottomOf="@id/text_view_2" />
 
                 <TextView
+                    android:id="@+id/text_view_5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@color/text_bg_blue"
+                    android:padding="16dp"
+                    android:text="@string/images_and_posters"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rv_cast"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_poster_backdrop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_5" />
+
+                <TextView
                     android:id="@+id/text_view_3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -211,7 +243,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/rv_cast"
+                    app:layout_constraintTop_toBottomOf="@id/rv_poster_backdrop"
                     app:layout_constraintVertical_bias="0.0" />
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -252,36 +284,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/text_view_4" />
 
-                <!--        <LinearLayout-->
-                <!--            android:id="@+id/back_to_home"-->
-                <!--            android:layout_width="0dp"-->
-                <!--            android:layout_height="wrap_content"-->
-                <!--            android:layout_marginStart="16dp"-->
-                <!--            android:layout_marginEnd="16dp"-->
-                <!--            android:layout_marginBottom="16dp"-->
-                <!--            android:padding="8dp"-->
-                <!--            android:gravity="center_horizontal"-->
-                <!--            android:orientation="horizontal"-->
-                <!--            android:background="@drawable/back_home_bg"-->
-                <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-                <!--            app:layout_constraintEnd_toEndOf="parent"-->
-                <!--            app:layout_constraintStart_toStartOf="parent"-->
-                <!--            app:layout_constraintTop_toBottomOf="@id/rv_similar">-->
-
-                <!--            <ImageView-->
-                <!--                android:layout_width="30dp"-->
-                <!--                android:layout_height="30dp"-->
-                <!--                android:layout_gravity="center_vertical"-->
-                <!--                android:src="@drawable/ic_baseline_home_24" />-->
-
-                <!--            <TextView-->
-                <!--                android:layout_width="wrap_content"-->
-                <!--                android:layout_height="wrap_content"-->
-                <!--                android:layout_gravity="center_vertical"-->
-                <!--                android:padding="8dp"-->
-                <!--                android:text="@string/back_to_home"-->
-                <!--                android:textColor="@color/white" />-->
-                <!--        </LinearLayout>-->
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
     </LinearLayout>

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_movie_detail.*
 import vanson.dev.movieapp.R
+import vanson.dev.movieapp.adapter.BackdropPosterMovieAdapter
 import vanson.dev.movieapp.adapter.CastAdapter
 import vanson.dev.movieapp.adapter.MovieAdapter
 import vanson.dev.movieapp.data.models.movie.Cast
@@ -32,6 +33,7 @@ class MovieDetailActivity : BaseActivity(), MovieItemClickListener {
     private lateinit var mViewModel: MovieViewModel
     private lateinit var movieRepository: MovieDetailsRepository
     private lateinit var mCastAdapter: CastAdapter
+    private lateinit var mImageAdapter: BackdropPosterMovieAdapter
     private lateinit var mRecommendAdapter: MovieAdapter
     private lateinit var mSimilarAdapter: MovieAdapter
 
@@ -103,6 +105,13 @@ class MovieDetailActivity : BaseActivity(), MovieItemClickListener {
                 layoutManagerCast.requestLayout()
             }
         })
+
+        //Setup Images Adapter
+        mImageAdapter = BackdropPosterMovieAdapter(this)
+        rv_poster_backdrop.adapter = mImageAdapter
+        rv_poster_backdrop.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
         //Setup Recommend Adapter
         mRecommendAdapter = MovieAdapter(this)
         rv_recommend.adapter = mRecommendAdapter
@@ -142,6 +151,9 @@ class MovieDetailActivity : BaseActivity(), MovieItemClickListener {
         rating_movie.text = info.voteAverage.toString() + "/10"
         release_date.text = info.getReleaseDate()
         mCastAdapter.updateCast(info.casts.cast)
+
+        val temp = info.images.backdrops + info.images.posters
+        mImageAdapter.updateData(temp)
         mRecommendAdapter.updateMovie(info.recommendations.movies)
         mSimilarAdapter.updateMovie(info.similar.movies)
     }
@@ -167,8 +179,6 @@ class MovieDetailActivity : BaseActivity(), MovieItemClickListener {
     override fun onCastClick(cast: Cast, castImage: ImageView) {
         val intent = Intent(this, PersonDetailActivity::class.java)
         intent.putExtra("id_person", cast.id)
-//        val options = ActivityOptions.makeSceneTransitionAnimation(this, castImage, "sharedName_2")
-//        startActivity(intent, options.toBundle())
         startActivity(intent)
         overridePendingTransition(R.anim.slide_up, R.anim.no_change)
     }

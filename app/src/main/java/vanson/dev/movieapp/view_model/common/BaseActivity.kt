@@ -14,6 +14,8 @@ import vanson.dev.movieapp.R
 import vanson.dev.movieapp.data.api.TheMovieDBClient
 import vanson.dev.movieapp.data.api.TheMovieDBInterface
 import vanson.dev.movieapp.view_model.home.HomeActivity
+import vanson.dev.movieapp.view_model.search.SearchFragment
+import vanson.dev.movieapp.view_model.search.SearchRepository
 
 open class BaseActivity : AppCompatActivity() {
     private lateinit var mFragment: SearchFragment

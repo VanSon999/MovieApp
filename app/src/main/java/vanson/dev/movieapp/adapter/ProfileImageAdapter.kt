@@ -1,6 +1,5 @@
 package vanson.dev.movieapp.adapter
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,10 +18,6 @@ class ProfileImageAdapter(val listener: ImageProfileClickListener) : RecyclerVie
     inner class ViewHolder(view : View) : RecyclerView.ViewHolder(view){
         init {
             itemView.setOnClickListener {
-//                val intent = Intent(activity, ImageViewerActivity::class.java)
-//                intent.putExtra("url_image", mData[adapterPosition].filePath)
-//                val options = ActivityOptions.makeSceneTransitionAnimation(activity, it, "image_transition")
-//                activity.startActivity(intent, options.toBundle())
                 listener.onImageProfileClick(mData[adapterPosition], it.image_profile)
             }
         }

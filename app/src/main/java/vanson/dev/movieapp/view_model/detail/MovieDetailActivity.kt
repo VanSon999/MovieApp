@@ -24,6 +24,7 @@ import vanson.dev.movieapp.utils.MovieItemClickListener
 import vanson.dev.movieapp.utils.loadBackImage
 import vanson.dev.movieapp.utils.loadPosterImage
 import vanson.dev.movieapp.view_model.common.BaseActivity
+import vanson.dev.movieapp.view_model.common.ImageViewerActivity
 import vanson.dev.movieapp.view_model.person.PersonDetailActivity
 import vanson.dev.movieapp.view_model.player.MoviePlayerActivity
 
@@ -33,6 +34,9 @@ class MovieDetailActivity : BaseActivity(), MovieItemClickListener {
     private lateinit var mCastAdapter: CastAdapter
     private lateinit var mRecommendAdapter: MovieAdapter
     private lateinit var mSimilarAdapter: MovieAdapter
+
+    private lateinit var posterImage: String
+    private lateinit var backDropImage: String
 
     @SuppressLint("ShowToast")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,6 +72,20 @@ class MovieDetailActivity : BaseActivity(), MovieItemClickListener {
             val intent = Intent(this, MoviePlayerActivity::class.java)
             intent.putExtra("id_movie", movieId)
             startActivity(intent)
+        }
+
+        detail_movie_img.setOnClickListener {
+            val intent = Intent(this, ImageViewerActivity::class.java)
+            intent.putExtra("url_image", posterImage)
+            val options = ActivityOptions.makeSceneTransitionAnimation(this, it, "image_transition")
+            startActivity(intent, options.toBundle())
+        }
+
+        detail_movie_cover.setOnClickListener {
+            val intent = Intent(this, ImageViewerActivity::class.java)
+            intent.putExtra("url_image", backDropImage)
+            val options = ActivityOptions.makeSceneTransitionAnimation(this, it, "image_transition")
+            startActivity(intent, options.toBundle())
         }
     }
 
@@ -114,6 +132,8 @@ class MovieDetailActivity : BaseActivity(), MovieItemClickListener {
 
     @SuppressLint("SetTextI18n")
     private fun bindUi(info: MovieDetails) {
+        posterImage = info.posterPath
+        backDropImage = info.backdropPath
         titleActivity.text = info.title
         detail_movie_title.text = info.title
         detail_movie_img.loadPosterImage(info.posterPath)

@@ -19,6 +19,7 @@ import vanson.dev.movieapp.data.models.person.ProfileImage
 import vanson.dev.movieapp.data.repository.NetworkState
 import vanson.dev.movieapp.utils.ImageProfileClickListener
 import vanson.dev.movieapp.utils.loadPersonImage
+import vanson.dev.movieapp.view_model.common.ImageViewerActivity
 
 class PersonDetailActivity : AppCompatActivity(), ImageProfileClickListener {
     private lateinit var personRepository: PersonRepository

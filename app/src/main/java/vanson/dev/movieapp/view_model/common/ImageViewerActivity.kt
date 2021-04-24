@@ -1,9 +1,9 @@
-package vanson.dev.movieapp.view_model.person
+package vanson.dev.movieapp.view_model.common
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_image_viewer.*
 import vanson.dev.movieapp.R
 import vanson.dev.movieapp.utils.loadImage

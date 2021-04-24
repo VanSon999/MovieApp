@@ -13,8 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MovieApp"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view_model.person.ImageViewerActivity"></activity>
-        <activity android:name=".view_model.common.ImageViewerActivity"></activity>
+        <activity android:name=".view_model.common.ImageViewerActivity" />
         <activity android:name=".view_model.person.PersonDetailActivity" />
         <activity android:name=".view_model.popular_top_playing.MoviesActivity" />
         <activity

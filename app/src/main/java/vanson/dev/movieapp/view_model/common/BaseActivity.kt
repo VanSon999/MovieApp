@@ -3,7 +3,6 @@ package vanson.dev.movieapp.view_model.common
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -11,10 +10,10 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_home.*
 import vanson.dev.movieapp.R
+import vanson.dev.movieapp.data.api.TheMovieDBClient
+import vanson.dev.movieapp.data.api.TheMovieDBInterface
 import vanson.dev.movieapp.view_model.home.HomeActivity
-import kotlin.Exception
 
 open class BaseActivity : AppCompatActivity() {
     private lateinit var mFragment: SearchFragment
@@ -22,14 +21,14 @@ open class BaseActivity : AppCompatActivity() {
     //protected...
     protected lateinit var titleActivity: TextView
     protected lateinit var backToHome: ImageView
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        mFragment = SearchFragment(this)
-    }
+    protected lateinit var apiService: TheMovieDBInterface
 
     @SuppressLint("SetTextI18n")
     protected fun init(container: Int, layout: LinearLayout) {
+        apiService = TheMovieDBClient.getClient()
+        //prepare for fragment
+        val searchRepository = SearchRepository(apiService)
+        mFragment = SearchFragment(this, searchRepository)
         mainLayout = layout
         val fm = supportFragmentManager.beginTransaction()
         fm.setCustomAnimations(R.anim.slide_in, R.anim.fade_out, R.anim.fade_in, R.anim.slide_out)
@@ -37,6 +36,7 @@ open class BaseActivity : AppCompatActivity() {
         fm.hide(mFragment)
         fm.commit()
 
+        //prepare about UI
         val searchButton = findViewById<View>(R.id.ivSearchIcon) as ImageView
         searchButton.setOnClickListener {
             showFragment()

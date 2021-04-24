@@ -11,13 +11,13 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.movie_list_item.view.*
 import kotlinx.android.synthetic.main.network_state_item.view.*
 import vanson.dev.movieapp.R
-import vanson.dev.movieapp.data.api.POSTER_BASE_URL
 import vanson.dev.movieapp.data.models.movie.Movie
 import vanson.dev.movieapp.data.repository.NetworkState
 import vanson.dev.movieapp.utils.loadPosterImage
 import vanson.dev.movieapp.view_model.detail.MovieDetailActivity
 
-class MoviePagedListAdapter(public val context: Context) : PagedListAdapter<Movie, RecyclerView.ViewHolder>(MovieDiffCallBack()) {
+class MoviePagedListAdapter(val context: Context) :
+    PagedListAdapter<Movie, RecyclerView.ViewHolder>(MovieDiffCallBack()) {
     val MOVIE_VIEW_TYPE = 1
     val NETWORK_VIEW_TYPE = 2
 
@@ -26,10 +26,10 @@ class MoviePagedListAdapter(public val context: Context) : PagedListAdapter<Movi
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val view: View
-        return if(viewType == MOVIE_VIEW_TYPE){
+        return if (viewType == MOVIE_VIEW_TYPE) {
             view = layoutInflater.inflate(R.layout.movie_list_item, parent, false)
             MovieItemViewHolder(view)
-        }else{
+        } else {
             view = layoutInflater.inflate(R.layout.network_state_item, parent, false)
             NetworkStateItemViewHolder(view)
         }
@@ -69,7 +69,7 @@ class MoviePagedListAdapter(public val context: Context) : PagedListAdapter<Movi
             with(itemView){
                 cv_movie_title.text = movie?.title
                 cv_release_date.text = movie?.releaseDate
-                cv_movie_poster.loadPosterImage(POSTER_BASE_URL + movie?.posterPath)
+                cv_movie_poster.loadPosterImage(movie?.posterPath ?: "")
                 this.setOnClickListener {
                     val intent = Intent(context, MovieDetailActivity::class.java)
                     intent.putExtra("id_movie", movie?.id)

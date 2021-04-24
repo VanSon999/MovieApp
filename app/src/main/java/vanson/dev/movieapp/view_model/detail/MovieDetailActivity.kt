@@ -8,7 +8,6 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,9 +16,6 @@ import kotlinx.android.synthetic.main.activity_movie_detail.*
 import vanson.dev.movieapp.R
 import vanson.dev.movieapp.adapter.CastAdapter
 import vanson.dev.movieapp.adapter.MovieAdapter
-import vanson.dev.movieapp.data.api.POSTER_BASE_URL
-import vanson.dev.movieapp.data.api.TheMovieDBClient
-import vanson.dev.movieapp.data.api.TheMovieDBInterface
 import vanson.dev.movieapp.data.models.movie.Cast
 import vanson.dev.movieapp.data.models.movie.Movie
 import vanson.dev.movieapp.data.models.movie.MovieDetails
@@ -43,24 +39,22 @@ class MovieDetailActivity : BaseActivity(), MovieItemClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
         super.init(R.id.fragment_container_movie_detail, detail_movie_ui)
-
         //Init request client and parameter
-        val movieId = intent.getIntExtra("id_movie",271110)
-//        val movieId = 43904
-        val apiService: TheMovieDBInterface = TheMovieDBClient.getClient()
+        val movieId = intent.getIntExtra("id_movie", 271110)
+        //val movieId = 43904
         movieRepository = MovieDetailsRepository(apiService)
         mViewModel = createViewModelFactory(movieId)
 
         setupAdapter()
 
         //observe data - bindUi
-        mViewModel.movieDetails.observe(this, Observer {
+        mViewModel.movieDetails.observe(this, {
             bindUi(it)
         })
 
-        mViewModel.networkState.observe(this, Observer {
-            progress_bar.visibility = if(it == NetworkState.LOADING) View.VISIBLE else View.GONE
-            if(it == NetworkState.ERROR){
+        mViewModel.networkState.observe(this, {
+            progress_bar.visibility = if (it == NetworkState.LOADING) View.VISIBLE else View.GONE
+            if (it == NetworkState.ERROR) {
                 Toast.makeText(this, it.msg, Toast.LENGTH_LONG).show()
             }
         })
@@ -84,7 +78,8 @@ class MovieDetailActivity : BaseActivity(), MovieItemClickListener {
         val layoutManagerCast = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         layoutManagerCast.isMeasurementCacheEnabled = false
         rv_cast.layoutManager = layoutManagerCast
-        rv_cast.addOnScrollListener(object : RecyclerView.OnScrollListener(){ //fix problem when item have different height
+        rv_cast.addOnScrollListener(object :
+            RecyclerView.OnScrollListener() { //fix problem when item have different height
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 layoutManagerCast.requestLayout()
@@ -93,10 +88,11 @@ class MovieDetailActivity : BaseActivity(), MovieItemClickListener {
         //Setup Recommend Adapter
         mRecommendAdapter = MovieAdapter(this)
         rv_recommend.adapter = mRecommendAdapter
-        val layoutManagerRecommend = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        val layoutManagerRecommend =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         layoutManagerRecommend.isMeasurementCacheEnabled = false
         rv_recommend.layoutManager = layoutManagerRecommend
-        rv_recommend.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+        rv_recommend.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 layoutManagerRecommend.requestLayout()
@@ -108,7 +104,7 @@ class MovieDetailActivity : BaseActivity(), MovieItemClickListener {
         val layoutManagerSimilar = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         layoutManagerSimilar.isMeasurementCacheEnabled = false
         rv_similar.layoutManager = layoutManagerSimilar
-        rv_similar.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+        rv_similar.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 layoutManagerSimilar.requestLayout()
@@ -120,8 +116,8 @@ class MovieDetailActivity : BaseActivity(), MovieItemClickListener {
     private fun bindUi(info: MovieDetails) {
         titleActivity.text = info.title
         detail_movie_title.text = info.title
-        detail_movie_img.loadPosterImage(POSTER_BASE_URL + info.posterPath)
-        detail_movie_cover.loadBackImage(POSTER_BASE_URL + info.backdropPath)
+        detail_movie_img.loadPosterImage(info.posterPath)
+        detail_movie_cover.loadBackImage(info.backdropPath)
         detail_movie_desc.text = info.overview
         rating_movie.text = info.voteAverage.toString() + "/10"
         release_date.text = info.getReleaseDate()
@@ -131,7 +127,7 @@ class MovieDetailActivity : BaseActivity(), MovieItemClickListener {
     }
 
     private fun createViewModelFactory(movieId: Int): MovieViewModel {
-        return ViewModelProvider(this, object : ViewModelProvider.Factory{
+        return ViewModelProvider(this, object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 return MovieViewModel(movieRepository, movieId) as T

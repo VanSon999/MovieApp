@@ -21,4 +21,5 @@
     <string name="see_more">See more…</string>
     <string name="movieapp">MovieApp</string>
     <string name="search_movies">Search Movies</string>
+    <string name="not_found">Not found!</string>
 </resources>

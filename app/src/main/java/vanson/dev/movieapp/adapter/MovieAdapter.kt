@@ -6,11 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_movie.view.*
-import vanson.dev.movieapp.utils.MovieItemClickListener
 import vanson.dev.movieapp.R
-import vanson.dev.movieapp.data.api.POSTER_BASE_URL
 import vanson.dev.movieapp.data.models.movie.Movie
 import vanson.dev.movieapp.utils.DiffCallBack
+import vanson.dev.movieapp.utils.MovieItemClickListener
 import vanson.dev.movieapp.utils.loadPosterImage
 
 class MovieAdapter(private val listener: MovieItemClickListener) : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
@@ -32,7 +31,7 @@ class MovieAdapter(private val listener: MovieItemClickListener) : RecyclerView.
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(holder.view){
-            item_movie_img.loadPosterImage(POSTER_BASE_URL + mData[position].posterPath)
+            item_movie_img.loadPosterImage(mData[position].posterPath ?: "")
             item_movie_title.text = mData[position].title
         }
     }

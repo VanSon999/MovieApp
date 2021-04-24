@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.slide_item.view.*
 import vanson.dev.movieapp.R
-import vanson.dev.movieapp.data.api.POSTER_BASE_URL
 import vanson.dev.movieapp.data.models.movie.Movie
 import vanson.dev.movieapp.utils.DiffCallBack
 import vanson.dev.movieapp.utils.MovieItemClickListener
@@ -40,7 +39,7 @@ class SliderPagerAdapter(private val listener: MovieItemClickListener) :
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(holder.view){
-            slide_image.loadBackImage(POSTER_BASE_URL + mData[position].backdropPath)
+            slide_image.loadBackImage(mData[position].backdropPath ?: "")
             slide_title.text = mData[position].title + "\nMore info..."
         }
     }

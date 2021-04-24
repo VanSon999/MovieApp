@@ -3,23 +3,19 @@ package vanson.dev.movieapp.view_model.home
 import android.app.Activity
 import android.app.ActivityOptions
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_home.*
-import vanson.dev.movieapp.*
+import vanson.dev.movieapp.R
 import vanson.dev.movieapp.adapter.MovieAdapter
 import vanson.dev.movieapp.adapter.SliderPagerAdapter
-import vanson.dev.movieapp.data.api.TheMovieDBClient
-import vanson.dev.movieapp.data.api.TheMovieDBInterface
 import vanson.dev.movieapp.data.models.movie.Movie
 import vanson.dev.movieapp.data.repository.NetworkState
 import vanson.dev.movieapp.data.repository.TypeMovie
@@ -45,8 +41,8 @@ class HomeActivity : BaseActivity(), MovieItemClickListener {
 
         super.init(R.id.fragment_container_home, home_ui)
         backToHome.visibility = View.GONE
+
         //init repository
-        val apiService: TheMovieDBInterface = TheMovieDBClient.getClient()
         homeRepository = HomeRepository(apiService)
 
         //ViewModel
@@ -54,20 +50,20 @@ class HomeActivity : BaseActivity(), MovieItemClickListener {
 
         setupAdapter()
 
-        mViewModel.homeMovies[0].observe(this, Observer {
-            mAdapter.updateMovie(it.results.subList(0,5))
+        mViewModel.homeMovies[0].observe(this, {
+            mAdapter.updateMovie(it.results.subList(0, 5))
         })
-        mViewModel.homeMovies[1].observe(this, Observer {
+        mViewModel.homeMovies[1].observe(this, {
             mPopularAdapter.updateMovie(it.results)
         })
 
-        mViewModel.homeMovies[2].observe(this, Observer {
+        mViewModel.homeMovies[2].observe(this, {
             mTopAdapter.updateMovie(it.results)
         })
 
-        mViewModel.networkState.observe(this, Observer {
-            progress_bar.visibility = if(it == NetworkState.LOADING) View.VISIBLE else View.GONE
-            if(it == NetworkState.ERROR) Toast.makeText(this, it.msg, Toast.LENGTH_LONG).show()
+        mViewModel.networkState.observe(this, {
+            progress_bar.visibility = if (it == NetworkState.LOADING) View.VISIBLE else View.GONE
+            if (it == NetworkState.ERROR) Toast.makeText(this, it.msg, Toast.LENGTH_LONG).show()
         })
 
         see_more_1.setOnClickListener {

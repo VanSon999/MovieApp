@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.android.synthetic.main.activity_movies.*
 import vanson.dev.movieapp.R
 import vanson.dev.movieapp.adapter.MoviePagedListAdapter
-import vanson.dev.movieapp.data.api.TheMovieDBClient
 import vanson.dev.movieapp.data.repository.NetworkState
 import vanson.dev.movieapp.data.repository.TypeMovie
 import vanson.dev.movieapp.view_model.common.BaseActivity
@@ -25,7 +24,6 @@ class MoviesActivity : BaseActivity() {
         super.init(R.id.fragment_container_movies, movies_ui)
 
         val typeMovie: TypeMovie = intent.getSerializableExtra("type_list") as TypeMovie
-        val apiService = TheMovieDBClient.getClient()
 
         //set title for activity
         when (typeMovie) {

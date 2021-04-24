@@ -15,6 +15,10 @@ class SearchViewModel(private val searchRepository: SearchRepository) : ViewMode
     private val movieSearchText = MutableLiveData<String>()
     private val personSearchText = MutableLiveData<String>()
 
+    init {
+        searchRepository.init(compositeDisposable)
+    }
+
     val moviesResponse: LiveData<MovieResponse> =
         Transformations.switchMap(movieSearchText) { text ->
             searchRepository.searchMovies(text)

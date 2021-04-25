@@ -20,6 +20,7 @@ import vanson.dev.movieapp.adapter.MovieAdapter
 import vanson.dev.movieapp.data.models.movie.Cast
 import vanson.dev.movieapp.data.models.movie.Movie
 import vanson.dev.movieapp.data.models.movie.MovieDetails
+import vanson.dev.movieapp.data.models.movie.Video
 import vanson.dev.movieapp.data.repository.NetworkState
 import vanson.dev.movieapp.utils.MovieItemClickListener
 import vanson.dev.movieapp.utils.loadBackImage
@@ -27,7 +28,7 @@ import vanson.dev.movieapp.utils.loadPosterImage
 import vanson.dev.movieapp.view_model.common.BaseActivity
 import vanson.dev.movieapp.view_model.common.ImageViewerActivity
 import vanson.dev.movieapp.view_model.person.PersonDetailActivity
-import vanson.dev.movieapp.view_model.player.MoviePlayerActivity
+import vanson.dev.movieapp.view_model.player.VideoPlayActivity
 
 class MovieDetailActivity : BaseActivity(), MovieItemClickListener {
     private lateinit var mViewModel: MovieViewModel
@@ -36,6 +37,7 @@ class MovieDetailActivity : BaseActivity(), MovieItemClickListener {
     private lateinit var mImageAdapter: BackdropPosterMovieAdapter
     private lateinit var mRecommendAdapter: MovieAdapter
     private lateinit var mSimilarAdapter: MovieAdapter
+    private var mVideos: List<Video> = listOf()
 
     private lateinit var posterImage: String
     private lateinit var backDropImage: String
@@ -71,8 +73,8 @@ class MovieDetailActivity : BaseActivity(), MovieItemClickListener {
 
         //Setup FloatingPointButton
         play_fab.setOnClickListener {
-            val intent = Intent(this, MoviePlayerActivity::class.java)
-            intent.putExtra("id_movie", movieId)
+            val intent = Intent(this, VideoPlayActivity::class.java)
+            intent.putParcelableArrayListExtra("videos", ArrayList(mVideos))
             startActivity(intent)
         }
 
@@ -141,12 +143,18 @@ class MovieDetailActivity : BaseActivity(), MovieItemClickListener {
 
     @SuppressLint("SetTextI18n")
     private fun bindUi(info: MovieDetails) {
-        posterImage = info.posterPath
-        backDropImage = info.backdropPath
+        mVideos = info.videos.videos.filter { it.site == "YouTube" }
+        if (mVideos.isNullOrEmpty()) {
+            play_fab.visibility = View.GONE
+        } else {
+            play_fab.visibility = View.VISIBLE
+        }
+        posterImage = info.posterPath ?: ""
+        backDropImage = info.backdropPath ?: ""
         titleActivity.text = info.title
         detail_movie_title.text = info.title
-        detail_movie_img.loadPosterImage(info.posterPath)
-        detail_movie_cover.loadBackImage(info.backdropPath)
+        detail_movie_img.loadPosterImage(info.posterPath ?: "")
+        detail_movie_cover.loadBackImage(info.backdropPath ?: "")
         detail_movie_desc.text = info.overview
         rating_movie.text = info.voteAverage.toString() + "/10"
         release_date.text = info.getReleaseDate()

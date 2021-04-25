@@ -1,5 +1,4 @@
-package vanson.dev.movieapp.Models
-
+package vanson.dev.movieapp.data.models.movie
 
 import android.os.Parcel
 import android.os.Parcelable
@@ -33,8 +32,7 @@ data class Video(
         parcel.readString()!!,
         parcel.readInt(),
         parcel.readString()!!
-    ) {
-    }
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(id)

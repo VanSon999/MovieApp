@@ -16,7 +16,7 @@ interface TheMovieDBInterface {
     @GET("movie/{movie_id}?")
     fun getMovieDetails(
         @Path("movie_id") id: Int,
-        @Query("append_to_response") moreInfo: String = "casts,images,similar,recommendations"
+        @Query("append_to_response") moreInfo: String = "casts,images,similar,recommendations,videos"
     ): Single<MovieDetails>
 
     @GET("movie/{movie_id}/videos")

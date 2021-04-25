@@ -19,12 +19,9 @@ import vanson.dev.movieapp.adapter.SliderPagerAdapter
 import vanson.dev.movieapp.data.models.movie.Movie
 import vanson.dev.movieapp.data.repository.NetworkState
 import vanson.dev.movieapp.data.repository.TypeMovie
-import vanson.dev.movieapp.models.Slide
-import vanson.dev.movieapp.utils.DataSource
 import vanson.dev.movieapp.utils.MovieItemClickListener
 import vanson.dev.movieapp.view_model.common.BaseActivity
 import vanson.dev.movieapp.view_model.detail.MovieDetailActivity
-import vanson.dev.movieapp.view_model.player.MoviePlayerActivity
 import vanson.dev.movieapp.view_model.popular_top_playing.MoviesActivity
 import java.util.*
 
@@ -91,7 +88,7 @@ class HomeActivity : BaseActivity(), MovieItemClickListener {
 
         //setup timer to switch slides
         val timer = Timer()
-        timer.scheduleAtFixedRate(SliderTimer(this, DataSource.getListSlide()), 4000, 6000)
+        timer.scheduleAtFixedRate(SliderTimer(this, 5), 4000, 6000)
 
         //Popular movie
         mPopularAdapter = MovieAdapter(this)
@@ -141,12 +138,12 @@ class HomeActivity : BaseActivity(), MovieItemClickListener {
             }
         })[HomeViewModel::class.java]
 
-    class SliderTimer(private val activity: Activity, private val slides: List<Slide>) : TimerTask(){
+    class SliderTimer(private val activity: Activity, private val numberSlide: Int) : TimerTask() {
         override fun run() {
-            activity.runOnUiThread{
-                if(activity.slide_pager.currentItem < slides.lastIndex){
+            activity.runOnUiThread {
+                if (activity.slide_pager.currentItem < numberSlide - 1) {
                     activity.slide_pager.currentItem = activity.slide_pager.currentItem + 1
-                }else{
+                } else {
                     activity.slide_pager.currentItem = 0
                 }
             }
@@ -161,7 +158,7 @@ class HomeActivity : BaseActivity(), MovieItemClickListener {
     }
 
     override fun onPlayClick(movie: Movie) {
-        val intent = Intent(this, MoviePlayerActivity::class.java)
+        val intent = Intent(this, Movie::class.java)
         intent.putExtra("id_movie", movie.id)
         startActivity(intent)
     }

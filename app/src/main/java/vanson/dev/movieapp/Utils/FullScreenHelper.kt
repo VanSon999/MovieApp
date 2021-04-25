@@ -1,4 +1,4 @@
-package vanson.dev.movieapp.Utils
+package vanson.dev.movieapp.utils
 
 import android.app.Activity
 import android.view.View

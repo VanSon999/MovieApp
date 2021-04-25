@@ -1,11 +1,9 @@
-package vanson.dev.movieapp.Models
+package vanson.dev.movieapp.data.models.movie
 
 
 import com.google.gson.annotations.SerializedName
 
-data class MovieVideos(
-    @SerializedName("id")
-    val id: Int = 0,
+data class Videos(
     @SerializedName("results")
     val videos: List<Video> = listOf()
 )

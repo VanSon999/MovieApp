@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="top">
@@ -20,22 +21,24 @@
             android:layout_height="wrap_content"
             android:background="@drawable/drw_rectangle_popup_bg"
             android:clickable="true"
-            android:orientation="vertical">
+            android:focusable="true"
+            android:orientation="vertical"
+            tools:ignore="UselessParent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
+                android:layout_gravity="end"
                 android:orientation="horizontal"
                 android:paddingBottom="8dp"
                 android:paddingTop="8dp">
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/txt_search"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="12dp"
+                    android:layout_marginStart="12dp"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:textSize="14sp" />
@@ -44,8 +47,8 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginRight="16dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="16dp"
                     android:src="@drawable/search_dialog_ic_search" />
             </LinearLayout>
 
@@ -57,14 +60,14 @@
                 android:orientation="horizontal">
 
                 <androidx.appcompat.widget.AppCompatRadioButton
-                    android:text="By Movies"
+                    android:text="@string/by_movies"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:paddingEnd="10dp"
                     android:paddingStart="10dp"/>
 
                 <androidx.appcompat.widget.AppCompatRadioButton
-                    android:text="By Person"
+                    android:text="@string/by_person"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:paddingStart="10dp"
@@ -89,10 +92,11 @@
                 android:id="@+id/txt_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
+                android:layout_marginStart="12dp"
                 android:lines="1"
                 android:maxLines="1"
-                android:paddingRight="12dp"
+                android:paddingStart="6dp"
+                android:paddingEnd="6dp"
                 android:paddingTop="16dp"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -101,7 +105,7 @@
                 android:id="@+id/rv_items"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left"
+                android:layout_gravity="start"
                 android:layout_marginBottom="4dp"
                 android:fadingEdgeLength="4dp"
                 android:requiresFadingEdge="vertical" />

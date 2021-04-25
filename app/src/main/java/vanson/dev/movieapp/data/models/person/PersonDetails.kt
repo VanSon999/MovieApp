@@ -31,5 +31,5 @@ data class PersonDetails(
     @SerializedName("popularity")
     val popularity: Double = 0.0,
     @SerializedName("profile_path")
-    val profilePath: String = ""
+    val profilePath: String? = ""
 )

@@ -69,7 +69,7 @@ class PersonDetailActivity : AppCompatActivity(), ImageProfileClickListener {
     }
 
     private fun bindUI(personDetails: PersonDetails) {
-        person_detail_profile_image_view.loadPersonImage(personDetails.profilePath)
+        person_detail_profile_image_view.loadPersonImage(personDetails.profilePath ?: "")
         val name = personDetails.name
         val alsoKnownAs = personDetails.alsoKnownAs
         val birthDay = personDetails.birthday

@@ -1,4 +1,4 @@
- package vanson.dev.movieapp
+ package vanson.dev.movieapp.view_model.player
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
@@ -9,16 +9,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.codewaves.youtubethumbnailview.ThumbnailLoader
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerFullScreenListener
 import kotlinx.android.synthetic.main.activity_video_play.*
-import vanson.dev.movieapp.Adapters.ExtraMovieVideoAdapter
-import vanson.dev.movieapp.Models.Video
-import vanson.dev.movieapp.Utils.FullScreenHelper
+import vanson.dev.movieapp.R
+import vanson.dev.movieapp.adapter.ExtraMovieVideoAdapter
+import vanson.dev.movieapp.data.api.YOUTUBE_KEY
+import vanson.dev.movieapp.data.models.movie.Video
+import vanson.dev.movieapp.utils.FullScreenHelper
 
-@Suppress("DEPRECATION")
+ @Suppress("DEPRECATION")
 class VideoPlayActivity : AppCompatActivity(), ExtraMovieVideoAdapter.Listener {
     private lateinit var fullScreenHelper: FullScreenHelper
     private lateinit var mYoutubePlayer: YouTubePlayer
@@ -29,20 +30,21 @@ class VideoPlayActivity : AppCompatActivity(), ExtraMovieVideoAdapter.Listener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_video_play)
 
-        ThumbnailLoader.initialize(BuildConfig.YOUTUBE_KEY)
+        ThumbnailLoader.initialize(YOUTUBE_KEY)
         fullScreenHelper = FullScreenHelper(this)
 
         progress_bar.indeterminateDrawable.setColorFilter(
             0xFFFFFFFF.toInt(),
             android.graphics.PorterDuff.Mode.MULTIPLY
         )
-        if(mCurrent == null) mCurrent = intent.getParcelableExtra<Video>("current_video")
+//        if(mCurrent == null) mCurrent = intent.getParcelableExtra<Video>("current_video")
         mVideos = intent.getParcelableArrayListExtra<Video>("videos")
 
-        if (mCurrent == null || mVideos.isNullOrEmpty()) {
+        if (mVideos.isNullOrEmpty()) {
             Toast.makeText(this, "No videos for this movie!", Toast.LENGTH_SHORT).show()
             finish()
         } else {
+            if (mCurrent == null) mCurrent = mVideos!![0]
             play_video_title.text = mCurrent!!.name
             video_thumbnailview.loadThumbnail("https://www.youtube.com/watch?v=" + mCurrent!!.key)
             video_player_view.enableAutomaticInitialization = false

@@ -8,6 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 const val API_KEY = "48f9067d74482e05b9bb40c806cb24f0"
+const val YOUTUBE_KEY = "AIzaSyBwZI-Wlh-Pe-CCmega9FD4JdiRJeCZgho"
 const val BASE_URL = "https://api.themoviedb.org/3/"
 const val FIRST_PAGE = 1
 const val POST_PER_PAGE = 20

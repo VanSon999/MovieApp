@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="10dp"
     app:cardCornerRadius="15dp"
+    android:background="@color/opposite_primaryColor"
     app:cardElevation="10dp">
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -34,10 +35,10 @@
             android:layout_margin="10dp"
             android:gravity="start"
             android:layout_gravity="top"
-            android:fontFamily="@font/almendra_sc"
+            android:fontFamily="@font/acmes"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:textColor="#000"/>
+            android:textColor="@color/primaryColor" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.cardview.widget.CardView>

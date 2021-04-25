@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat
 
 data class MovieDetails(
     @SerializedName("backdrop_path")
-    val backdropPath: String,
+    val backdropPath: String?,
     @SerializedName("casts")
     val casts: Casts,
     @SerializedName("id")
@@ -15,7 +15,7 @@ data class MovieDetails(
     @SerializedName("overview")
     val overview: String,
     @SerializedName("poster_path")
-    val posterPath: String,
+    val posterPath: String?,
     @SerializedName("recommendations")
     val recommendations: Recommendations,
     @SerializedName("release_date")
@@ -26,6 +26,8 @@ data class MovieDetails(
     val title: String,
     @SerializedName("images")
     val images: MovieImages = MovieImages(),
+    @SerializedName("videos")
+    val videos: Videos = Videos(),
     @SerializedName("vote_average")
     val voteAverage: Double
 ){
@@ -34,6 +36,6 @@ data class MovieDetails(
     fun getReleaseDate(): String{
         if(releaseDate.isEmpty()) return "updating..."
         val date = SimpleDateFormat("yyyy-MM-dd").parse(this.releaseDate)
-        return SimpleDateFormat("dd/MM/yyyy").format(date)
+        return SimpleDateFormat("dd/MM/yyyy").format(date!!)
     }
 }

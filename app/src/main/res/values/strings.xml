@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">movieApp</string>
-    <string name="imageview">imageView</string>
+    <string name="imageView">imageView</string>
     <string name="floatingactionbutton">floatingactionbutton</string>
     <string name="textview">textView</string>
     <string name="best_popular_movies">Best popular movies</string>
@@ -24,4 +24,15 @@
     <string name="not_found">Not found!</string>
     <string name="overview">Overview</string>
     <string name="images_and_posters">Images and Posters</string>
+    <string name="also_known_as">Also known as:</string>
+    <string name="date_of_birth">Date of birth:</string>
+    <string name="place_of_birth">Place of birth:</string>
+    <string name="death_day">Death Day:</string>
+    <string name="department">Department:</string>
+    <string name="homepage">HomePage:</string>
+    <string name="biography">Biography:</string>
+    <string name="profile_images">Profile Images:</string>
+    <string name="by_movies">By Movies</string>
+    <string name="by_person">By Person</string>
+    <string name="no_more_video_results_found">No More Video Results Found…</string>
 </resources>

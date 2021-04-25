@@ -1,9 +1,9 @@
 package vanson.dev.movieapp.utils
 
-import vanson.dev.movieapp.models.Cast
-import vanson.dev.movieapp.models.Movie
 import vanson.dev.movieapp.R
-import vanson.dev.movieapp.models.Slide
+import vanson.dev.movieapp.models_pre_versions.Cast
+import vanson.dev.movieapp.models_pre_versions.Movie
+import vanson.dev.movieapp.models_pre_versions.Slide
 
 object DataSource {
     private val stSlides: ArrayList<Slide> = ArrayList()

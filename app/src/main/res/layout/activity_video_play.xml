@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".VideoPlayActivity"
-    android:background="#fff"
+    android:background="@color/primaryColor"
+    tools:context=".view_model.player.VideoPlayActivity"
     android:fitsSystemWindows="true">
 
     <RelativeLayout
         android:id="@+id/video_player_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <com.codewaves.youtubethumbnailview.ThumbnailView
             android:id="@+id/video_thumbnailview"
             android:layout_width="match_parent"
@@ -41,8 +42,7 @@
         android:fontFamily="@font/acme"
         android:padding="15dp"
         android:textSize="16sp"
-        android:textColor="#000"
-        android:background="#fff"/>
+        android:textColor="@color/opposite_primaryColor" />
 
     <View
         android:id="@+id/shadow"
@@ -55,17 +55,16 @@
         android:id="@+id/other_videos_recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/shadow"
-        android:background="#f9f9f9"/>
+        android:layout_below="@id/shadow" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/no_result_found"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/shadow"
-        android:text="No More Video Results Found..."
+        android:text="@string/no_more_video_results_found"
         android:textSize="20sp"
-        android:textColor="#3e3e3e"
+        android:textColor="@color/opposite_primaryColor"
         android:textStyle="bold|italic"
         android:layout_marginTop="70dp"
         android:layout_centerInParent="true"

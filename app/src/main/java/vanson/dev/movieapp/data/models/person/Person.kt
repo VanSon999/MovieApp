@@ -9,5 +9,5 @@ data class Person(
     @SerializedName("name")
     val name: String = "",
     @SerializedName("profile_path")
-    val profilePath: String = ""
+    val profilePath: String? = ""
 )

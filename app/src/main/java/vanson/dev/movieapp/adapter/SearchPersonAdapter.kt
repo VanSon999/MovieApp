@@ -36,7 +36,7 @@ class SearchPersonAdapter(private val activity: Activity) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(holder.itemView) {
-            diagonal_image.loadBackImage(mData[position].profilePath)
+            diagonal_image.loadBackImage(mData[position].profilePath ?: "")
             poster_title.text = mData[position].name
         }
     }

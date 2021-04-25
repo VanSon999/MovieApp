@@ -1,21 +1,14 @@
-package vanson.dev.movieapp.models
+package vanson.dev.movieapp.models_pre_versions
 
 class Movie(
-    title: String,
-    description: String = "",
-    thumbnail: Int,
-    studio: String = "",
-    rating: String = "",
-    streamingLink: String = "",
-    coverPhoto: Int
+    private var title: String,
+    private var description: String = "",
+    private var thumbnail: Int,
+    private var studio: String = "",
+    private var rating: String = "",
+    private var streamingLink: String = "",
+    private var coverPhoto: Int
 ) {
-    private var title: String = title
-    private var description: String = description
-    private var thumbnail: Int = thumbnail
-    private var studio: String = studio
-    private var rating: String = rating
-    private var streamingLink: String = streamingLink
-    private var coverPhoto: Int = coverPhoto
     fun getTitle() = this.title
     fun getDescription() = this.description
     fun getThumbnail() = this.thumbnail

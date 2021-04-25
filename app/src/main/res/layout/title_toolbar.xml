@@ -23,7 +23,7 @@
                     android:layout_weight="1"
                     android:layout_marginEnd="10dp"
                     android:src="@drawable/ic_baseline_home_24"
-                    android:contentDescription="@string/imageview"/>
+                    android:contentDescription="@string/imageView" />
 
                 <TextView
                     android:id="@+id/title_activity"
@@ -43,7 +43,7 @@
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="15dp"
                     android:layout_weight="1"
-                    android:contentDescription="@string/imageview"
+                    android:contentDescription="@string/imageView"
                     android:src="@drawable/ic_baseline_search_24" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>

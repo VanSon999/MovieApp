@@ -1,19 +1,19 @@
-package vanson.dev.movieapp.models
+package vanson.dev.movieapp.models_pre_versions
 
 class Slide(private var Image: Int, private var Title: String) {
-    fun getImage(): Int{
+    fun getImage(): Int {
         return Image
     }
 
-    fun getTitle():String{
+    fun getTitle(): String {
         return Title
     }
 
-    fun setImage(image: Int){
+    fun setImage(image: Int) {
         this.Image = image
     }
 
-    fun setTitle(title: String){
+    fun setTitle(title: String) {
         this.Title = title
     }
 }

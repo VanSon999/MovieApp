@@ -22,6 +22,7 @@ import vanson.dev.movieapp.data.repository.TypeMovie
 import vanson.dev.movieapp.utils.MovieItemClickListener
 import vanson.dev.movieapp.view_model.common.BaseActivity
 import vanson.dev.movieapp.view_model.detail.MovieDetailActivity
+import vanson.dev.movieapp.view_model.player.VideoPlayActivity
 import vanson.dev.movieapp.view_model.popular_top_playing.MoviesActivity
 import java.util.*
 
@@ -158,8 +159,8 @@ class HomeActivity : BaseActivity(), MovieItemClickListener {
     }
 
     override fun onPlayClick(movie: Movie) {
-        val intent = Intent(this, Movie::class.java)
-        intent.putExtra("id_movie", movie.id)
+        val intent = Intent(this, VideoPlayActivity::class.java)
+        intent.putExtra("movie_id", movie.id)
         startActivity(intent)
     }
 

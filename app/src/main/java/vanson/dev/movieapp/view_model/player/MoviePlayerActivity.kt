@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package vanson.dev.movieapp.view_model.player
 
 import android.annotation.SuppressLint
@@ -10,17 +12,13 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.util.keyIterator
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import at.huber.youtubeExtractor.VideoMeta
 import at.huber.youtubeExtractor.YouTubeExtractor
 import at.huber.youtubeExtractor.YtFile
 import com.google.android.exoplayer2.*
-import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory
 import com.google.android.exoplayer2.source.ExtractorMediaSource
-import com.google.android.exoplayer2.source.MediaSource
-import com.google.android.exoplayer2.source.hls.HlsMediaSource
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.util.Util
 import kotlinx.android.synthetic.main.activity_movie_player.*
@@ -39,7 +37,7 @@ import java.util.*
 class MoviePlayerActivity : AppCompatActivity() {
     private lateinit var mSimpleExoPlayer: SimpleExoPlayer
     private lateinit var mDataSourceFactory: DefaultDataSourceFactory
-    private lateinit var mTrailersReponsitory: TrailersMovieRepository
+    private lateinit var mTrailersRepository: TrailersMovieRepository
     private lateinit var mTrailersViewModel: TrailersViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,10 +49,10 @@ class MoviePlayerActivity : AppCompatActivity() {
         //setting view_model
         val movieId = intent.getIntExtra("id_movie", 271110)
         val apiService: TheMovieDBInterface = TheMovieDBClient.getClient()
-        mTrailersReponsitory = TrailersMovieRepository(apiService)
+        mTrailersRepository = TrailersMovieRepository(apiService)
         mTrailersViewModel = createViewModelFactory(movieId)
 
-        mTrailersViewModel.trailersMovie.observe(this, Observer {
+        mTrailersViewModel.trailersMovie.observe(this, {
             if (it.trailers.isNotEmpty()) {
                 val first = it.trailers.first()
                 if (first.site == "YouTube") {
@@ -62,12 +60,12 @@ class MoviePlayerActivity : AppCompatActivity() {
                 } else { //Vimeo
                     extractTrailerFromVimeo(first)
                 }
-            }else{
+            } else {
                 error_text.visibility = View.VISIBLE
             }
         })
 
-        mTrailersViewModel.networkState.observe(this, Observer {
+        mTrailersViewModel.networkState.observe(this, {
             error_text.visibility = if (it == NetworkState.ERROR) View.VISIBLE else View.GONE
             progress_load_trailer.visibility =
                 if (it == NetworkState.LOADING) View.VISIBLE else View.GONE
@@ -78,7 +76,7 @@ class MoviePlayerActivity : AppCompatActivity() {
         ViewModelProvider(this, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 @Suppress("UNCHECKED_CAST")
-                return TrailersViewModel(mTrailersReponsitory, movieId) as T
+                return TrailersViewModel(mTrailersRepository, movieId) as T
             }
         })[TrailersViewModel::class.java]
 
@@ -110,6 +108,7 @@ class MoviePlayerActivity : AppCompatActivity() {
         mExtractor.extract(URL_YOUTUBE + first.key, true, true)
     }
 
+    @SuppressLint("SetTextI18n")
     private fun settingVideoExoplayer(url: String, name: String) {
 //        val mediaItem = MediaItem.Builder().setUri(url).setMimeType(MimeTypes.APPLICATION_MPD).build()
 //        val mediaItem = MediaItem.fromUri(url)
@@ -177,7 +176,7 @@ class MoviePlayerActivity : AppCompatActivity() {
 
     companion object {
 //        const val VIDEO_TEST_URL = "http://clips.vorwaerts-gmbh.de/VfE_html5.mp4"
-        const val URL_YOUTUBE = "https://www.youtube.com/watch?v="
+const val URL_YOUTUBE = "https://www.youtube.com/watch?v="
         const val URL_VIMEO = "https://vimeo.com/"
     }
 

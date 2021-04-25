@@ -13,14 +13,14 @@ import com.codewaves.youtubethumbnailview.ThumbnailLoadingListener
 import kotlinx.android.synthetic.main.video_item_layout.view.*
 import vanson.dev.movieapp.R
 import vanson.dev.movieapp.data.api.YOUTUBE_KEY
-import vanson.dev.movieapp.data.models.movie.Video
+import vanson.dev.movieapp.data.models.trailers.Trailer
 import vanson.dev.movieapp.utils.DiffCallBack
 
 class ExtraMovieVideoAdapter(val activity: Activity, private val listener: Listener) :
     RecyclerView.Adapter<ExtraMovieVideoAdapter.MovieVideoViewHolder>() {
 
     interface Listener {
-        fun changeVideoPlay(video: Video)
+        fun changeVideoPlay(video: Trailer, mData: List<Trailer>)
     }
 
     inner class MovieVideoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -52,7 +52,8 @@ class ExtraMovieVideoAdapter(val activity: Activity, private val listener: Liste
         }
     }
 
-    private var mData = listOf<Video>()
+    private var mData = listOf<Trailer>()
+    private var mDataF = listOf<Trailer>()
 
     init {
         ThumbnailLoader.initialize(YOUTUBE_KEY)
@@ -69,15 +70,17 @@ class ExtraMovieVideoAdapter(val activity: Activity, private val listener: Liste
         with(holder.itemView) {
             video_title.text = mData[position].name
             setOnClickListener {
-                listener.changeVideoPlay(mData[position])
+                listener.changeVideoPlay(mData[position], mDataF)
             }
         }
     }
 
     override fun getItemCount(): Int = mData.size
 
-    fun updateData(newData: List<Video>) {
+    fun updateData(video: Trailer, newDataF: List<Trailer>) {
+        val newData = newDataF.filter { it.id != video.id }
         val diffResult = DiffUtil.calculateDiff(DiffCallBack(mData, newData) { it.id })
+        mDataF = newDataF
         mData = newData
         diffResult.dispatchUpdatesTo(this)
     }

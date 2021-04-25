@@ -26,8 +26,6 @@ data class MovieDetails(
     val title: String,
     @SerializedName("images")
     val images: MovieImages = MovieImages(),
-    @SerializedName("videos")
-    val videos: Videos = Videos(),
     @SerializedName("vote_average")
     val voteAverage: Double
 ){

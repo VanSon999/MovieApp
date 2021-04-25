@@ -20,7 +20,6 @@ import vanson.dev.movieapp.adapter.MovieAdapter
 import vanson.dev.movieapp.data.models.movie.Cast
 import vanson.dev.movieapp.data.models.movie.Movie
 import vanson.dev.movieapp.data.models.movie.MovieDetails
-import vanson.dev.movieapp.data.models.movie.Video
 import vanson.dev.movieapp.data.repository.NetworkState
 import vanson.dev.movieapp.utils.MovieItemClickListener
 import vanson.dev.movieapp.utils.loadBackImage
@@ -37,7 +36,6 @@ class MovieDetailActivity : BaseActivity(), MovieItemClickListener {
     private lateinit var mImageAdapter: BackdropPosterMovieAdapter
     private lateinit var mRecommendAdapter: MovieAdapter
     private lateinit var mSimilarAdapter: MovieAdapter
-    private var mVideos: List<Video> = listOf()
 
     private lateinit var posterImage: String
     private lateinit var backDropImage: String
@@ -74,7 +72,7 @@ class MovieDetailActivity : BaseActivity(), MovieItemClickListener {
         //Setup FloatingPointButton
         play_fab.setOnClickListener {
             val intent = Intent(this, VideoPlayActivity::class.java)
-            intent.putParcelableArrayListExtra("videos", ArrayList(mVideos))
+            intent.putExtra("movie_id", movieId)
             startActivity(intent)
         }
 
@@ -143,12 +141,6 @@ class MovieDetailActivity : BaseActivity(), MovieItemClickListener {
 
     @SuppressLint("SetTextI18n")
     private fun bindUi(info: MovieDetails) {
-        mVideos = info.videos.videos.filter { it.site == "YouTube" }
-        if (mVideos.isNullOrEmpty()) {
-            play_fab.visibility = View.GONE
-        } else {
-            play_fab.visibility = View.VISIBLE
-        }
         posterImage = info.posterPath ?: ""
         backDropImage = info.backdropPath ?: ""
         titleActivity.text = info.title

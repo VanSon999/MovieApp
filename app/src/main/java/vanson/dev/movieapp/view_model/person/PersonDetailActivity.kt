@@ -4,9 +4,9 @@ import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatImageView
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,7 +19,7 @@ import vanson.dev.movieapp.data.models.person.ProfileImage
 import vanson.dev.movieapp.data.repository.NetworkState
 import vanson.dev.movieapp.utils.ImageProfileClickListener
 import vanson.dev.movieapp.utils.loadPersonImage
-import vanson.dev.movieapp.view_model.common.ImageViewerActivity
+import vanson.dev.movieapp.view_model.common.ScreenSlidePagerImageActivity
 
 class PersonDetailActivity : AppCompatActivity(), ImageProfileClickListener {
     private lateinit var personRepository: PersonRepository
@@ -134,7 +134,7 @@ class PersonDetailActivity : AppCompatActivity(), ImageProfileClickListener {
     }
 
     private fun createViewModelFactory(personId: Int) =
-        ViewModelProvider(this, object : ViewModelProvider.Factory{
+        ViewModelProvider(this, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 @Suppress("UNCHECKED_CAST")
                 return PersonViewModel(personRepository, personId) as T
@@ -146,10 +146,23 @@ class PersonDetailActivity : AppCompatActivity(), ImageProfileClickListener {
         overridePendingTransition(R.anim.slide_up, R.anim.slide_down)
     }
 
-    override fun onImageProfileClick(imageProfile: ProfileImage, imageView: AppCompatImageView) {
-        val intent = Intent(this, ImageViewerActivity::class.java)
-        intent.putExtra("url_image", imageProfile.filePath)
-        val options = ActivityOptions.makeSceneTransitionAnimation(this, imageView, "image_transition")
+    override fun onImageProfileClick(
+        images: List<ProfileImage>,
+        position: Int,
+        imageView: ImageView
+    ) {
+        val intent = Intent(this, ScreenSlidePagerImageActivity::class.java)
+        intent.putExtra("current_position", position)
+        intent.putExtra("images", images.map { it.filePath }.toTypedArray())
+        val options =
+            ActivityOptions.makeSceneTransitionAnimation(this, imageView, "image_transition")
         startActivity(intent, options.toBundle())
     }
+
+//    override fun onImageProfileClick(imageProfile: List<ProfileImage>, imageView: Int) {
+//        val intent = Intent(this, ScreenSlidePagerImageActivity::class.java)
+//        intent.putExtra("current_position", imageProfile.filePath)
+//        val options = ActivityOptions.makeSceneTransitionAnimation(this, imageView, "image_transition")
+//        startActivity(intent, options.toBundle())
+//    }
 }

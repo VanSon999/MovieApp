@@ -1,8 +1,8 @@
 package vanson.dev.movieapp.utils
 
-import androidx.appcompat.widget.AppCompatImageView
+import android.widget.ImageView
 import vanson.dev.movieapp.data.models.person.ProfileImage
 
 interface ImageProfileClickListener {
-    fun onImageProfileClick(imageProfile: ProfileImage, imageView: AppCompatImageView)
+    fun onImageProfileClick(images: List<ProfileImage>, position: Int, imageView: ImageView)
 }

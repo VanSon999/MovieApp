@@ -18,7 +18,7 @@ class ProfileImageAdapter(val listener: ImageProfileClickListener) : RecyclerVie
     inner class ViewHolder(view : View) : RecyclerView.ViewHolder(view){
         init {
             itemView.setOnClickListener {
-                listener.onImageProfileClick(mData[adapterPosition], it.image_profile)
+                listener.onImageProfileClick(mData, adapterPosition, it.image_profile)
             }
         }
     }

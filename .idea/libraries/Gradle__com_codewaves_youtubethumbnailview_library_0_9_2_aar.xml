@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Gradle: com.codewaves.youtubethumbnailview:library:0.9.2@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/95b18a8bc7d54e8851915108bb569ac0/jetified-library-0.9.2/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/95b18a8bc7d54e8851915108bb569ac0/jetified-library-0.9.2/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/95b18a8bc7d54e8851915108bb569ac0/jetified-library-0.9.2/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.codewaves.youtubethumbnailview/library/0.9.2/20175c26da18fef69d2de8f499005cd769d5982e/library-0.9.2-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.codewaves.youtubethumbnailview/library/0.9.2/f1796e3075d7e332f4fb220e5a6f14203c860ea5/library-0.9.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

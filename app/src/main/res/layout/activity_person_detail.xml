@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primaryColor"
-    tools:context=".view_model.person.PersonDetailActivity">
+    tools:context=".view_model.person.PersonDetailActivity"
+    tools:ignore="Overdraw">
 
     <com.github.florent37.diagonallayout.DiagonalLayout
         android:id="@+id/person_detail_diagonal_view"
@@ -49,7 +50,6 @@
         android:background="@drawable/drop_shadow" />
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/person_detail_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/drop_shadow_2"

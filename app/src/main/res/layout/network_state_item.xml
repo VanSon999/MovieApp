@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:textColor="@color/text_light_blue"
-        android:text="Error Message" />
+        android:text="@string/error_message" />
 
     <ProgressBar
         android:id="@+id/progress_bar_item"

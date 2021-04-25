@@ -72,12 +72,12 @@ class VideoPlayActivity : AppCompatActivity(), ExtraMovieVideoAdapter.Listener {
                 } else {
                     other_videos_recycler.visibility = View.VISIBLE
                     no_result_found.visibility = View.GONE
-                    val selected = it.trailers[0]
-                    play_video_title.text = selected.name
-                    video_thumbnailview.loadThumbnail("https://www.youtube.com/watch?v=" + selected.key)
-                    mAdapter.updateData(selected, it.trailers)
-                    waitYoutubePlayerInit(selected.key)
                 }
+                val selected = it.trailers[0]
+                play_video_title.text = selected.name
+                video_thumbnailview.loadThumbnail("https://www.youtube.com/watch?v=" + selected.key)
+                mAdapter.updateData(selected, it.trailers)
+                waitYoutubePlayerInit(selected.key)
             }
         })
 

@@ -9,7 +9,7 @@ import vanson.dev.movieapp.data.repository.NetworkState
 import vanson.dev.movieapp.data.repository.SearchNetworkDataSource
 
 class SearchRepository(private val apiService: TheMovieDBInterface) {
-    lateinit var searchNetworkDataSource: SearchNetworkDataSource
+    private lateinit var searchNetworkDataSource: SearchNetworkDataSource
 
     fun init(compositeDisposable: CompositeDisposable) {
         searchNetworkDataSource = SearchNetworkDataSource(apiService, compositeDisposable)

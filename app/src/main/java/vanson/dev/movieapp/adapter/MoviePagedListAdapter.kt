@@ -18,15 +18,15 @@ import vanson.dev.movieapp.view_model.detail.MovieDetailActivity
 
 class MoviePagedListAdapter(val context: Context) :
     PagedListAdapter<Movie, RecyclerView.ViewHolder>(MovieDiffCallBack()) {
-    val MOVIE_VIEW_TYPE = 1
-    val NETWORK_VIEW_TYPE = 2
+    val movieViewType = 1
+    private val networkViewType: Int = 2
 
     private var networkState: NetworkState? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val view: View
-        return if (viewType == MOVIE_VIEW_TYPE) {
+        return if (viewType == movieViewType) {
             view = layoutInflater.inflate(R.layout.movie_list_item, parent, false)
             MovieItemViewHolder(view)
         } else {
@@ -36,9 +36,9 @@ class MoviePagedListAdapter(val context: Context) :
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if(getItemViewType(position) == MOVIE_VIEW_TYPE){
+        if (getItemViewType(position) == movieViewType) {
             (holder as MovieItemViewHolder).bind(getItem(position), context)
-        }else{
+        } else {
             (holder as NetworkStateItemViewHolder).bind(networkState)
         }
     }
@@ -53,9 +53,9 @@ class MoviePagedListAdapter(val context: Context) :
 
     override fun getItemViewType(position: Int): Int {
         return if(hasExtraRow() && position == itemCount - 1){
-            NETWORK_VIEW_TYPE
+            networkViewType
         }else{
-            MOVIE_VIEW_TYPE
+            movieViewType
         }
     }
     class MovieDiffCallBack : DiffUtil.ItemCallback<Movie>() {

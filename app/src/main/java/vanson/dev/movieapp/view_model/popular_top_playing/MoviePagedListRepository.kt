@@ -8,24 +8,34 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import vanson.dev.movieapp.data.api.POST_PER_PAGE
 import vanson.dev.movieapp.data.api.TheMovieDBInterface
 import vanson.dev.movieapp.data.models.movie.Movie
-import vanson.dev.movieapp.data.repository.movie_data_paging.MovieDataSourcePaging
-import vanson.dev.movieapp.data.repository.movie_data_paging.MovieDataSourcePagingFactory
 import vanson.dev.movieapp.data.repository.NetworkState
 import vanson.dev.movieapp.data.repository.TypeMovie
+import vanson.dev.movieapp.data.repository.movie_data_paging.MovieDataSourcePaging
+import vanson.dev.movieapp.data.repository.movie_data_paging.MovieDataSourcePagingFactory
 
 class MoviePagedListRepository(private val apiService: TheMovieDBInterface, private val type_: TypeMovie) {
-    lateinit var moviePagedList: LiveData<PagedList<Movie>>
-    lateinit var moviesDataSourcePagingFactory: MovieDataSourcePagingFactory
+    private lateinit var moviePagedList: LiveData<PagedList<Movie>>
+    private lateinit var moviesDataSourcePagingFactory: MovieDataSourcePagingFactory
 
-    fun fetchLiveMoviePagedList(compositeDisposable: CompositeDisposable) : LiveData<PagedList<Movie>>{
-        moviesDataSourcePagingFactory = when(type_){
-            TypeMovie.POPULAR -> MovieDataSourcePagingFactory(apiService::getPopularMovie, compositeDisposable)
-            TypeMovie.TOP_RATED -> MovieDataSourcePagingFactory(apiService::getTopMovie, compositeDisposable)
-            TypeMovie.NOW_PLAYING -> MovieDataSourcePagingFactory(apiService::getNewMovie, compositeDisposable)
+    fun fetchLiveMoviePagedList(compositeDisposable: CompositeDisposable): LiveData<PagedList<Movie>> {
+        moviesDataSourcePagingFactory = when (type_) {
+            TypeMovie.POPULAR -> MovieDataSourcePagingFactory(
+                apiService::getPopularMovie,
+                compositeDisposable
+            )
+            TypeMovie.TOP_RATED -> MovieDataSourcePagingFactory(
+                apiService::getTopMovie,
+                compositeDisposable
+            )
+            TypeMovie.NOW_PLAYING -> MovieDataSourcePagingFactory(
+                apiService::getNewMovie,
+                compositeDisposable
+            )
         }
 
-        val config = PagedList.Config.Builder() //setting chunk data of per page from each fetch from api of datasource
-            .setEnablePlaceholders(false)
+        val config =
+            PagedList.Config.Builder() //setting chunk data of per page from each fetch from api of datasource
+                .setEnablePlaceholders(false)
             .setPageSize(POST_PER_PAGE)
             .build()
 
@@ -34,8 +44,9 @@ class MoviePagedListRepository(private val apiService: TheMovieDBInterface, priv
     }
 
     fun getNetworkState():LiveData<NetworkState>{
-        return Transformations.switchMap<MovieDataSourcePaging, NetworkState>(
-            moviesDataSourcePagingFactory.moviesLiveDataSource, MovieDataSourcePaging::networkState //get property networkState from MovieDataSourcePaging
+        return Transformations.switchMap(
+            moviesDataSourcePagingFactory.moviesLiveDataSource,
+            MovieDataSourcePaging::networkState //get property networkState from MovieDataSourcePaging
         )
     }
 }

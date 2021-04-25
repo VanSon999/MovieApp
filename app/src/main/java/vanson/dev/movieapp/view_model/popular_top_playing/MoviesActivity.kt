@@ -42,7 +42,7 @@ class MoviesActivity : BaseActivity() {
         gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 val viewType = movieAdapter.getItemViewType(position)
-                if (viewType == movieAdapter.MOVIE_VIEW_TYPE) return 1
+                if (viewType == movieAdapter.movieViewType) return 1
                 return 3
             }
         }

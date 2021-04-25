@@ -14,7 +14,7 @@ class MovieDataSourcePaging(private val funApiService: (Int) -> Single<Movies>, 
 
     private var page = FIRST_PAGE
     val networkState: MutableLiveData<NetworkState> = MutableLiveData()
-    var last_page = 0
+    private var lastPage = 0
     override fun loadInitial(
         params: LoadInitialParams<Int>,
         callback: LoadInitialCallback<Int, Movie>
@@ -25,8 +25,8 @@ class MovieDataSourcePaging(private val funApiService: (Int) -> Single<Movies>, 
             .subscribe({
                 callback.onResult(it.results, null, page + 1)
                 networkState.postValue(NetworkState.LOADED)
-                last_page = it.totalPages
-            },{
+                lastPage = it.totalPages
+            }, {
                 networkState.postValue(NetworkState.ERROR)
             })
     }
@@ -40,16 +40,16 @@ class MovieDataSourcePaging(private val funApiService: (Int) -> Single<Movies>, 
         funApiService(params.key)
             .subscribeOn(Schedulers.io())
             .subscribe({
-                if(it.totalPages >= params.key){
+                if (it.totalPages >= params.key) {
                     callback.onResult(it.results, params.key + 1)
                     networkState.postValue(NetworkState.LOADED)
-                }else{
+                } else {
                     networkState.postValue(NetworkState.ENDOFLIST)
                 }
-            },{
-                if(params.key > last_page){
+            }, {
+                if (params.key > lastPage) {
                     networkState.postValue(NetworkState.ENDOFLIST)
-                }else{
+                } else {
                     networkState.postValue(NetworkState.ERROR)
                 }
             })

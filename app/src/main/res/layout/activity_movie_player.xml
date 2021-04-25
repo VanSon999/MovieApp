@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/player_bg"
-    tools:context=".view_model.player.MoviePlayerActivity">
+    tools:context=".view_model.player.MoviePlayerActivity"
+    tools:ignore="Overdraw">
 
     <com.google.android.exoplayer2.ui.PlayerView
         android:id="@+id/movie_exo_player"

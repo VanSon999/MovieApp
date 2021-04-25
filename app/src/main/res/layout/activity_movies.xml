@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view_model.popular_top_playing.MoviesActivity"
-    android:background="@color/primaryColor">
+    android:background="@color/primaryColor"
+    tools:ignore="Overdraw">
 
     <LinearLayout
         android:id="@+id/movies_ui"

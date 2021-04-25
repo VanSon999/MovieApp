@@ -8,7 +8,7 @@ import vanson.dev.movieapp.data.repository.HomeNetworkDataSource
 import vanson.dev.movieapp.data.repository.NetworkState
 
 class HomeRepository(private val apiService: TheMovieDBInterface) {
-    lateinit var homeNetworkDataSource: HomeNetworkDataSource
+    private lateinit var homeNetworkDataSource: HomeNetworkDataSource
 
     fun fetchDataForHomeScreen(compositeDisposable: CompositeDisposable, page: Int): Array<LiveData<Movies>>{
         homeNetworkDataSource = HomeNetworkDataSource(apiService, compositeDisposable)

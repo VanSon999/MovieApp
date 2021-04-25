@@ -5,14 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primaryColor"
-    tools:context=".view_model.home.HomeActivity">
+    tools:context=".view_model.home.HomeActivity"
+    tools:ignore="Overdraw">
 
     <LinearLayout
         android:id="@+id/home_ui"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <include layout="@layout/title_toolbar"/>
+
+        <include layout="@layout/title_toolbar" />
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">

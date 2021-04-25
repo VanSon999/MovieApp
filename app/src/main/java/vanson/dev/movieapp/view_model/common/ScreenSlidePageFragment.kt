@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.activity_image_viewer.view.*
 import vanson.dev.movieapp.R
 import vanson.dev.movieapp.utils.loadImage
 
-class ScreenSlidePageFragment(val url: String?) : Fragment() {
+class ScreenSlidePageFragment(private val url: String?) : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

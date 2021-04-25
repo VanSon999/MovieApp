@@ -5,12 +5,11 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import vanson.dev.movieapp.data.api.TheMovieDBInterface
 import vanson.dev.movieapp.data.models.person.PersonDetails
 import vanson.dev.movieapp.data.models.person.PersonImages
-import vanson.dev.movieapp.data.models.person.ProfileImage
 import vanson.dev.movieapp.data.repository.NetworkState
 import vanson.dev.movieapp.data.repository.PersonDetailNetworkDataSource
 
 class PersonRepository(private val apiService: TheMovieDBInterface) {
-    lateinit var personDetailNetworkDataSource: PersonDetailNetworkDataSource
+    private lateinit var personDetailNetworkDataSource: PersonDetailNetworkDataSource
 
     fun fetchSinglePersonDetail(compositeDisposable: CompositeDisposable, personId: Int): Pair<LiveData<PersonDetails>, LiveData<PersonImages>> {
         personDetailNetworkDataSource = PersonDetailNetworkDataSource(apiService, compositeDisposable)

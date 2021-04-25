@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primaryColor"
-    tools:context=".view_model.detail.MovieDetailActivity">
+    tools:context=".view_model.detail.MovieDetailActivity"
+    tools:ignore="Overdraw">
 
     <LinearLayout
         android:id="@+id/detail_movie_ui"
@@ -14,6 +15,7 @@
         android:orientation="vertical">
 
         <include layout="@layout/title_toolbar" />
+
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">

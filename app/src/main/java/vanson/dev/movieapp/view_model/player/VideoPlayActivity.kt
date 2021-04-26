@@ -73,11 +73,11 @@ class VideoPlayActivity : AppCompatActivity(), ExtraMovieVideoAdapter.Listener {
                     other_videos_recycler.visibility = View.VISIBLE
                     no_result_found.visibility = View.GONE
                 }
-                val selected = it.trailers[0]
-                play_video_title.text = selected.name
-                video_thumbnailview.loadThumbnail("https://www.youtube.com/watch?v=" + selected.key)
-                mAdapter.updateData(selected, it.trailers)
-                waitYoutubePlayerInit(selected.key)
+                if (mCurrent == null) mCurrent = it.trailers[0]
+                play_video_title.text = mCurrent!!.name
+                video_thumbnailview.loadThumbnail("https://www.youtube.com/watch?v=" + mCurrent!!.key)
+                mAdapter.updateData(mCurrent!!, it.trailers)
+                waitYoutubePlayerInit(mCurrent!!.key)
             }
         })
 
@@ -217,10 +217,11 @@ class VideoPlayActivity : AppCompatActivity(), ExtraMovieVideoAdapter.Listener {
 
     companion object {
         private var isFullScreen = false
-//        private var mCurrent: Trailer? = null
+        private var mCurrent: Trailer? = null
     }
 
     override fun changeVideoPlay(video: Trailer, mData: List<Trailer>) {
+        mCurrent = video
         video_thumbnailview.loadThumbnail("https://www.youtube.com/watch?v=" + video.key)
         play_video_title.text = video.name
         waitYoutubePlayerInit(video.key)
